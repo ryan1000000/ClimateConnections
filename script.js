@@ -8757,19 +8757,19 @@ function checkWinLose(guess, tiles) {
         showAlert("Hmm... can I get an adjuster over here to check this score out? Suspiciously good..", 5000)
     }
     if (remainingTiles.length === 24) {  //quested it in 2
-        showAlert("Amazing job. Have you considered a career in insurance?", 5000)
+        showAlert("Amazing job. Have you considered a career in climate service provision?", 5000)
     }
     if (remainingTiles.length === 18) {  //quested it in 3
         showAlert("Nicely done. I can see management potential in you!", 5000)
     }
     if (remainingTiles.length === 12) {  //quested it in 4
-        showAlert("You did it! But the world of insurance demands better than just average.", 5000)
+        showAlert("Well done. I can see now why you've been selected for this job.", 5000)
     }
     if (remainingTiles.length === 6) {  //quested it in 5
-        showAlert("Not bad, but looks like you could use a handbook refresher.", 5000)
+        showAlert("Not bad, your executive director will expect more from you next time though.", 5000)
     }
     if (remainingTiles.length === 0) {  //quested it in 6
-        showAlert("Yikes, that was close. Please ask your manager for some extra training.", 5000)
+        showAlert("Yikes, that was close. Please refer to ClimateData.ca for some extra practice.", 5000)
     }
     danceTiles(tiles)
 
@@ -8779,8 +8779,8 @@ function checkWinLose(guess, tiles) {
   
   const remainingTiless = guessGrid.querySelectorAll(":not([data-letter])") // get all empty tiles
   if (remainingTiless.length === 0) { // if no more remaining tiles
-    showAlert("🚨INSURANCE FRAUD DETECTED!🚨")
-    showAlert(`You can always try again, unlike the real Wordle!`, null)
+    showAlert("🚨YOU FAILED TO PREVENT CLIMATE CHANGE🚨")
+    showAlert(`Better luck next time!`, null)
     stopInteraction
   }
 }
