@@ -8669,7 +8669,7 @@ function submitGuess() {
 }
 
 function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter.toLowerCase(); 
+  const letter = tile.dataset.letter.toUpperCase(); 
   const key = keyboard.querySelector(`[data-key="${letter}"]`); 
 
   const targetCount = targetWord.split('').filter(c => c.toLowerCase() === letter).length;
