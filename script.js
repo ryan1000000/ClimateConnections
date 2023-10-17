@@ -8697,32 +8697,44 @@ function submitGuess() {
 }
 
 function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter
-  const key = keyboard.querySelector(`[data-key="${letter}"i]`) // get each key - the i makes it case insensitive
+  const letter = tile.dataset.letter.toLowerCase(); // Ensure the case is consistent
+  const key = keyboard.querySelector(`[data-key="${letter}"]`); // Removed the 'i' flag since we're handling case now
+
+  // Count how many times this letter appears in the target word and in the guess
+  const targetCount = targetWord.split('').filter(c => c.toLowerCase() === letter).length;
+  const guessCount = guess.split('').filter(c => c.toLowerCase() === letter).length;
+
   setTimeout(() => {
-    tile.classList.add("flip")
-  }, index * FLIP_ANIMATION_DURATION / 2)
+    tile.classList.add("flip");
+  }, index * FLIP_ANIMATION_DURATION / 2);
 
   tile.addEventListener("transitionend", () => {
-    tile.classList.remove("flip") // remvoe flip class for animation
-    if (targetWord[index] === letter) {
-      tile.dataset.state = "correct"
-      key.classList.add("correct") // while flipping, if it's the right location and right letter, add correct class
-    } else if (targetWord.includes(letter)) { // otherwise if word includes letter, add wrong location class
-      tile.dataset.state = "wrong-location"
-      key.classList.add("wrong-location")
-    } else { // else add wrong class
-      tile.dataset.state = "wrong" 
-      key.classList.add("wrong")
+    tile.classList.remove("flip");
+
+    // Changed the condition to account for multiple occurrences of the letter
+    if (targetWord[index].toLowerCase() === letter) {
+      if (guessCount <= targetCount) {
+        tile.dataset.state = "correct";
+        key.classList.add("correct");
+      } else {
+        tile.dataset.state = "wrong-location";
+        key.classList.add("wrong-location");
+      }
+    } else if (targetWord.includes(letter) && guessCount <= targetCount) {
+      tile.dataset.state = "wrong-location";
+      key.classList.add("wrong-location");
+    } else {
+      tile.dataset.state = "wrong";
+      key.classList.add("wrong");
     }
 
-    if (index === array.length - 1) { // if last tile, user can start interacting again
+    if (index === array.length - 1) {
       tile.addEventListener("transitionend", () => {
-        startInteraction()
-        checkWinLose(guess, array)
-      }, { once: true})
+        startInteraction();
+        checkWinLose(guess, array);
+      }, { once: true });
     }
-  }, { once: true })
+  }, { once: true });
 }
 
 function showAlert(message, duration = 5000) {
