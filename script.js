@@ -8654,14 +8654,14 @@ function submitGuess() {
     return
   }
 
+  const guess = activeTiles.reduce((word, tile) => { // sum the array of individual letters into a string
+    return word + tile.dataset.letter
+  }, "") // returns a string
+
   if (dictionary.includes(guess)) {
     const today = new Date().toLocaleDateString('en-US', {timeZone: 'America/Chicago'});
     localStorage.setItem('lastPlayedDate', today);
   }
-
-  const guess = activeTiles.reduce((word, tile) => { // sum the array of individual letters into a string
-    return word + tile.dataset.letter
-  }, "") // returns a string
   
   if (!dictionary.includes(guess)) { // when the guess isn't a real word
     showAlert("That isn't a word I recognize.")
@@ -8795,4 +8795,4 @@ function startInteraction() {
 }
 
 
-console.log('single-try')
+console.log('single-try-2')
