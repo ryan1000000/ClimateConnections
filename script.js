@@ -8671,6 +8671,12 @@ function submitGuess() {
 function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter
   const key = keyboard.querySelector(`[data-key="${letter}"i]`) // get each key - the i makes it case insensitive
+
+  const targetCount = targetWord.split('').filter(c => c.toUpperCase() === letter).length;
+  console.log(targetCount)
+  const guessCount = guess.split('').filter(c => c.toUpperCase() === letter).length;
+  console.log(guessCount)
+  
   setTimeout(() => {
     tile.classList.add("flip")
   }, index * FLIP_ANIMATION_DURATION / 2)
