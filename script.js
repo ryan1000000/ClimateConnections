@@ -8683,6 +8683,26 @@ function flipTile(tile, index, array, guess) {
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
 
+    if (key) {  // Added this line to check if key is not null
+      if (targetWord[index].toLowerCase() === letter) {
+        if (guessCount <= targetCount) {
+          tile.dataset.state = "correct";
+          key.classList.add("correct");
+        } else {
+          tile.dataset.state = "wrong-location";
+          key.classList.add("wrong-location");
+        }
+      } else if (targetWord.includes(letter) && guessCount <= targetCount) {
+        tile.dataset.state = "wrong-location";
+        key.classList.add("wrong-location");
+      } else {
+        tile.dataset.state = "wrong";
+        key.classList.add("wrong");
+      }
+    } else {
+      console.error(`No element found for key: ${letter}`); // Log an error message if key is null
+    }
+
     // Changed the condition to account for multiple occurrences of the letter
     if (targetWord[index].toLowerCase() === letter) {
       if (guessCount <= targetCount) {
