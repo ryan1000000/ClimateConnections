@@ -8672,8 +8672,8 @@ function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter.toUpperCase(); 
   const key = keyboard.querySelector(`[data-key="${letter}"]`); 
 
-  const targetCount = targetWord.split('').filter(c => c.toLowerCase() === letter).length;
-  const guessCount = guess.split('').filter(c => c.toLowerCase() === letter).length;
+  const targetCount = targetWord.split('').filter(c => c.toUpperCase() === letter).length;
+  const guessCount = guess.split('').filter(c => c.toUpperCase() === letter).length;
 
   setTimeout(() => {
     tile.classList.add("flip");
@@ -8683,7 +8683,7 @@ function flipTile(tile, index, array, guess) {
     tile.classList.remove("flip");
 
     if (key) {
-      if (targetWord[index].toLowerCase() === letter) {
+      if (targetWord[index].toUpperCase() === letter) {
         if (guessCount <= targetCount) {
           tile.dataset.state = "correct";
           key.classList.add("correct");
