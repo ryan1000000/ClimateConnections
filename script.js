@@ -8657,11 +8657,6 @@ function submitGuess() {
   const guess = activeTiles.reduce((word, tile) => { // sum the array of individual letters into a string
     return word + tile.dataset.letter
   }, "") // returns a string
-
-  if (dictionary.includes(guess)) {
-    const today = new Date().toLocaleDateString('en-US', {timeZone: 'America/Chicago'});
-    localStorage.setItem('lastPlayedDate', today);
-  }
   
   if (!dictionary.includes(guess)) { // when the guess isn't a real word
     showAlert("That isn't a word I recognize.")
@@ -8779,20 +8774,5 @@ function danceTiles(tiles) {
   })
 }
 
-function canPlayToday() {
-  const lastPlayedDate = localStorage.getItem('lastPlayedDate');
-  const today = new Date().toLocaleDateString('en-US', {timeZone: 'America/Chicago'});
-  return lastPlayedDate !== today;
-}
 
-function startInteraction() {
-  if (canPlayToday()) {
-    document.addEventListener("click", handleMouseClick);
-    document.addEventListener("keydown", handleKeyPress);
-  } else {
-    showAlert("You've already played today! Come back tomorrow for another chance.");
-  }
-}
-
-
-console.log('single-try-2')
+console.log('removed single try option')
