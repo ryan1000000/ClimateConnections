@@ -1,4 +1,4 @@
-const finalTargetWords = [
+const TargetWords = [
    "carbon", 
   "united",
   "damage",
