@@ -8602,8 +8602,8 @@ const guessGrid = document.querySelector("[data-guess-grid]") // get the grid of
 const offsetFromDate = new Date(2023, 10, 18); // starting date
 const msOffset = Date.now() - offsetFromDate // get difference in milliseconds
 const dayOffset = msOffset / 1000 / 60 / 60 / 24 // convert to days
-const targetWord = targetWords[Math.floor(dayOffset) % targetWords.length]
-//const targetWord = targetWords[Math.floor(dayOffset)] // get the word in the array at that index, and every day, a new index
+//const targetWord = targetWords[Math.floor(dayOffset) % targetWords.length]
+const targetWord = targetWords[Math.floor(dayOffset)] // get the word in the array at that index, and every day, a new index
 console.log(dayOffset)
 startInteraction()
 
