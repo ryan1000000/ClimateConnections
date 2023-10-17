@@ -8766,7 +8766,7 @@ function checkWinLose(guess, tiles) {
   
   const remainingTiless = guessGrid.querySelectorAll(":not([data-letter])") // get all empty tiles
   if (remainingTiless.length === 0) { // if no more remaining tiles
-    showAlert("🚨YOU FAILED TO PREVENT CLIMATE CHANGE🚨")
+    showAlert("🚨OUCH! BETTER LUCK NEXT TIME!🚨")
     showAlert(`Better luck next time!`, null)
     stopInteraction
   }
@@ -8787,4 +8787,4 @@ function danceTiles(tiles) {
   })
 }
 
-
+console.log('test-1.1')
