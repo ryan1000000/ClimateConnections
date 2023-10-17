@@ -8699,15 +8699,14 @@ function flipTile(tile, index, array, guess) {
       tile.dataset.state = "wrong";
       key.classList.add("wrong");
     }
-  });
 
     if (index === array.length - 1) { // if last tile, user can start interacting again
       tile.addEventListener("transitionend", () => {
-        startInteraction()
-        checkWinLose(guess, array)
-      }, { once: true})
+        startInteraction();
+        checkWinLose(guess, array);
+      }, { once: true });
     }
-  }, { once: true })
+  }, { once: true });
 }
 
 
@@ -8788,4 +8787,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('third attempt at duplicate letter error')
+console.log('4th attempt at duplicate letter error')
