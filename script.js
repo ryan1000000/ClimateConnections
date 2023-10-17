@@ -8669,10 +8669,9 @@ function submitGuess() {
 }
 
 function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter.toLowerCase(); // Ensure the case is consistent
-  const key = keyboard.querySelector(`[data-key="${letter}"]`); // Removed the 'i' flag since we're handling case now
+  const letter = tile.dataset.letter.toLowerCase(); 
+  const key = keyboard.querySelector(`[data-key="${letter}"]`); 
 
-  // Count how many times this letter appears in the target word and in the guess
   const targetCount = targetWord.split('').filter(c => c.toLowerCase() === letter).length;
   const guessCount = guess.split('').filter(c => c.toLowerCase() === letter).length;
 
@@ -8683,7 +8682,7 @@ function flipTile(tile, index, array, guess) {
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
 
-    if (key) {  // Added this line to check if key is not null
+    if (key) {
       if (targetWord[index].toLowerCase() === letter) {
         if (guessCount <= targetCount) {
           tile.dataset.state = "correct";
@@ -8700,24 +8699,7 @@ function flipTile(tile, index, array, guess) {
         key.classList.add("wrong");
       }
     } else {
-      console.error(`No element found for key: ${letter}`); // Log an error message if key is null
-    }
-
-    // Changed the condition to account for multiple occurrences of the letter
-    if (targetWord[index].toLowerCase() === letter) {
-      if (guessCount <= targetCount) {
-        tile.dataset.state = "correct";
-        key.classList.add("correct");
-      } else {
-        tile.dataset.state = "wrong-location";
-        key.classList.add("wrong-location");
-      }
-    } else if (targetWord.includes(letter) && guessCount <= targetCount) {
-      tile.dataset.state = "wrong-location";
-      key.classList.add("wrong-location");
-    } else {
-      tile.dataset.state = "wrong";
-      key.classList.add("wrong");
+      console.error(`No element found for key: ${letter}`); 
     }
 
     if (index === array.length - 1) {
@@ -8728,6 +8710,7 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
+
 
 function showAlert(message, duration = 5000) {
   const alert = document.createElement("div") // get the empty alert div
