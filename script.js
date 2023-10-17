@@ -8674,47 +8674,34 @@ function submitGuess() {
 }
 
 function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter.toUpperCase(); 
-  const key = keyboard.querySelector(`[data-key="${letter}"]`); 
-
-  const targetCount = targetWord.split('').filter(c => c.toUpperCase() === letter).length;
-  const guessCount = guess.split('').filter(c => c.toUpperCase() === letter).length;
-
+  const letter = tile.dataset.letter
+  const key = keyboard.querySelector(`[data-key="${letter}"i]`) // get each key - the i makes it case insensitive
   setTimeout(() => {
-    tile.classList.add("flip");
-  }, index * FLIP_ANIMATION_DURATION / 2);
+    tile.classList.add("flip")
+  }, index * FLIP_ANIMATION_DURATION / 2)
 
   tile.addEventListener("transitionend", () => {
-    tile.classList.remove("flip");
-
-    if (key) {
-      if (targetWord[index].toUpperCase() === letter) {
-        if (guessCount <= targetCount) {
-          tile.dataset.state = "correct";
-          key.classList.add("correct");
-        } else {
-          tile.dataset.state = "wrong-location";
-          key.classList.add("wrong-location");
-        }
-      } else if (targetWord.includes(letter) && guessCount <= targetCount) {
-        tile.dataset.state = "wrong-location";
-        key.classList.add("wrong-location");
-      } else {
-        tile.dataset.state = "wrong";
-        key.classList.add("wrong");
-      }
-    } else {
-      console.error(`No element found for key: ${letter}`); 
+    tile.classList.remove("flip") // remvoe flip class for animation
+    if (targetWord[index] === letter) {
+      tile.dataset.state = "correct"
+      key.classList.add("correct") // while flipping, if it's the right location and right letter, add correct class
+    } else if (targetWord.includes(letter)) { // otherwise if word includes letter, add wrong location class
+      tile.dataset.state = "wrong-location"
+      key.classList.add("wrong-location")
+    } else { // else add wrong class
+      tile.dataset.state = "wrong" 
+      key.classList.add("wrong")
     }
 
-    if (index === array.length - 1) {
+    if (index === array.length - 1) { // if last tile, user can start interacting again
       tile.addEventListener("transitionend", () => {
-        startInteraction();
-        checkWinLose(guess, array);
-      }, { once: true });
+        startInteraction()
+        checkWinLose(guess, array)
+      }, { once: true})
     }
-  }, { once: true });
+  }, { once: true })
 }
+
 
 
 function showAlert(message, duration = 5000) {
