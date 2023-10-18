@@ -77,7 +77,11 @@ const targetWords = [
 
 
 const dictionary = [
-"united",
+ "detain",
+  "thrice",
+  "morbid",
+  "umpire",
+  "united",
   "damage",
   "liquid",
   "stress",
@@ -8785,7 +8789,7 @@ function checkWinLose(guess, tiles) {
   
   const remainingTiless = guessGrid.querySelectorAll(":not([data-letter])") // get all empty tiles
   if (remainingTiless.length === 0) { // if no more remaining tiles
-    showAlert("🚨OUCH! BETTER LUCK NEXT TIME!🚨")
+    showAlert("🚨CLIMATE CRISIS ALTERT🚨")
     showAlert(`Better luck next time!`, null)
     stopInteraction
   }
