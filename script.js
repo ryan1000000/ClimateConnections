@@ -8681,9 +8681,8 @@ function flipTile(tile, index, array, guess) {
   const key = keyboard.querySelector(`[data-key="${letter}"i]`);
 
   const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
-  const correctCount = [...targetWord].filter((l, i) => l.toUpperCase() === letter && guess[i].toUpperCase() === letter).length;
-  const wrongLocationCount = [...guess].slice(0, index + 1).filter((l, i) => l.toUpperCase() === letter && targetWord[i].toUpperCase() !== letter).length;
-  
+  const guessCount = guess.slice(0, index + 1).split('').filter(c => c.toUpperCase() === letter).length;
+
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
@@ -8695,7 +8694,7 @@ function flipTile(tile, index, array, guess) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
     } else if (targetWord.toUpperCase().includes(letter)) {
-      if (wrongLocationCount + correctCount < targetCount) {
+      if (guessCount <= targetCount) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
       } else {
@@ -8715,6 +8714,7 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
+
 
 
 function showAlert(message, duration = 5000) {
@@ -8793,4 +8793,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('13th attempt at duplicate letter error')
+console.log('14th attempt at duplicate letter error')
