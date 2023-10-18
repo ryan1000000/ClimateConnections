@@ -8671,24 +8671,27 @@ function submitGuess() {
 function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter;
   const key = keyboard.querySelector(`[data-key="${letter}"i]`);
-  
+
   // Count how many times this letter appears in the target word and in the guess
   const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
   const guessCount = guess.split('').filter(c => c.toUpperCase() === letter.toUpperCase()).length;
   const currentIndexCount = guess.slice(0, index + 1).split('').filter(c => c.toUpperCase() === letter.toUpperCase()).length;
-  
+
+  // Track the number of times each letter has been marked as "correct"
+  const correctCount = array.slice(0, index).filter(tile => tile.dataset.letter.toUpperCase() === letter.toUpperCase() && tile.dataset.state === "correct").length;
+
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
-  
+
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
-  
+
     if (targetWord[index].toUpperCase() === letter.toUpperCase()) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
     } else if (targetWord.toUpperCase().includes(letter.toUpperCase())) {
-      if (currentIndexCount <= targetCount) {
+      if (currentIndexCount <= targetCount && correctCount < targetCount) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
       } else {
@@ -8700,7 +8703,7 @@ function flipTile(tile, index, array, guess) {
       key.classList.add("wrong");
     }
 
-    if (index === array.length - 1) { // if last tile, user can start interacting again
+    if (index === array.length - 1) {
       tile.addEventListener("transitionend", () => {
         startInteraction();
         checkWinLose(guess, array);
@@ -8708,6 +8711,7 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
+
 
 
 
@@ -8787,4 +8791,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('4th attempt at duplicate letter error')
+console.log('5th attempt at duplicate letter error')
