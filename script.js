@@ -8692,8 +8692,15 @@ function flipTile(tile, index, array, guess) {
       key.classList.add("correct");
     } else if (targetWord.toUpperCase().includes(letter.toUpperCase())) {
       if (currentIndexCount <= targetCount && correctCount < targetCount) {
-        tile.dataset.state = "wrong-location";
-        key.classList.add("wrong-location");
+        // Check if the letter at this index is actually "correct" in the target word
+        const isCorrectlyPlaced = targetWord.split('').filter((c, i) => c.toUpperCase() === letter.toUpperCase() && i < index).length;
+        if (isCorrectlyPlaced < correctCount) {
+          tile.dataset.state = "wrong";
+          key.classList.add("wrong");
+        } else {
+          tile.dataset.state = "wrong-location";
+          key.classList.add("wrong-location");
+        }
       } else {
         tile.dataset.state = "wrong";
         key.classList.add("wrong");
@@ -8711,7 +8718,6 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
-
 
 
 
@@ -8791,4 +8797,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('6th attempt at duplicate letter error')
+console.log('7th attempt at duplicate letter error')
