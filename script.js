@@ -8690,42 +8690,36 @@ function flipTile(tile, index, array, guess) {
   const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
   const guessCount = guess.slice(0, index + 1).split('').filter(c => c.toUpperCase() === letter).length;
 
-  let determinedState, determinedClass;
-
-  // First, determine the state of the tile
-  if (targetWord[index].toUpperCase() === letter) {
-    determinedState = "correct";
-    determinedClass = "correct";
-  } else if (targetCount === 0 || guessCount > targetCount) {
-    determinedState = "wrong";
-    determinedClass = "wrong";
-  } else {
-    determinedState = "wrong-location";
-    determinedClass = "wrong-location";
-  }
-
-  // Then, do the retroactive test if needed
-  if (determinedState === "correct" && guessCount > targetCount) {
-    for (let i = 0; i < index; i++) {
-      const prevTile = array[i];
-      const prevLetter = prevTile.dataset.letter.toUpperCase();
-      if (prevLetter === letter && prevTile.dataset.state === "wrong-location") {
-        determinedState = "wrong";
-        determinedClass = "wrong";
-      }
-    }
-  }
-
-  // Now, proceed with the flip animation
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
-
+  
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
 
-    tile.dataset.state = determinedState;
-    key.classList.add(determinedClass);
+    if (targetWord[index].toUpperCase() === letter) {
+      tile.dataset.state = "correct";
+      key.classList.add("correct");
+    } else if (targetCount === 0 || guessCount > targetCount) {
+      tile.dataset.state = "wrong";
+      key.classList.add("wrong");
+    } else {
+      tile.dataset.state = "wrong-location";
+      key.classList.add("wrong-location");
+    }
+
+    if (tile.dataset.state === "correct" && guessCount > targetCount) {
+      for (let i = 0; i < index; i++) {
+        const prevTile = array[i];
+        const prevLetter = prevTile.dataset.letter.toUpperCase();
+        if (prevLetter === letter && prevTile.dataset.state === "wrong-location") {
+          prevTile.dataset.state = "wrong";
+          const prevKey = keyboard.querySelector(`[data-key="${prevLetter}"]`);
+          prevKey.classList.remove("wrong-location");
+          prevKey.classList.add("wrong");
+        }
+      }
+    }
 
     if (index === array.length - 1) { 
       tile.addEventListener("transitionend", () => {
@@ -8814,4 +8808,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('flip animation fix attempt 2')
+console.log('flip animation fix attempt 1')
