@@ -77,6 +77,10 @@ const targetWords = [
 
 
 const dictionary = [
+  "quench",
+  "teeter",
+  "worsen",
+  "mayday",
   "salute",
   "malice",
   "slayer",
