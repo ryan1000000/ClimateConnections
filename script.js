@@ -8571,7 +8571,7 @@ const DANCE_ANIMATION_DURATION = 500
 const keyboard = document.querySelector("[data-keyboard]") // get the keyboard
 const alertContainer = document.querySelector("[data-alert-container]") // get the empty div container for alerts
 const guessGrid = document.querySelector("[data-guess-grid]") // get the grid of tiles
-const offsetFromDate = new Date(2023, 9, 17); // starting date
+const offsetFromDate = new Date(2023, 9, 18); // starting date
 const msOffset = Date.now() - offsetFromDate // get difference in milliseconds
 const dayOffset = msOffset / 1000 / 60 / 60 / 24 // convert to days
 //const targetWord = targetWords[Math.floor(dayOffset) % targetWords.length]
@@ -8791,4 +8791,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('5th attempt at duplicate letter error')
+console.log('6th attempt at duplicate letter error')
