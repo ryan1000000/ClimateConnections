@@ -8679,18 +8679,16 @@ function submitGuess() {
 function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter.toUpperCase();
   const key = keyboard.querySelector(`[data-key="${letter}"]`);
-
-  const targetOccurrences = Array.from(targetWord.toUpperCase()).filter(c => c === letter).length;
-  const guessOccurrences = Array.from(guess.toUpperCase()).filter(c => c === letter).length;
-
-  const targetIndexes = Array.from(targetWord.toUpperCase()).map((c, i) => c === letter ? i : -1).filter(i => i !== -1);
-  const isCorrect = targetIndexes.includes(index);
-  const isExcess = guessOccurrences > targetOccurrences;
-
+  
+  const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
+  const guessIndices = guess.split('').map((c, i) => c.toUpperCase() === letter ? i : -1).filter(i => i !== -1);
+  const correctIndices = targetWord.split('').map((c, i) => c.toUpperCase() === letter ? i : -1).filter(i => i !== -1);
+  const isCorrect = correctIndices.includes(index);
+  
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
-
+  
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
 
@@ -8698,7 +8696,8 @@ function flipTile(tile, index, array, guess) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
     } else if (targetWord.toUpperCase().includes(letter)) {
-      if (!isExcess || (isExcess && targetIndexes.some(i => i < index))) {
+      const remainingCorrectIndices = correctIndices.filter(i => !array.slice(0, index).map(t => t.dataset.letter.toUpperCase()).includes(targetWord[i].toUpperCase()));
+      if (remainingCorrectIndices.length > 0) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
       } else {
@@ -8718,7 +8717,6 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
-
 
 
 function showAlert(message, duration = 5000) {
@@ -8797,4 +8795,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('15th attempt at duplicate letter error')
+console.log('16th attempt at duplicate letter error')
