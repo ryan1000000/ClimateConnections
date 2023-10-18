@@ -8721,6 +8721,7 @@ function flipTile(tile, index, array, guess) {
 
 
 
+
 function showAlert(message, duration = 5000) {
   const alert = document.createElement("div") // get the empty alert div
   alert.textContent = message // add message
@@ -8797,4 +8798,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('7th attempt at duplicate letter error')
+console.log('8th attempt at duplicate letter error')
