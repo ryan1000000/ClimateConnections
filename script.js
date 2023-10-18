@@ -8680,26 +8680,31 @@ function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter;
   const key = keyboard.querySelector(`[data-key="${letter}"i]`);
   
-  // Count how many times this letter appears in the target word
+  // Count how many times this letter appears in the target word and in the guess
   const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
-  const correctPositions = Array.from(targetWord).map((char, i) => char.toUpperCase() === letter.toUpperCase() && i).filter(Boolean);
-
+  const correctPositions = targetWord.split('').map((c, i) => c.toUpperCase() === letter.toUpperCase() ? i : -1).filter(i => i >= 0);
+  const isCorrectPosition = correctPositions.includes(index);
+  
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
   
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
-
-    const guessedCorrectly = correctPositions.includes(index);
-    const currentIndexCount = array.slice(0, index + 1).filter(t => t.dataset.letter.toUpperCase() === letter.toUpperCase()).length;
-
-    if (guessedCorrectly) {
+  
+    if (isCorrectPosition) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
-    } else if (targetCount >= currentIndexCount) {
-      tile.dataset.state = "wrong-location";
-      key.classList.add("wrong-location");
+    } else if (targetWord.toUpperCase().includes(letter.toUpperCase())) {
+      const wrongLocations = array.filter((t, i) => !isCorrectPosition && correctPositions.includes(i)).length;
+      
+      if (wrongLocations < targetCount) {
+        tile.dataset.state = "wrong-location";
+        key.classList.add("wrong-location");
+      } else {
+        tile.dataset.state = "wrong";
+        key.classList.add("wrong");
+      }
     } else {
       tile.dataset.state = "wrong";
       key.classList.add("wrong");
@@ -8713,7 +8718,6 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
-
 
 
 function showAlert(message, duration = 5000) {
