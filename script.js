@@ -8680,15 +8680,10 @@ function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter.toUpperCase();
   const key = keyboard.querySelector(`[data-key="${letter}"i]`);
 
-  const targetLetters = targetWord.toUpperCase().split('');
-  const totalInTarget = targetLetters.filter(c => c === letter).length;
-
-  // We'll count the total occurrences of the letter in the whole guess and
-  // the number of times it is correctly positioned.
-  const guessLetters = guess.toUpperCase().split('');
-  const totalInGuess = guessLetters.filter(c => c === letter).length;
-  const totalCorrect = guessLetters.filter((c, i) => c === letter && c === targetLetters[i]).length;
-
+  const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
+  const correctCount = [...targetWord].filter((l, i) => l.toUpperCase() === letter && guess[i].toUpperCase() === letter).length;
+  const wrongLocationCount = [...guess].slice(0, index + 1).filter((l, i) => l.toUpperCase() === letter && targetWord[i].toUpperCase() !== letter).length;
+  
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
@@ -8696,11 +8691,11 @@ function flipTile(tile, index, array, guess) {
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
 
-    if (letter === targetLetters[index]) {
+    if (targetWord[index].toUpperCase() === letter) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
-    } else if (targetLetters.includes(letter)) {
-      if (totalCorrect + (totalInGuess - totalCorrect - 1) < totalInTarget) {
+    } else if (targetWord.toUpperCase().includes(letter)) {
+      if (wrongLocationCount + correctCount < targetCount) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
       } else {
@@ -8798,4 +8793,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('12th attempt at duplicate letter error')
+console.log('13th attempt at duplicate letter error')
