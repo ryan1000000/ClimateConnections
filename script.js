@@ -8700,7 +8700,7 @@ function flipTile(tile, index, array, guess) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
     } else if (targetLetters.includes(letter)) {
-      if (totalCorrect + (totalInGuess - totalCorrect) <= totalInTarget) {
+      if (totalCorrect + (totalInGuess - totalCorrect - 1) < totalInTarget) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
       } else {
@@ -8798,4 +8798,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('11th attempt at duplicate letter error')
+console.log('12th attempt at duplicate letter error')
