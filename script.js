@@ -8677,34 +8677,30 @@ function submitGuess() {
 }
 
 function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter;
-  const key = keyboard.querySelector(`[data-key="${letter}"i]`);
-  
-  // Count how many times this letter appears in the target word and in the guess
-  const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
-  const correctPositions = targetWord.split('').map((c, i) => c.toUpperCase() === letter.toUpperCase() ? i : -1).filter(i => i >= 0);
-  const isCorrectPosition = correctPositions.includes(index);
-  
+  const letter = tile.dataset.letter.toUpperCase();
+  const key = keyboard.querySelector(`[data-key="${letter}"]`);
+
+  // Count how many times this letter appears in the target word
+  const targetCount = Array.from(targetWord.toUpperCase()).filter(c => c === letter).length;
+
+  // Check how many times we have already marked this letter as "wrong-location"
+  const markedCount = Array.from(array.slice(0, index))
+    .map(t => t.dataset.letter ? t.dataset.letter.toUpperCase() : null)
+    .filter(l => l === letter && tile.dataset.state === "wrong-location").length;
+
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
   
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip");
-  
-    if (isCorrectPosition) {
+
+    if (targetWord[index].toUpperCase() === letter) {
       tile.dataset.state = "correct";
       key.classList.add("correct");
-    } else if (targetWord.toUpperCase().includes(letter.toUpperCase())) {
-      const wrongLocations = array.filter((t, i) => !isCorrectPosition && correctPositions.includes(i)).length;
-      
-      if (wrongLocations < targetCount) {
-        tile.dataset.state = "wrong-location";
-        key.classList.add("wrong-location");
-      } else {
-        tile.dataset.state = "wrong";
-        key.classList.add("wrong");
-      }
+    } else if (targetWord.toUpperCase().includes(letter) && markedCount < targetCount) {
+      tile.dataset.state = "wrong-location";
+      key.classList.add("wrong-location");
     } else {
       tile.dataset.state = "wrong";
       key.classList.add("wrong");
@@ -8718,6 +8714,7 @@ function flipTile(tile, index, array, guess) {
     }
   }, { once: true });
 }
+
 
 
 function showAlert(message, duration = 5000) {
@@ -8796,4 +8793,4 @@ function danceTiles(tiles) {
 }
 
 
-console.log('17th attempt at duplicate letter error')
+console.log('18th attempt at duplicate letter error')
