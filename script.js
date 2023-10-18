@@ -83,6 +83,10 @@ const dictionary = [
   "mayday",
   "salute",
   "malice",
+  "harold",
+  "grainy",
+  "rained",
+  "
   "slayer",
   "mayors",
  "detain",
