@@ -77,6 +77,10 @@ const targetWords = [
 
 
 const dictionary = [
+  "salute",
+  "malice",
+  "slayer",
+  "mayors",
  "detain",
   "thrice",
   "morbid",
