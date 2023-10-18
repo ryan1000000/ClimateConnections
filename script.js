@@ -86,7 +86,6 @@ const dictionary = [
   "harold",
   "grainy",
   "rained",
-  "
   "slayer",
   "mayors",
  "detain",
