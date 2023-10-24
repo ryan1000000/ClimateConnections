@@ -8786,7 +8786,7 @@ function getScore() {
 }
 
 const modal = document.querySelector("#scoreModal");
-const closeBtn = modal.querySelector(".close-btn");
+const closeBtn = document.querySelector(".close");
 const submitBtn = modal.querySelector(".submit-btn");
 const playerNameInput = modal.querySelector("#playerName");
 
