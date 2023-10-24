@@ -8781,7 +8781,7 @@ function endGame() {
 }
 
 function getScore() {
-    const guessesMade = 6 - guessGrid.querySelectorAll(":not([data-letter])").length;
+    const guessesMade = guessGrid.querySelectorAll(":not([data-letter])").length / 6;
     return guessesMade;
 }
 
