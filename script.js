@@ -8864,4 +8864,4 @@ closeStats.onclick = function() {
 
 
 
-console.log('score sharing system v8')
+console.log('score sharing system v9')
