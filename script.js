@@ -8784,7 +8784,7 @@ function getScore() {
 }
 
 const modal = document.getElementById("scoreModal");
-const closeBtn = document.getElementByID("modal-close");
+const closeBtn = document.getElementById("modal-close");
 const submitBtn = document.getElementById("submitScoreBtn");
 const playerNameInput = document.getElementById("playerNameInput");
 
