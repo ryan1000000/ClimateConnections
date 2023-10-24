@@ -8810,6 +8810,7 @@ submitBtn.onclick = function() {
     })
     .then(response => {
         modal.style.display = "none"; // Close the modal
+        statsLink.onclick();
     })
     .catch(error => {
         console.error('Error:', error);
@@ -8851,4 +8852,4 @@ closeStats.onclick = function() {
 
 
 
-console.log('score sharing system v6')
+console.log('score sharing system v7')
