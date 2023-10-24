@@ -8655,6 +8655,7 @@ function handleKeyPress(e) {
 }
 
 function pressKey(key) {
+    if (gameEnded) return;  
     const activeTiles = getActiveTiles();
     if (activeTiles.length >= WORD_LENGTH) return;
     const nextTile = guessGrid.querySelector(":not([data-letter])");
@@ -8732,13 +8733,14 @@ function flipTile(tile, index, array, guess) {
         }
 
         if (index === array.length - 1) {
-          tile.addEventListener("transitionend", () => {
+    tile.addEventListener("transitionend", () => {
         if (!gameEnded) {
             startInteraction();
         }
         checkWinLose(guess, array);
     }, { once: true });
 }
+
 
     }, { once: true });
 }
@@ -8864,4 +8866,4 @@ closeStats.onclick = function() {
 
 
 
-console.log('score sharing system v9')
+console.log('score sharing system v10')
