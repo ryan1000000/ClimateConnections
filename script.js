@@ -8784,7 +8784,7 @@ function getScore() {
 }
 
 const modal = document.getElementById("scoreModal");
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.getElementByID("modal-close");
 const submitBtn = document.getElementById("submitScoreBtn");
 const playerNameInput = document.getElementById("playerNameInput");
 
@@ -8852,4 +8852,4 @@ closeStats.onclick = function() {
 
 
 
-console.log('score sharing system v7')
+console.log('score sharing system v8')
