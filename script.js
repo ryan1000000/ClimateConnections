@@ -8591,239 +8591,204 @@ const WORD_LENGTH = 6;
 const FLIP_ANIMATION_DURATION = 750
 const DANCE_ANIMATION_DURATION = 500
 
-const keyboard = document.querySelector("[data-keyboard]") // get the keyboard
-const alertContainer = document.querySelector("[data-alert-container]") // get the empty div container for alerts
-const guessGrid = document.querySelector("[data-guess-grid]") // get the grid of tiles
-const offsetFromDate = new Date(2023, 9, 18); // starting date
-const msOffset = Date.now() - offsetFromDate // get difference in milliseconds
-const dayOffset = msOffset / 1000 / 60 / 60 / 24 // convert to days
-//const targetWord = targetWords[Math.floor(dayOffset) % targetWords.length]
-const targetWord = targetWords[Math.floor(dayOffset)] // get the word in the array at that index, and every day, a new index
-console.log(dayOffset)
-startInteraction()
+const keyboard = document.querySelector("[data-keyboard]");
+const alertContainer = document.querySelector("[data-alert-container]");
+const guessGrid = document.querySelector("[data-guess-grid]");
+const offsetFromDate = new Date(2023, 9, 18);
+const msOffset = Date.now() - offsetFromDate;
+const dayOffset = msOffset / 1000 / 60 / 60 / 24;
+const targetWord = targetWords[Math.floor(dayOffset)];
 
-function startInteraction() { // start listening for clicks and keypresses
-  document.addEventListener("click", handleMouseClick) 
-  document.addEventListener("keydown", handleKeyPress)
+console.log(dayOffset);
+
+startInteraction();
+
+function startInteraction() {
+    document.addEventListener("click", handleMouseClick);
+    document.addEventListener("keydown", handleKeyPress);
 }
 
-function stopInteraction() { // remove the event listeners for clicks and keypresses, effectively making the user unable to interact or type anything
-  document.removeEventListener("click", handleMouseClick)
-  document.removeEventListener("keydown", handleKeyPress)
+function stopInteraction() {
+    document.removeEventListener("click", handleMouseClick);
+    document.removeEventListener("keydown", handleKeyPress);
 }
 
 function handleMouseClick(e) {
-  if (e.target.matches("[data-key]")) { // if event target is a key, press that key
-    pressKey(e.target.dataset.key)
-    return
-  }
+    if (e.target.matches("[data-key]")) {
+        pressKey(e.target.dataset.key);
+        return;
+    }
 
-  if (e.target.matches("[data-enter]")) { // if user clicks enter, submit the guess
-    submitGuess()
-    return
-  }
+    if (e.target.matches("[data-enter]")) {
+        submitGuess();
+        return;
+    }
 
-  if (e.target.matches("[data-delete]")) { // if user clicks delete, remove that key
-    deleteKey()
-    return
-  }
+    if (e.target.matches("[data-delete]")) {
+        deleteKey();
+        return;
+    }
 }
 
 function handleKeyPress(e) {
-  if (e.key === "Enter") { // if the key is enter, submit guess
-    submitGuess()
-    return
-  }
-  
-  if (e.key === "Backspace" || e.key === "Delete") { // if user presses backspace or delete, delete key
-    deleteKey()
-    return
-  }
+    if (e.key === "Enter") {
+        submitGuess();
+        return;
+    }
 
-  if (e.key.match(/^[a-z]$/)) { // regex for one single letter between a and z
-    pressKey(e.key)
-    return
-  }
+    if (e.key === "Backspace" || e.key === "Delete") {
+        deleteKey();
+        return;
+    }
+
+    if (e.key.match(/^[a-z]$/)) {
+        pressKey(e.key);
+        return;
+    }
 }
 
-function pressKey(key) { // add key to first tile in grid
-  const activeTiles = getActiveTiles() // get array of active tiles
-  if (activeTiles.length >= WORD_LENGTH) return // make sure that user cannot keep typing after 6 letters
-  const nextTile = guessGrid.querySelector(":not([data-letter])") // returns the first tile that doesn't have a value
-  nextTile.dataset.letter = key.toLowerCase() // add the letter to the tile's dataset
-  nextTile.textContent = key // make the html the key
-  nextTile.dataset.state = "active" // set it to active
+function pressKey(key) {
+    const activeTiles = getActiveTiles();
+    if (activeTiles.length >= WORD_LENGTH) return;
+    const nextTile = guessGrid.querySelector(":not([data-letter])");
+    nextTile.dataset.letter = key.toLowerCase();
+    nextTile.textContent = key;
+    nextTile.dataset.state = "active";
 }
 
 function deleteKey() {
-  const activeTiles = getActiveTiles() // get array of active tiles
-  const lastTile = activeTiles[activeTiles.length - 1] // get the last active tile
-  if (lastTile === null) return // if that tile doesn't have any content, return
-  lastTile.textContent = "" // set the text content to an empty string
-  delete lastTile.dataset.state // delete active state
-  delete lastTile.dataset.letter // delete letter dataset
+    const activeTiles = getActiveTiles();
+    const lastTile = activeTiles[activeTiles.length - 1];
+    if (!lastTile) return;
+    lastTile.textContent = "";
+    delete lastTile.dataset.state;
+    delete lastTile.dataset.letter;
 }
 
 function getActiveTiles() {
-  return guessGrid.querySelectorAll('[data-state="active"]')
-    // return all the tiles that have the state of active
+    return guessGrid.querySelectorAll('[data-state="active"]');
 }
 
 function submitGuess() {
-  const activeTiles = [...getActiveTiles()] // get the array of active tiles
-  if (activeTiles.length !== WORD_LENGTH) { // if the guess isn't long enough, can't submit it!
-    showAlert("The word needs to be 6 letters long")
-    shakeTiles(activeTiles)
-    return
-  }
+    const activeTiles = [...getActiveTiles()];
+    if (activeTiles.length !== WORD_LENGTH) {
+        showAlert("The word needs to be 6 letters long");
+        shakeTiles(activeTiles);
+        return;
+    }
 
-  const guess = activeTiles.reduce((word, tile) => { // sum the array of individual letters into a string
-    return word + tile.dataset.letter
-  }, "") // returns a string
-  
-  if (!dictionary.includes(guess)) { // when the guess isn't a real word
-    showAlert("That isn't a word I recognize.")
-    shakeTiles(activeTiles)
-    return
-  }
+    const guess = activeTiles.reduce((word, tile) => word + tile.dataset.letter, "");
+    if (!dictionary.includes(guess)) {
+        showAlert("That isn't a word I recognize.");
+        shakeTiles(activeTiles);
+        return;
+    }
 
-  stopInteraction()
-  activeTiles.forEach((...params) => flipTile(...params, guess)) // flip tile animation
+    stopInteraction();
+    activeTiles.forEach((tile, index, array) => flipTile(tile, index, array, guess));
 }
 
 function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter.toUpperCase();
-  const key = keyboard.querySelector(`[data-key="${letter}"]`);
+    const letter = tile.dataset.letter.toUpperCase();
+    const key = keyboard.querySelector(`[data-key="${letter}"]`);
+    const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
+    const guessCount = guess.slice(0, index + 1).split('').filter(c => c.toUpperCase() === letter).length;
 
-  const targetCount = (targetWord.match(new RegExp(letter, 'gi')) || []).length;
-  const guessCount = guess.slice(0, index + 1).split('').filter(c => c.toUpperCase() === letter).length;
+    setTimeout(() => {
+        tile.classList.add("flip");
+    }, index * FLIP_ANIMATION_DURATION / 2);
 
-  setTimeout(() => {
-    tile.classList.add("flip");
-  }, index * FLIP_ANIMATION_DURATION / 2);
-  
-  tile.addEventListener("transitionend", () => {
-    tile.classList.remove("flip");
-
-    if (targetWord[index].toUpperCase() === letter) {
-      tile.dataset.state = "correct";
-      key.classList.add("correct");
-    } else if (targetCount === 0 || guessCount > targetCount) {
-      tile.dataset.state = "wrong";
-      key.classList.add("wrong");
-    } else {
-      tile.dataset.state = "wrong-location";
-      key.classList.add("wrong-location");
-    }
-
-    if (tile.dataset.state === "correct" && guessCount > targetCount) {
-      for (let i = 0; i < index; i++) {
-        const prevTile = array[i];
-        const prevLetter = prevTile.dataset.letter.toUpperCase();
-        if (prevLetter === letter && prevTile.dataset.state === "wrong-location") {
-          prevTile.dataset.state = "wrong";
-          const prevKey = keyboard.querySelector(`[data-key="${prevLetter}"]`);
-          prevKey.classList.remove("wrong-location");
-          prevKey.classList.add("wrong");
+    tile.addEventListener("transitionend", () => {
+        tile.classList.remove("flip");
+        if (targetWord[index].toUpperCase() === letter) {
+            tile.dataset.state = "correct";
+            key.classList.add("correct");
+        } else if (targetCount === 0 || guessCount > targetCount) {
+            tile.dataset.state = "wrong";
+            key.classList.add("wrong");
+        } else {
+            tile.dataset.state = "wrong-location";
+            key.classList.add("wrong-location");
         }
-      }
-    }
 
-    if (index === array.length - 1) { 
-      tile.addEventListener("transitionend", () => {
-        startInteraction();
-        checkWinLose(guess, array);
-      }, { once: true });
-    }
-  }, { once: true });
+        if (tile.dataset.state === "correct" && guessCount > targetCount) {
+            for (let i = 0; i < index; i++) {
+                const prevTile = array[i];
+                const prevLetter = prevTile.dataset.letter.toUpperCase();
+                if (prevLetter === letter && prevTile.dataset.state === "wrong-location") {
+                    prevTile.dataset.state = "wrong";
+                    const prevKey = keyboard.querySelector(`[data-key="${prevLetter}"]`);
+                    prevKey.classList.remove("wrong-location");
+                    prevKey.classList.add("wrong");
+                }
+            }
+        }
+
+        if (index === array.length - 1) {
+            tile.addEventListener("transitionend", () => {
+                startInteraction();
+                checkWinLose(guess, array);
+            }, { once: true });
+        }
+    }, { once: true });
 }
 
-
-
 function showAlert(message, duration = 5000) {
-  const alert = document.createElement("div") // get the empty alert div
-  alert.textContent = message // add message
-  alert.classList.add("alert") // add alert class
-  alertContainer.prepend(alert) 
-  if (duration == null) return
-  setTimeout(() => {
-    alert.classList.add("hide")
-    alert.addEventListener("transitionend", () => {
-      alert.remove()
-    })
-  }, duration)
+    const alert = document.createElement("div");
+    alert.textContent = message;
+    alertContainer.append(alert);
+    setTimeout(() => {
+        alert.remove();
+    }, duration);
 }
 
 function shakeTiles(tiles) {
-  tiles.forEach(tile => {
-    tile.classList.add("shake")
-    tile.addEventListener("animationend", () => {
-      tile.classList.remove("shake")
-    }, { once: true })
-  })
-}
-
-
-
-function checkWinLose(guess, tiles) {
-  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])") // get all empty tiles
-  if (guess === targetWord) {
-    if (remainingTiles.length === 30) {  //quested it in one
-        showAlert("Hmm... can I get an adjuster over here to check this score out? Suspiciously good..", 5000)
-    }
-    if (remainingTiles.length === 24) {  //quested it in 2
-        showAlert("Amazing job. Have you considered a career in climate service provision?", 5000)
-    }
-    if (remainingTiles.length === 18) {  //quested it in 3
-        showAlert("Nicely done. I can see management potential in you!", 5000)
-    }
-    if (remainingTiles.length === 12) {  //quested it in 4
-        showAlert("Well done. I can see now why you've been selected for this job.", 5000)
-    }
-    if (remainingTiles.length === 6) {  //quested it in 5
-        showAlert("Not bad, your executive director will expect more from you next time though.", 5000)
-    }
-    if (remainingTiles.length === 0) {  //quested it in 6
-        showAlert("Yikes, that was close. Please refer to ClimateData.ca for some extra practice.", 5000)
-    }
-    danceTiles(tiles)
-
-    stopInteraction()
-    return
-  }
-  
-  const remainingTiless = guessGrid.querySelectorAll(":not([data-letter])") // get all empty tiles
-  if (remainingTiless.length === 0) { // if no more remaining tiles
-    showAlert("🚨CLIMATE CRISIS ALTERT🚨")
-    showAlert(`Better luck next time!`, null)
-    stopInteraction
-  }
+    tiles.forEach(tile => {
+        tile.classList.add("shake");
+        tile.addEventListener("animationend", () => {
+            tile.classList.remove("shake");
+        }, { once: true });
+    });
 }
 
 function danceTiles(tiles) {
-  tiles.forEach((tile, index) => {
-    setTimeout(() => {
-      tile.classList.add("dance")
-      tile.addEventListener(
-        "animationend",
-        () => {
-          tile.classList.remove("dance")
-        },
-        { once: true }
-      )
-    }, (index * DANCE_ANIMATION_DURATION) / 6)
-  })
+    tiles.forEach(tile => {
+        tile.classList.add("dance");
+        tile.addEventListener("animationend", () => {
+            tile.classList.remove("dance");
+        }, { once: true });
+    });
 }
 
-const modal = document.getElementById("scoreModal");
-const closeBtn = document.querySelector(".close");
-const submitBtn = document.getElementById("submitScoreBtn");
-const playerNameInput = document.getElementById("playerNameInput");
+function checkWinLose(guess, tiles) {
+    const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])"); 
+    if (guess === targetWord) {
+        danceTiles(tiles);
+        endGame();
+        return;
+    }
 
-// When game ends:
+    if (remainingTiles.length === 0) {
+        showAlert("🚨CLIMATE CRISIS ALERT🚨");
+        showAlert(`Better luck next time!`, null);
+        endGame();
+        return;
+    }
+}
+
 function endGame() {
     modal.style.display = "block";
 }
+
+function getScore() {
+    const guessesMade = 6 - guessGrid.querySelectorAll(":not([data-letter])").length;
+    return guessesMade;
+}
+
+const modal = document.querySelector("#scoreModal");
+const closeBtn = modal.querySelector(".close-btn");
+const submitBtn = modal.querySelector(".submit-btn");
+const playerNameInput = modal.querySelector("#playerName");
 
 closeBtn.onclick = function() {
     modal.style.display = "none";
@@ -8831,12 +8796,10 @@ closeBtn.onclick = function() {
 
 submitBtn.onclick = function() {
     const playerName = playerNameInput.value;
-    const score = /* retrieve the player's score from your game */;
-    //https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/viewform?usp=pp_url&entry.1698848551=Test&entry.1512423051=0
+    const score = getScore();
     const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/viewform?usp=pp_url&entry.1698848551=${playerName}&entry.1512423051=${score}`;
     window.open(formURL, '_blank');
     modal.style.display = "none";
 }
 
-
-console.log('flip animation fix attempt 1')
+console.log('score sharing system v1')
