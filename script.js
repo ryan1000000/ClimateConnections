@@ -8802,4 +8802,4 @@ submitBtn.onclick = function() {
     modal.style.display = "none";
 }
 
-console.log('score sharing system v1')
+console.log('score sharing system v2')
