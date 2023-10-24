@@ -8842,7 +8842,7 @@ const statsLink = document.querySelector("#seeStats");
 const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
 const dailyStatsList = document.querySelector("#dailyStats");
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwjxJvjC6mOEiy8SffQyhsePKWU65Oc_hpwYOQ0R7lPvcTqKApKlibGq3RCWMk-2SzCDA/exec'; 
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyC6V-UYNwnkHEY8cRsaBhOjeD5tDJzSuPiqblzBLYyHQUMewIxtU5jiZgb9X2W6e4hYg/exec'; 
 
 statsLink.onclick = function() {
     fetch(GAS_URL)
@@ -8865,4 +8865,4 @@ closeStats.onclick = function() {
 };
 
 
-console.log('score sharing system v3')
+console.log('score sharing system v4')
