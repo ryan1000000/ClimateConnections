@@ -8797,9 +8797,25 @@ closeBtn.onclick = function() {
 submitBtn.onclick = function() {
     const playerName = playerNameInput.value;
     const score = getScore();
-    const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/viewform?usp=pp_url&entry.1698848551=${playerName}&entry.1512423051=${score}`;
-    window.open(formURL, '_blank');
-    modal.style.display = "none";
+    const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse`;
+
+    // Create form data
+    let formData = new FormData();
+    formData.append("entry.1698848551", playerName);
+    formData.append("entry.1512423051", score);
+
+    // Make the HTTP POST request
+    fetch(formURL, {
+        method: 'POST',
+        mode: 'no-cors', // required for a request to Google Forms
+        body: formData
+    })
+    .then(response => {
+        modal.style.display = "none"; // Close the modal
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
-console.log('score sharing system v2')
+console.log('score sharing system v3')
