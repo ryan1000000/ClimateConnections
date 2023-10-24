@@ -8845,11 +8845,16 @@ const dailyStatsList = document.querySelector("#dailyStats");
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzNvtjDMnY15ZcF_OYqoI4huuKtwQnHSqk5JHGNmVwt6DWrKSr5AznRRRLzOEU_lt0hFA/exec'; 
 
 statsLink.onclick = function() {
+    // Show the overlay with the loading message immediately
+    statsOverlay.style.display = 'block';
+
     fetch(GAS_URL)
     .then(response => response.json())
     .then(data => {
+        // Hide the loading message after data is fetched
+        document.querySelector('.loading-message').style.display = 'none';
 
-      console.log(data);
+        console.log(data);
         // Populate the list with the top 7 scores
         dailyStatsList.innerHTML = '';
         data.slice(0, 7).forEach(row => {
@@ -8857,14 +8862,15 @@ statsLink.onclick = function() {
             li.textContent = `${row[1]}: ${row[2]}`; // assuming name is in the second column and score in the third
             dailyStatsList.appendChild(li);
         });
-
-        statsOverlay.style.display = 'block';
     });
 };
 
 closeStats.onclick = function() {
     statsOverlay.style.display = 'none';
+    // Reset the loading message for the next time
+    document.querySelector('.loading-message').style.display = 'block';
 };
 
 
-console.log('score sharing system v5')
+
+console.log('score sharing system v6')
