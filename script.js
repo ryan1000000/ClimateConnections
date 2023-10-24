@@ -8763,34 +8763,12 @@ function danceTiles(tiles) {
 function checkWinLose(guess, tiles) {
     const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])"); 
           if (guess === targetWord) {
-            
-              if (remainingTiles.length === 30) {  //quested it in one
-                  showAlert("Hmm... can I get an adjuster over here to check this score out? Suspiciously good..", 5000)
-              }
-              if (remainingTiles.length === 24) {  //quested it in 2
-                  showAlert("Amazing job. Have you considered a career in climate service provision?", 5000)
-              }
-              if (remainingTiles.length === 18) {  //quested it in 3
-                  showAlert("Nicely done. I can see management potential in you!", 5000)
-              }
-              if (remainingTiles.length === 12) {  //quested it in 4
-                  showAlert("Well done. I can see now why you've been selected for this job.", 5000)
-              }
-              if (remainingTiles.length === 6) {  //quested it in 5
-                  showAlert("Not bad, your executive director will expect more from you next time though.", 5000)
-              }
-              if (remainingTiles.length === 0) {  //quested it in 6
-                  showAlert("Yikes, that was close. Please refer to ClimateData.ca for some extra practice.", 5000)
-              }
-
-        danceTiles(tiles);
-        endGame();
-        return;
-    }
+              danceTiles(tiles);
+              endGame();
+              return;
+          }
 
     if (remainingTiles.length === 0) {
-        showAlert("🚨CLIMATE CRISIS ALERT🚨");
-        showAlert(`Better luck next time!`, null);
         endGame();
         return;
     }
@@ -8855,9 +8833,9 @@ statsLink.onclick = function() {
         document.querySelector('.loading-message').style.display = 'none';
 
         console.log(data);
-        // Populate the list with the top 7 scores
+        // Populate the list with the top 10 scores
         dailyStatsList.innerHTML = '';
-        data.slice(0, 7).forEach(row => {
+        data.slice(0, 10).forEach(row => {
             const li = document.createElement('li');
             li.textContent = `${row[1]}: ${row[2]}`; // assuming name is in the second column and score in the third
             dailyStatsList.appendChild(li);
