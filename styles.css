@@ -389,3 +389,13 @@ header {
   z-index: 999; /* Just behind the modal */
 }
 
+#playerNameInput {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: inherit; /* Inherits font from the parent element (for consistency with <p> tags) */
+}
+
