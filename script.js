@@ -8785,10 +8785,10 @@ function getScore() {
     return guessesMade;
 }
 
-const modal = document.querySelector("#scoreModal");
+const modal = document.getElementById("scoreModal");
 const closeBtn = document.querySelector(".close");
-const submitBtn = modal.querySelector(".submit-btn");
-const playerNameInput = modal.querySelector("#playerName");
+const submitBtn = document.getElementById("submitScoreBtn");
+const playerNameInput = document.getElementById("playerNameInput");
 
 closeBtn.onclick = function() {
     modal.style.display = "none";
