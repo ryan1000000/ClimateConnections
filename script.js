@@ -8596,6 +8596,8 @@ const WORD_LENGTH = 6;
 const FLIP_ANIMATION_DURATION = 750
 const DANCE_ANIMATION_DURATION = 500
 
+let gameEnded = false;
+
 const keyboard = document.querySelector("[data-keyboard]");
 const alertContainer = document.querySelector("[data-alert-container]");
 const guessGrid = document.querySelector("[data-guess-grid]");
@@ -8730,11 +8732,14 @@ function flipTile(tile, index, array, guess) {
         }
 
         if (index === array.length - 1) {
-            tile.addEventListener("transitionend", () => {
-                startInteraction();
-                checkWinLose(guess, array);
-            }, { once: true });
+          tile.addEventListener("transitionend", () => {
+        if (!gameEnded) {
+            startInteraction();
         }
+        checkWinLose(guess, array);
+    }, { once: true });
+}
+
     }, { once: true });
 }
 
@@ -8767,13 +8772,15 @@ function danceTiles(tiles) {
 
 function checkWinLose(guess, tiles) {
     const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])"); 
-          if (guess === targetWord) {
-              danceTiles(tiles);
-              endGame();
-              return;
-          }
+    if (guess === targetWord) {
+        danceTiles(tiles);
+        gameEnded = true;
+        endGame();
+        return;
+    }
 
     if (remainingTiles.length === 0) {
+        gameEnded = true;
         endGame();
         return;
     }
