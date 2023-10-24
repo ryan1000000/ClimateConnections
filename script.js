@@ -8815,5 +8815,28 @@ function danceTiles(tiles) {
   })
 }
 
+const modal = document.getElementById("scoreModal");
+const closeBtn = document.querySelector(".close");
+const submitBtn = document.getElementById("submitScoreBtn");
+const playerNameInput = document.getElementById("playerNameInput");
+
+// When game ends:
+function endGame() {
+    modal.style.display = "block";
+}
+
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+submitBtn.onclick = function() {
+    const playerName = playerNameInput.value;
+    const score = /* retrieve the player's score from your game */;
+    //https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/viewform?usp=pp_url&entry.1698848551=Test&entry.1512423051=0
+    const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/viewform?usp=pp_url&entry.1698848551=${playerName}&entry.1512423051=${score}`;
+    window.open(formURL, '_blank');
+    modal.style.display = "none";
+}
+
 
 console.log('flip animation fix attempt 1')
