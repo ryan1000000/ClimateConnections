@@ -96,6 +96,7 @@ const dictionary = [
 "betray", "caster", "deluge", "employ", "feasts", "gelato", "helmet", "inputs", "kabobs", "ladies", "leaped", "mellow", "novice", "oilcan", "pelvic", "quills", "record", "shelve", "tigers", "upward", "vulgar", "weaver", "yipped", "zoomed", "ambush",
 "bidden", "catnip", "demons", "encode", "ferret", "gilded", "herald", "invoke", "karate", "lagged", "lesser", "merger", "nudged", "onsite", "person", "quinoa", "reboot", "shovel", "tingle", "urging", "waffle", "whined", "yogini", "zinnia", "anchor",
 "bikers", "chafed", "denial", "endure", "fiasco", "glints", "heroes", "ironic", "keeper", "lament", "lights", "milled", "obtain", "otters", "pester", "quints", "refuse", "shroud", "toiled", "usages", "vaults", "whisks", "yawned", "zodiac",
+  "frumpy", "combos",
   "veered",
   "seeled",
   "eerier",
