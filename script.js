@@ -8836,9 +8836,9 @@ statsLink.onclick = function() {
         document.querySelector('.loading-message').style.display = 'none';
 
         console.log(data);
-        // Populate the list with the top 10 scores
+        // Populate the list with the top ranked scores
         dailyStatsList.innerHTML = '';
-        data.slice(0, 10).forEach(row => {
+        data.slice(0, 100).forEach(row => {
             const li = document.createElement('li');
             li.textContent = `${row[1]}: ${row[2]}`; // assuming name is in the second column and score in the third
             dailyStatsList.appendChild(li);
