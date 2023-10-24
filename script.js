@@ -8838,4 +8838,31 @@ submitBtn.onclick = function() {
     });
 }
 
+const statsLink = document.querySelector("#seeStats");
+const statsOverlay = document.querySelector("#statsOverlay");
+const closeStats = statsOverlay.querySelector(".close");
+const dailyStatsList = document.querySelector("#dailyStats");
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxZTLDVX_ZU2hfwTodLyoTOlqg7C_8BOa-8SWkXOc-uBbNtnT2iIpIIki0N2zVdJNLBCA/exec'; 
+
+statsLink.onclick = function() {
+    fetch(GAS_URL)
+    .then(response => response.json())
+    .then(data => {
+        // Populate the list with the top 7 scores
+        dailyStatsList.innerHTML = '';
+        data.slice(0, 7).forEach(row => {
+            const li = document.createElement('li');
+            li.textContent = `${row[1]}: ${row[2]}`; // assuming name is in the second column and score in the third
+            dailyStatsList.appendChild(li);
+        });
+
+        statsOverlay.style.display = 'block';
+    });
+};
+
+closeStats.onclick = function() {
+    statsOverlay.style.display = 'none';
+};
+
+
 console.log('score sharing system v3')
