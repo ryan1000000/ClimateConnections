@@ -8848,6 +8848,8 @@ statsLink.onclick = function() {
     fetch(GAS_URL)
     .then(response => response.json())
     .then(data => {
+
+      console.log(data);
         // Populate the list with the top 7 scores
         dailyStatsList.innerHTML = '';
         data.slice(0, 7).forEach(row => {
