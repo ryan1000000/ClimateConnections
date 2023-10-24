@@ -350,3 +350,42 @@ header {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Base styles for the modal container */
+#scoreModal {
+  display: none; /* Initially hidden */
+  position: fixed; /* Fixed positioning to stay in view */
+  left: 50%; /* Center the modal horizontally */
+  top: 50%; /* Center the modal vertically */
+  transform: translate(-50%, -50%); /* Adjust for exact centering */
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+
+.modal-content {
+  padding: 20px;
+  background-color: #fff; /* Background color of the modal */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Shadow for a slightly lifted look */
+}
+
+/* Close button styles */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Adding a semi-transparent overlay behind the modal */
+.modal-overlay {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999; /* Just behind the modal */
+}
+
