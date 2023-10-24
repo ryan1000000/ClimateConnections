@@ -8867,4 +8867,4 @@ closeStats.onclick = function() {
 };
 
 
-console.log('score sharing system v4')
+console.log('score sharing system v5')
