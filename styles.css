@@ -206,7 +206,8 @@ img {
 
 .alert-container {
   position: fixed;
-  top: 10vh;
+  color: white;
+  top: 15vh;
   left: 50vw;
   transform: translate(-50%);
   z-index: 1;
