@@ -8853,7 +8853,7 @@ const statsLink = document.querySelector("#seeStats");
 const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
 const dailyStatsList = document.querySelector("#dailyStats");
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzNvtjDMnY15ZcF_OYqoI4huuKtwQnHSqk5JHGNmVwt6DWrKSr5AznRRRLzOEU_lt0hFA/exec'; 
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzp0n5VH41_LINlDye0P9p5S6udnmUmPgazMWZBw6r2HtL2-0DBor7NoVLJpmXx3yLu9A/exec'; 
 
 statsLink.onclick = function() {
     // Show the overlay with the loading message immediately
@@ -8884,4 +8884,4 @@ closeStats.onclick = function() {
 
 
 
-console.log('score sharing system v10')
+console.log('score sharing system v11')
