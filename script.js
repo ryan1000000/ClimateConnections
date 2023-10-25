@@ -8842,7 +8842,10 @@ submitBtn.onclick = function() {
     })
     .then(response => {
         modal.style.display = "none"; // Close the modal
-        statsLink.onclick();
+        // Add a delay of 1 second to account for lag between writing/reading from google sheet
+        setTimeout(() => {
+            statsLink.onclick();
+        }, 1000);
     })
     .catch(error => {
         console.error('Error:', error);
