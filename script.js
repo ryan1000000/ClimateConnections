@@ -155,61 +155,14 @@ function checkWinLose(guess, tiles) {
     return;
   }
 
-  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])");
-  if (remainingTiles.length === 0) {
+  const remainingGuesses = guessGrid.querySelectorAll(":not([data-letter])").length / WORD_LENGTH_MAX;
+  if (remainingGuesses === 0) {
     showAlert(`Game over! The word was "${targetWord}".`);
     gameEnded = true;
+    return;
   }
-}
 
-function showAlert(message, duration = 2000) {
-  const alert = document.createElement("div");
-  alert.textContent = message;
-  alertContainer.append(alert);
-
-  setTimeout(() => {
-    alert.remove();
-  }, duration);
-}
-
-function shakeTiles(tiles) {
-  tiles.forEach((tile) => {
-    tile.classList.add("shake");
-    tile.addEventListener("animationend", () => {
-      tile.classList.remove("shake");
-    }, { once: true });
-  });
-}
-
-function danceTiles(tiles) {
-  tiles.forEach((tile, index) => {
-    setTimeout(() => {
-      tile.classList.add("dance");
-      tile.addEventListener("animationend", () => {
-        tile.classList.remove("dance");
-      }, { once: true });
-    }, index * DANCE_ANIMATION_DURATION / 5);
-  });
-}
-
-function setupBoard(targetWord) {
-  guessGrid.innerHTML = "";
-
-  for (let i = 0; i < GUESSES_MAX; i++) {
-    for (let j = 0; j < WORD_LENGTH_MAX; j++) {
-      const tile = document.createElement("div");
-      tile.classList.add("tile");
-      tile.textContent = "";
-      tile.style.backgroundColor = "";
-
-      if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
-        tile.classList.add("inactive");
-        tile.style.backgroundColor = "darkgrey";
-      }
-
-      guessGrid.appendChild(tile);
-    }
-  }
+  startInteraction(); // Allow next guess
 }
 
 function showScoreOverlay() {
@@ -217,6 +170,12 @@ function showScoreOverlay() {
   if (scoreModal) {
     scoreModal.style.display = "block";
   }
+}
+
+function getScore() {
+  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])").length;
+  const guessesMade = GUESSES_MAX - remainingTiles / WORD_LENGTH_MAX;
+  return guessesMade;
 }
 
 statsLink.onclick = function () {
@@ -243,38 +202,3 @@ closeStats.onclick = function () {
   statsOverlay.style.display = "none";
   document.querySelector(".loading-message").style.display = "block";
 };
-
-function submitScore() {
-  const playerName = document.getElementById("playerNameInput").value;
-  const score = getScore();
-  const formURL = `https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse`; // Replace with your form's URL
-
-  if (!playerName) {
-    showAlert("Please enter your name before submitting.");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("entry.YOUR_NAME_FIELD_ID", playerName); // Replace with actual field ID
-  formData.append("entry.YOUR_SCORE_FIELD_ID", score);     // Replace with actual field ID
-
-  fetch(formURL, {
-    method: "POST",
-    body: formData,
-    mode: "no-cors"
-  })
-    .then(() => {
-      showAlert("Score submitted successfully!");
-      document.getElementById("scoreModal").style.display = "none";
-    })
-    .catch((error) => {
-      console.error("Error submitting score:", error);
-      showAlert("Failed to submit score. Please try again.");
-    });
-}
-
-function getScore() {
-  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])").length;
-  const guessesMade = GUESSES_MAX - remainingTiles / WORD_LENGTH_MAX;
-  return guessesMade;
-}
