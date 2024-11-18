@@ -24,28 +24,28 @@ body {
 /* Guess Grid */
 .guess-grid {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); /* Always 10 columns */
-  grid-template-rows: repeat(6, 1fr); /* Always 6 rows */
+  grid-template-columns: repeat(10, 1fr); /* 10 columns */
+  grid-template-rows: repeat(6, 1fr); /* 6 rows */
   gap: 0.25em;
-  justify-content: center;
-  align-items: center;
-  width: 90%; /* Adjust as needed for responsiveness */
-  max-width: 600px; /* Keep tiles square */
-  aspect-ratio: 10 / 6; /* Ensures correct proportions */
+  width: 90vw; /* Adjust grid to viewport width */
+  max-width: 600px; /* Cap the maximum width */
+  height: auto; /* Maintain responsive height */
+  aspect-ratio: 10 / 6; /* Maintain proportions */
 }
 
 .tile {
   background-color: hsl(240, 2%, 23%);
   border: 0.05em solid hsl(240, 2%, 23%);
-  font-size: 2em;
+  font-size: clamp(1rem, 2.5vw, 1.5rem); /* Responsive font size */
   font-weight: bold;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 250ms, background-color 250ms, border-color 250ms;
-  aspect-ratio: 1 / 1; /* Ensures squares */
+  aspect-ratio: 1 / 1; /* Ensure tiles remain square */
 }
+
 
 .tile.inactive {
   background-color: darkgrey;
