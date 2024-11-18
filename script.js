@@ -1,9 +1,9 @@
 const targetWords = [
-  "climate",
-  "data",
-  "earth",
-  "the climate",
-  "science"
+  "climate",     // 7 letters
+  "data",        // 4 letters
+  "earth",       // 5 letters
+  "the climate", // 10 characters including space
+  "science"      // 7 letters
 ];
 
 const WORD_LENGTH_MAX = 10;
@@ -22,7 +22,7 @@ const closeStats = statsOverlay.querySelector(".close");
 const offsetFromDate = new Date(2023, 9, 24);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
-const targetWord = targetWords[dayOffset % targetWords.length];
+const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily through targetWords
 
 startInteraction();
 setupBoard(targetWord);
@@ -78,7 +78,7 @@ function pressKey(key) {
   if (!nextTile) return;
 
   nextTile.dataset.letter = key.toLowerCase();
-  nextTile.textContent = key.toUpperCase();
+  nextTile.textContent = key.toUpperCase(); // Uppercase for consistency
   nextTile.dataset.state = "active";
 }
 
@@ -108,69 +108,59 @@ function submitGuess() {
 
   const guess = activeTiles.reduce((word, tile) => word + tile.dataset.letter, "").toLowerCase();
   stopInteraction();
-  activeTiles.forEach((tile, index, array) =>
-    flipTile(tile, index, array, guess)
-  );
+  flipTiles(activeTiles, guess); // Use the centralized flipTiles function
 }
 
-function flipTile(tile, index, array, guess) {
-  const letter = tile.dataset.letter.toLowerCase();
-  const key = keyboard.querySelector(`[data-key="${letter.toUpperCase()}"]`);
+function flipTiles(tiles, guess) {
+  tiles.forEach((tile, index) => {
+    const letter = tile.dataset.letter.toLowerCase();
+    const key = keyboard.querySelector(`[data-key="${letter.toUpperCase()}"]`);
 
-  // Delay the start of the flip based on the index for sequential flipping
-  setTimeout(() => {
-    tile.classList.add("flip");
-  }, index * FLIP_ANIMATION_DURATION / 2);
+    // Sequential flipping with controlled delays
+    setTimeout(() => {
+      tile.classList.add("flip"); // Start the flip animation
 
-  // Handle the flip transition
-  tile.addEventListener(
-    "transitionend",
-    (e) => {
-      // Ensure this handles only the transform transition
-      if (e.propertyName !== "transform") return;
+      setTimeout(() => {
+        // Mid-flip: Apply state changes and colors
+        if (targetWord[index].toLowerCase() === letter) {
+          tile.dataset.state = "correct";
+          key.classList.add("correct");
+          tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Correct color
+        } else if (targetWord.includes(letter)) {
+          tile.dataset.state = "wrong-location";
+          key.classList.add("wrong-location");
+          tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Wrong location color
+        } else {
+          tile.dataset.state = "wrong";
+          key.classList.add("wrong");
+          tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Wrong color
+        }
 
-      tile.classList.remove("flip");
+        tile.classList.remove("flip"); // End the flip animation
 
-      // Set the tile's state and appearance based on the guess
-      if (targetWord[index].toLowerCase() === letter) {
-        tile.dataset.state = "correct";
-        key.classList.add("correct");
-        tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Correct color
-      } else if (targetWord.includes(letter)) {
-        tile.dataset.state = "wrong-location";
-        key.classList.add("wrong-location");
-        tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Wrong location color
-      } else {
-        tile.dataset.state = "wrong";
-        key.classList.add("wrong");
-        tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Wrong color
-      }
-
-      // Only proceed to the game logic check after the last tile flips
-      if (index === array.length - 1) {
-        startInteraction(); // Allow interaction again
-        checkWinLose(guess, array);
-      }
-    },
-    { once: true } // Ensure the listener runs only once
-  );
+        // After all tiles flip, check game state
+        if (index === tiles.length - 1) {
+          startInteraction();
+          checkWinLose(guess, tiles);
+        }
+      }, FLIP_ANIMATION_DURATION / 2); // Mid-flip delay for state application
+    }, index * FLIP_ANIMATION_DURATION / 2); // Sequential delay for each tile
+  });
 }
-
-
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
     showAlert("You got it!");
     danceTiles(tiles);
-    gameEnded = true;
-    showScoreOverlay();
+    gameEnded = true; // End the game on correct guess
+    showScoreOverlay(); // Show the score submission overlay
     return;
   }
 
   const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])");
   if (remainingTiles.length === 0) {
     showAlert(`Game over! The word was "${targetWord}".`);
-    gameEnded = true;
+    gameEnded = true; // End the game if no guesses are left
   }
 }
 
@@ -208,17 +198,21 @@ function danceTiles(tiles) {
         },
         { once: true }
       );
-    }, index * DANCE_ANIMATION_DURATION / 5);
+    }, index * DANCE_ANIMATION_DURATION / 5); // Staggered dancing for sequence
   });
 }
 
 function setupBoard(targetWord) {
-  guessGrid.innerHTML = "";
+  guessGrid.innerHTML = ""; // Clear existing tiles
+
   for (let i = 0; i < GUESSES_MAX; i++) {
     for (let j = 0; j < WORD_LENGTH_MAX; j++) {
       const tile = document.createElement("div");
       tile.classList.add("tile");
+      tile.textContent = ""; // Clear text content
+      tile.style.backgroundColor = ""; // Clear background color
 
+      // Mark inactive tiles if they exceed the target word length or represent spaces
       if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
         tile.classList.add("inactive");
         tile.style.backgroundColor = "darkgrey";
