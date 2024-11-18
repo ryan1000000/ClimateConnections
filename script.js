@@ -19,10 +19,12 @@ const guessGrid = document.querySelector("[data-guess-grid]");
 const statsLink = document.querySelector("#seeStats");
 const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
+const dailyStatsList = document.querySelector("#dailyStats");
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzp0n5VH41_LINlDye0P9p5S6udnmUmPgazMWZBw6r2HtL2-0DBor7NoVLJpmXx3yLu9A/exec'; 
 const offsetFromDate = new Date(2023, 9, 24);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
-const targetWord = targetWords[dayOffset % targetWords.length];
+const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily through targetWords
 
 startInteraction();
 setupBoard(targetWord);
@@ -219,8 +221,60 @@ function showScoreOverlay() {
 
 statsLink.onclick = function () {
   statsOverlay.style.display = "block";
+
+  fetch(GAS_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      document.querySelector(".loading-message").style.display = "none";
+
+      dailyStatsList.innerHTML = "";
+      data.slice(0, 100).forEach((row) => {
+        const li = document.createElement("li");
+        li.textContent = `${row[1]}: ${row[2]}`; // Assuming name is in the second column and score in the third
+        dailyStatsList.appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching stats:", error);
+    });
 };
 
 closeStats.onclick = function () {
   statsOverlay.style.display = "none";
+  document.querySelector(".loading-message").style.display = "block";
 };
+
+function submitScore() {
+  const playerName = document.getElementById("playerNameInput").value;
+  const score = getScore();
+  const formURL = `https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse`; // Replace with your form's URL
+
+  if (!playerName) {
+    showAlert("Please enter your name before submitting.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("entry.YOUR_NAME_FIELD_ID", playerName); // Replace with actual field ID
+  formData.append("entry.YOUR_SCORE_FIELD_ID", score);     // Replace with actual field ID
+
+  fetch(formURL, {
+    method: "POST",
+    body: formData,
+    mode: "no-cors"
+  })
+    .then(() => {
+      showAlert("Score submitted successfully!");
+      document.getElementById("scoreModal").style.display = "none";
+    })
+    .catch((error) => {
+      console.error("Error submitting score:", error);
+      showAlert("Failed to submit score. Please try again.");
+    });
+}
+
+function getScore() {
+  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])").length;
+  const guessesMade = GUESSES_MAX - remainingTiles / WORD_LENGTH_MAX;
+  return guessesMade;
+}
