@@ -1,4 +1,10 @@
-const targetWord = 'test';
+const targetWords = [
+  "climate",     // 7 letters
+  "data",        // 4 letters
+  "earth",       // 5 letters
+  "the climate", // 10 characters including space
+  "science"      // 7 letters
+];
 
 const WORD_LENGTH_MAX = 10;
 const GUESSES_MAX = 6;
