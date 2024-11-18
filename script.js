@@ -117,38 +117,46 @@ function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter.toLowerCase();
   const key = keyboard.querySelector(`[data-key="${letter.toUpperCase()}"]`);
 
+  // Add a delay for the flip animation based on the tile index
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
 
+  // Handle the transitionend event
   tile.addEventListener(
     "transitionend",
     () => {
       tile.classList.remove("flip");
+
+      // Ensure the letter is visible after the flip
       tile.textContent = letter.toUpperCase();
 
+      // Determine and set the tile's state and color
       if (targetWord[index].toLowerCase() === letter) {
         tile.dataset.state = "correct";
         key.classList.add("correct");
-        tile.style.backgroundColor = "hsl(155, 67%, 45%)";
+        tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Correct color
       } else if (targetWord.includes(letter)) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
-        tile.style.backgroundColor = "hsl(49, 51%, 47%)";
+        tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Wrong location color
       } else {
         tile.dataset.state = "wrong";
         key.classList.add("wrong");
-        tile.style.backgroundColor = "hsl(240, 2%, 23%)";
+        tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Wrong color
       }
 
+      // Handle the last tile in the sequence
       if (index === array.length - 1) {
+        // Start interaction after all tiles have flipped
         startInteraction();
         checkWinLose(guess, array);
       }
     },
-    { once: true }
+    { once: true } // Ensure the event listener is executed only once
   );
 }
+
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
