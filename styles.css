@@ -1,4 +1,4 @@
-/* Base styles */
+/* General Reset */
 *, *::after, *::before {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
@@ -21,30 +21,28 @@ body {
   text-align: center;
 }
 
-/* Grid for guesses */
+/* Guess Grid */
 .guess-grid {
   display: grid;
   gap: 0.25em;
-  margin-bottom: 1.5em;
-  margin-top: 1em;
   justify-content: center;
-  /* Dynamically adjust the grid columns for the target word */
+  margin: 1.5em 0;
   grid-template-columns: repeat(var(--grid-columns, 10), 5.75em);
-  grid-template-rows: repeat(6, 5.75em);
 }
 
-/* Individual tile styles */
 .tile {
-  font-size: 2em;
-  color: white;
+  width: 5.75em;
+  height: 5.75em;
+  background-color: hsl(240, 2%, 23%);
   border: 0.05em solid hsl(240, 2%, 23%);
-  text-transform: uppercase;
+  color: white;
+  font-size: 2em;
   font-weight: bold;
+  text-transform: uppercase;
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none;
-  transition: transform 250ms, background-color 250ms;
+  transition: transform 250ms, background-color 250ms, border-color 250ms;
 }
 
 .tile[data-state="active"] {
@@ -52,21 +50,17 @@ body {
 }
 
 .tile[data-state="wrong"] {
-  border: none;
   background-color: hsl(240, 2%, 23%);
 }
 
 .tile[data-state="wrong-location"] {
-  border: none;
   background-color: hsl(49, 51%, 47%);
 }
 
 .tile[data-state="correct"] {
-  border: none;
   background-color: hsl(155, 67%, 45%);
 }
 
-/* Inactive tiles (for unused spaces and multi-word spaces) */
 .tile.inactive {
   background-color: darkgrey;
   pointer-events: none;
@@ -103,12 +97,12 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* Keyboard styles */
+/* Keyboard */
 .keyboard {
   display: grid;
   grid-template-columns: repeat(20, minmax(auto, 1.5em));
   grid-auto-rows: 3.5em;
-  gap: .25em;
+  gap: 0.25em;
   justify-content: center;
   padding-bottom: 10em;
   margin-top: 3em;
@@ -118,7 +112,6 @@ body {
   font-size: inherit;
   grid-column: span 2;
   border: none;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,7 +150,7 @@ body {
   --lightness: 45%;
 }
 
-/* Alert messages */
+/* Alerts */
 .alert-container {
   position: fixed;
   color: white;
@@ -173,11 +166,11 @@ body {
 .alert {
   pointer-events: none;
   background-color: hsl(204, 7%, 85%);
-  padding: .75em;
-  border-radius: .25em;
+  padding: 0.75em;
+  border-radius: 0.25em;
   opacity: 1;
   transition: opacity 500ms ease-in-out;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .alert:last-child {
@@ -188,32 +181,7 @@ body {
   opacity: 0;
 }
 
-/* Modal styles */
-#scoreModal {
-  display: none; /* Initially hidden */
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-}
-
-.modal-content {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* Overlay */
+/* Stats Overlay */
 .overlay {
   display: none;
   position: fixed;
@@ -221,7 +189,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 2;
 }
 
@@ -247,3 +215,41 @@ body {
   padding: 0;
 }
 
+/* Stats Link */
+.stats-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+#seeStats {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+}
+
+/* Modal */
+#scoreModal {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.modal-content {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
