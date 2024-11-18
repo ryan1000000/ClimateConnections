@@ -16,6 +16,9 @@ let gameEnded = false;
 const keyboard = document.querySelector("[data-keyboard]");
 const alertContainer = document.querySelector("[data-alert-container]");
 const guessGrid = document.querySelector("[data-guess-grid]");
+const statsLink = document.querySelector("#seeStats");
+const statsOverlay = document.querySelector("#statsOverlay");
+const closeStats = statsOverlay.querySelector(".close");
 const offsetFromDate = new Date(2023, 9, 24);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
@@ -24,6 +27,7 @@ const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily 
 startInteraction();
 setupBoard(targetWord);
 
+// Interaction Handlers
 function startInteraction() {
   document.addEventListener("click", handleMouseClick);
   document.addEventListener("keydown", handleKeyPress);
@@ -68,19 +72,20 @@ function handleKeyPress(e) {
   }
 }
 
+// Key Press Handling
 function pressKey(key) {
   if (gameEnded) return;
 
   const activeTiles = getActiveTiles();
-  const activeWordLength = targetWord.replace(/ /g, "").length;
+  const wordLength = targetWord.replace(/ /g, "").length;
 
-  if (activeTiles.length >= activeWordLength) return;
+  if (activeTiles.length >= wordLength) return;
 
   const nextTile = guessGrid.querySelector(":not([data-letter]):not(.inactive)");
   if (!nextTile) return;
 
   nextTile.dataset.letter = key.toLowerCase();
-  nextTile.textContent = key;
+  nextTile.textContent = key.toUpperCase(); // Uppercase for consistency
   nextTile.dataset.state = "active";
 }
 
@@ -98,12 +103,13 @@ function getActiveTiles() {
   return guessGrid.querySelectorAll('[data-state="active"]');
 }
 
+// Guess Submission
 function submitGuess() {
   const activeTiles = [...getActiveTiles()];
-  const activeWordLength = targetWord.replace(/ /g, "").length;
+  const wordLength = targetWord.replace(/ /g, "").length;
 
-  if (activeTiles.length !== activeWordLength) {
-    showAlert(`The word needs to be ${activeWordLength} letters long.`);
+  if (activeTiles.length !== wordLength) {
+    showAlert(`The word needs to be ${wordLength} letters long.`);
     shakeTiles(activeTiles);
     return;
   }
@@ -167,6 +173,7 @@ function checkWinLose(guess, tiles) {
   }
 }
 
+// Utility Functions
 function showAlert(message, duration = 2000) {
   const alert = document.createElement("div");
   alert.textContent = message;
@@ -203,8 +210,11 @@ function danceTiles(tiles) {
   });
 }
 
+// Setup Board
 function setupBoard(targetWord) {
   const wordLength = targetWord.replace(/ /g, "").length;
+
+  document.documentElement.style.setProperty("--grid-columns", wordLength);
 
   guessGrid.innerHTML = ""; // Clear existing tiles
 
@@ -226,3 +236,12 @@ function setupBoard(targetWord) {
     guessGrid.appendChild(row);
   }
 }
+
+// Stats Overlay Handling
+statsLink.onclick = function () {
+  statsOverlay.style.display = "block";
+};
+
+closeStats.onclick = function () {
+  statsOverlay.style.display = "none";
+};
