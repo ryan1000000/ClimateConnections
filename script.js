@@ -212,30 +212,24 @@ function danceTiles(tiles) {
 
 // Setup Board
 function setupBoard(targetWord) {
-  const wordLength = targetWord.replace(/ /g, "").length;
-
-  document.documentElement.style.setProperty("--grid-columns", wordLength);
-
   guessGrid.innerHTML = ""; // Clear existing tiles
 
   for (let i = 0; i < GUESSES_MAX; i++) {
-    const row = document.createElement("div");
-    row.classList.add("guess-row");
-
     for (let j = 0; j < WORD_LENGTH_MAX; j++) {
       const tile = document.createElement("div");
       tile.classList.add("tile");
 
-      if (j >= wordLength || targetWord[j] === " ") {
+      // Mark inactive tiles if they exceed the target word length or represent spaces
+      if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
         tile.classList.add("inactive");
         tile.style.backgroundColor = "darkgrey";
       }
 
-      row.appendChild(tile);
+      guessGrid.appendChild(tile);
     }
-    guessGrid.appendChild(row);
   }
 }
+
 
 // Stats Overlay Handling
 statsLink.onclick = function () {
