@@ -465,6 +465,7 @@ header {
   text-align: center;
 }
 
-
-
-
+.tile.inactive {
+  background-color: darkgrey;
+  pointer-events: none;
+}
