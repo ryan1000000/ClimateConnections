@@ -159,17 +159,15 @@ function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
     showAlert("You got it!");
     danceTiles(tiles);
-    gameEnded = true;
+    gameEnded = true; // End the game only if the word is guessed correctly
     return;
   }
 
-  const remainingRows = [...guessGrid.querySelectorAll(".guess-row")].filter(
-    (row) => row.querySelector(":not([data-letter])")
-  );
-
-  if (remainingRows.length === 0) {
+  // Check if the maximum number of guesses has been reached
+  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])");
+  if (remainingTiles.length === 0) {
     showAlert(`Game over! The word was "${targetWord}".`);
-    gameEnded = true;
+    gameEnded = true; // End the game if no guesses are left
   }
 }
 
@@ -229,7 +227,6 @@ function setupBoard(targetWord) {
     }
   }
 }
-
 
 // Stats Overlay Handling
 statsLink.onclick = function () {
