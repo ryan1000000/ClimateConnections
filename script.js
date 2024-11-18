@@ -1,9 +1,9 @@
 const targetWords = [
-  "climate",     // 7 letters
-  "data",        // 4 letters
-  "earth",       // 5 letters
-  "the climate", // 10 characters including space
-  "science"      // 7 letters
+  "climate",
+  "data",
+  "earth",
+  "the climate",
+  "science"
 ];
 
 const WORD_LENGTH_MAX = 10;
@@ -22,12 +22,11 @@ const closeStats = statsOverlay.querySelector(".close");
 const offsetFromDate = new Date(2023, 9, 24);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
-const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily through targetWords
+const targetWord = targetWords[dayOffset % targetWords.length];
 
 startInteraction();
 setupBoard(targetWord);
 
-// Interaction Handlers
 function startInteraction() {
   document.addEventListener("click", handleMouseClick);
   document.addEventListener("keydown", handleKeyPress);
@@ -43,12 +42,10 @@ function handleMouseClick(e) {
     pressKey(e.target.dataset.key);
     return;
   }
-
   if (e.target.matches("[data-enter]")) {
     submitGuess();
     return;
   }
-
   if (e.target.matches("[data-delete]")) {
     deleteKey();
     return;
@@ -60,22 +57,18 @@ function handleKeyPress(e) {
     submitGuess();
     return;
   }
-
   if (e.key === "Backspace" || e.key === "Delete") {
     deleteKey();
     return;
   }
-
   if (e.key.match(/^[a-z]$/i)) {
     pressKey(e.key);
     return;
   }
 }
 
-// Key Press Handling
 function pressKey(key) {
   if (gameEnded) return;
-
   const activeTiles = getActiveTiles();
   const wordLength = targetWord.replace(/ /g, "").length;
 
@@ -85,7 +78,7 @@ function pressKey(key) {
   if (!nextTile) return;
 
   nextTile.dataset.letter = key.toLowerCase();
-  nextTile.textContent = key.toUpperCase(); // Uppercase for consistency
+  nextTile.textContent = key.toUpperCase();
   nextTile.dataset.state = "active";
 }
 
@@ -103,7 +96,6 @@ function getActiveTiles() {
   return guessGrid.querySelectorAll('[data-state="active"]');
 }
 
-// Guess Submission
 function submitGuess() {
   const activeTiles = [...getActiveTiles()];
   const wordLength = targetWord.replace(/ /g, "").length;
@@ -115,7 +107,6 @@ function submitGuess() {
   }
 
   const guess = activeTiles.reduce((word, tile) => word + tile.dataset.letter, "").toLowerCase();
-
   stopInteraction();
   activeTiles.forEach((tile, index, array) =>
     flipTile(tile, index, array, guess)
@@ -134,19 +125,20 @@ function flipTile(tile, index, array, guess) {
     "transitionend",
     () => {
       tile.classList.remove("flip");
+      tile.textContent = letter.toUpperCase();
 
       if (targetWord[index].toLowerCase() === letter) {
         tile.dataset.state = "correct";
         key.classList.add("correct");
-        tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Ensure correct color
+        tile.style.backgroundColor = "hsl(155, 67%, 45%)";
       } else if (targetWord.includes(letter)) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
-        tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Ensure correct color
+        tile.style.backgroundColor = "hsl(49, 51%, 47%)";
       } else {
         tile.dataset.state = "wrong";
         key.classList.add("wrong");
-        tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Ensure correct color
+        tile.style.backgroundColor = "hsl(240, 2%, 23%)";
       }
 
       if (index === array.length - 1) {
@@ -162,19 +154,18 @@ function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
     showAlert("You got it!");
     danceTiles(tiles);
-    gameEnded = true; // End the game on correct guess
-    showScoreOverlay(); // Show the score submission overlay
+    gameEnded = true;
+    showScoreOverlay();
     return;
   }
 
   const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])");
   if (remainingTiles.length === 0) {
     showAlert(`Game over! The word was "${targetWord}".`);
-    gameEnded = true; // End the game if no guesses are left
+    gameEnded = true;
   }
 }
 
-// Utility Functions
 function showAlert(message, duration = 2000) {
   const alert = document.createElement("div");
   alert.textContent = message;
@@ -199,28 +190,27 @@ function shakeTiles(tiles) {
 }
 
 function danceTiles(tiles) {
-  tiles.forEach((tile) => {
-    tile.classList.add("dance");
-    tile.addEventListener(
-      "animationend",
-      () => {
-        tile.classList.remove("dance");
-      },
-      { once: true }
-    );
+  tiles.forEach((tile, index) => {
+    setTimeout(() => {
+      tile.classList.add("dance");
+      tile.addEventListener(
+        "animationend",
+        () => {
+          tile.classList.remove("dance");
+        },
+        { once: true }
+      );
+    }, index * DANCE_ANIMATION_DURATION / 5);
   });
 }
 
-// Setup Board
 function setupBoard(targetWord) {
-  guessGrid.innerHTML = ""; // Clear existing tiles
-
+  guessGrid.innerHTML = "";
   for (let i = 0; i < GUESSES_MAX; i++) {
     for (let j = 0; j < WORD_LENGTH_MAX; j++) {
       const tile = document.createElement("div");
       tile.classList.add("tile");
 
-      // Mark inactive tiles if they exceed the target word length or represent spaces
       if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
         tile.classList.add("inactive");
         tile.style.backgroundColor = "darkgrey";
@@ -231,13 +221,13 @@ function setupBoard(targetWord) {
   }
 }
 
-// Score Overlay Handling
 function showScoreOverlay() {
   const scoreModal = document.getElementById("scoreModal");
-  scoreModal.style.display = "block";
+  if (scoreModal) {
+    scoreModal.style.display = "block";
+  }
 }
 
-// Stats Overlay Handling
 statsLink.onclick = function () {
   statsOverlay.style.display = "block";
 };
