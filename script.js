@@ -138,12 +138,15 @@ function flipTile(tile, index, array, guess) {
       if (targetWord[index].toLowerCase() === letter) {
         tile.dataset.state = "correct";
         key.classList.add("correct");
+        tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Ensure correct color
       } else if (targetWord.includes(letter)) {
         tile.dataset.state = "wrong-location";
         key.classList.add("wrong-location");
+        tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Ensure correct color
       } else {
         tile.dataset.state = "wrong";
         key.classList.add("wrong");
+        tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Ensure correct color
       }
 
       if (index === array.length - 1) {
@@ -159,11 +162,11 @@ function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
     showAlert("You got it!");
     danceTiles(tiles);
-    gameEnded = true; // End the game only if the word is guessed correctly
+    gameEnded = true; // End the game on correct guess
+    showScoreOverlay(); // Show the score submission overlay
     return;
   }
 
-  // Check if the maximum number of guesses has been reached
   const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])");
   if (remainingTiles.length === 0) {
     showAlert(`Game over! The word was "${targetWord}".`);
@@ -226,6 +229,12 @@ function setupBoard(targetWord) {
       guessGrid.appendChild(tile);
     }
   }
+}
+
+// Score Overlay Handling
+function showScoreOverlay() {
+  const scoreModal = document.getElementById("scoreModal");
+  scoreModal.style.display = "block";
 }
 
 // Stats Overlay Handling
