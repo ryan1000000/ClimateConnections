@@ -11,62 +11,25 @@
 <body>
   <h1 class="header">CLIMdle 3.0</h1>
 
-      <div class="stats-link-container">
-          <a href="#" id="seeStats">See daily stats</a>
+  <div class="stats-link-container">
+    <a href="#" id="seeStats">See daily stats</a>
+  </div>
+  <!-- Overlay for displaying stats -->
+  <div id="statsOverlay" class="overlay">
+    <div class="overlay-content">
+      <span class="close">&times;</span>
+      <h2>Daily CLIMdle Leaderboard</h2>
+      <div class="header-row">
+        <h3>Player Name: Score</h3>
       </div>
-      <!-- Overlay for displaying stats -->
-      <div id="statsOverlay" class="overlay">
-          <div class="overlay-content">
-              <span class="close">&times;</span>
-              <h2>Daily CLIMdle Leaderboard</h2>
-              <div class="header-row">
-                  <h3>Player Name: Score</h3>
-              </div>
-              <p class="loading-message">Loading...(won't work if on VPN)...</p>
-              <ul id="dailyStats"></ul>
-          </div>
-      </div>
-
+      <p class="loading-message">Loading...(won't work if on VPN)...</p>
+      <ul id="dailyStats"></ul>
+    </div>
+  </div>
 
   <div class="alert-container" data-alert-container></div>
-  <div data-guess-grid class="guess-grid">
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-  </div>
+  <div data-guess-grid class="guess-grid"></div>
+
   <div data-keyboard class="keyboard">
     <button class="key disable-dbl-tap-zoom" data-key="Q">Q</button>
     <button class="key disable-dbl-tap-zoom" data-key="W">W</button>
@@ -98,24 +61,21 @@
     <button class="key disable-dbl-tap-zoom" data-key="N">N</button>
     <button class="key disable-dbl-tap-zoom" data-key="M">M</button>
     <button data-delete class="key large disable-dbl-tap-zoom">Del</button>
-
-    
   </div>
 
   <div id="scoreModal" class="modal">
-  <div class="modal-content">
-    <span id="modal-close" class="close">&times;</span>
-    <p>&nbsp;</p>
-    <p>Thanks for playing!</p>
-    <p>Do you want to share your score with CCCS?</p>
-    <p>&nbsp;</p>
-    <p>Enter your player name:</p>
-    <input type="text" id="playerNameInput" placeholder="Name">
-    <p>&nbsp;</p>
-    <button id="submitScoreBtn">Submit</button>
-    <p>&nbsp;</p>
+    <div class="modal-content">
+      <span id="modal-close" class="close">&times;</span>
+      <p>&nbsp;</p>
+      <p>Thanks for playing!</p>
+      <p>Do you want to share your score with CCCS?</p>
+      <p>&nbsp;</p>
+      <p>Enter your player name:</p>
+      <input type="text" id="playerNameInput" placeholder="Name">
+      <p>&nbsp;</p>
+      <button id="submitScoreBtn">Submit</button>
+      <p>&nbsp;</p>
+    </div>
   </div>
-</div>
-
 </body>
 </html>
