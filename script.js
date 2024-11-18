@@ -29,6 +29,27 @@ const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily 
 startInteraction();
 setupBoard(targetWord);
 
+function setupBoard(targetWord) {
+  guessGrid.innerHTML = ""; // Clear existing tiles
+
+  for (let i = 0; i < GUESSES_MAX; i++) {
+    for (let j = 0; j < WORD_LENGTH_MAX; j++) {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      tile.textContent = "";
+      tile.style.backgroundColor = "";
+
+      // Mark inactive tiles if they exceed the target word length or represent spaces
+      if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
+        tile.classList.add("inactive");
+        tile.style.backgroundColor = "darkgrey";
+      }
+
+      guessGrid.appendChild(tile);
+    }
+  }
+}
+
 function startInteraction() {
   document.addEventListener("click", handleMouseClick);
   document.addEventListener("keydown", handleKeyPress);
