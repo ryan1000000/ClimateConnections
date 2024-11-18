@@ -24,18 +24,19 @@ body {
 /* Guess Grid */
 .guess-grid {
   display: grid;
+  grid-template-columns: repeat(10, 1fr); /* Always 10 columns */
+  grid-template-rows: repeat(6, 1fr); /* Always 6 rows */
   gap: 0.25em;
   justify-content: center;
-  margin: 1.5em 0;
-  grid-template-columns: repeat(var(--grid-columns, 10), 5.75em);
+  align-items: center;
+  width: 90%; /* Adjust as needed for responsiveness */
+  max-width: 600px; /* Keep tiles square */
+  aspect-ratio: 10 / 6; /* Ensures correct proportions */
 }
 
 .tile {
-  width: 5.75em;
-  height: 5.75em;
   background-color: hsl(240, 2%, 23%);
   border: 0.05em solid hsl(240, 2%, 23%);
-  color: white;
   font-size: 2em;
   font-weight: bold;
   text-transform: uppercase;
@@ -43,7 +44,14 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 250ms, background-color 250ms, border-color 250ms;
+  aspect-ratio: 1 / 1; /* Ensures squares */
 }
+
+.tile.inactive {
+  background-color: darkgrey;
+  pointer-events: none;
+}
+
 
 .tile[data-state="active"] {
   border-color: hsl(200, 1%, 34%);
