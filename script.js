@@ -202,3 +202,32 @@ closeStats.onclick = function () {
   statsOverlay.style.display = "none";
   document.querySelector(".loading-message").style.display = "block";
 };
+
+function submitScore() {
+  const playerName = document.getElementById("playerNameInput").value;
+  const score = getScore();
+  const formURL = `https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse`; // Replace with your form's URL
+
+  if (!playerName) {
+    showAlert("Please enter your name before submitting.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("entry.YOUR_NAME_FIELD_ID", playerName); // Replace with the actual "Name" field ID
+  formData.append("entry.YOUR_SCORE_FIELD_ID", score);     // Replace with the actual "Score" field ID
+
+  fetch(formURL, {
+    method: "POST",
+    body: formData,
+    mode: "no-cors"
+  })
+    .then(() => {
+      showAlert("Score submitted successfully!");
+      document.getElementById("scoreModal").style.display = "none";
+    })
+    .catch((error) => {
+      console.error("Error submitting score:", error);
+      showAlert("Failed to submit score. Please try again.");
+    });
+}
