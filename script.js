@@ -117,21 +117,21 @@ function flipTile(tile, index, array, guess) {
   const letter = tile.dataset.letter.toLowerCase();
   const key = keyboard.querySelector(`[data-key="${letter.toUpperCase()}"]`);
 
-  // Add a delay for the flip animation based on the tile index
+  // Delay the start of the flip based on the index for sequential flipping
   setTimeout(() => {
     tile.classList.add("flip");
   }, index * FLIP_ANIMATION_DURATION / 2);
 
-  // Handle the transitionend event
+  // Handle the flip transition
   tile.addEventListener(
     "transitionend",
-    () => {
+    (e) => {
+      // Ensure this handles only the transform transition
+      if (e.propertyName !== "transform") return;
+
       tile.classList.remove("flip");
 
-      // Ensure the letter is visible after the flip
-      tile.textContent = letter.toUpperCase();
-
-      // Determine and set the tile's state and color
+      // Set the tile's state and appearance based on the guess
       if (targetWord[index].toLowerCase() === letter) {
         tile.dataset.state = "correct";
         key.classList.add("correct");
@@ -146,16 +146,16 @@ function flipTile(tile, index, array, guess) {
         tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Wrong color
       }
 
-      // Handle the last tile in the sequence
+      // Only proceed to the game logic check after the last tile flips
       if (index === array.length - 1) {
-        // Start interaction after all tiles have flipped
-        startInteraction();
+        startInteraction(); // Allow interaction again
         checkWinLose(guess, array);
       }
     },
-    { once: true } // Ensure the event listener is executed only once
+    { once: true } // Ensure the listener runs only once
   );
 }
+
 
 
 function checkWinLose(guess, tiles) {
