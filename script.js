@@ -3,7 +3,7 @@ const targetWords = [
   "data",
   "earth",
   "the climate",
-  "science"
+  "the climate"
 ];
 
 const WORD_LENGTH_MAX = 10;
