@@ -149,16 +149,17 @@ function flipTiles(tiles, guess) {
     targetLetterCounts[lowercaseLetter]++;
   }
 
-  // Step 2: Process tiles one at a time with a delay for flipping
+  // Step 2: Process each tile with a delay for sequential flipping
   tiles.forEach((tile, index) => {
     const guessedLetter = tile.dataset.letter.toLowerCase();
     const targetLetter = targetWord[index]?.toLowerCase();
 
     setTimeout(() => {
+      // Add the flip class to start the animation
       tile.classList.add("flip");
 
       setTimeout(() => {
-        // Step 3: Determine the state of the tile
+        // Determine the state of the tile after the flip
         if (guessedLetter === targetLetter) {
           tile.dataset.state = "correct";
           tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Green
@@ -178,16 +179,18 @@ function flipTiles(tiles, guess) {
           if (key) key.classList.add("wrong");
         }
 
+        // Remove the flip class after the animation ends
         tile.classList.remove("flip");
 
         // Step 4: Check for the end of the game after the last tile flips
         if (index === tiles.length - 1) {
           checkWinLose(guess, tiles);
         }
-      }, FLIP_ANIMATION_DURATION / 2);
+      }, FLIP_ANIMATION_DURATION / 2); // Animation midpoint
     }, index * FLIP_ANIMATION_DURATION); // Delay for each tile
   });
 }
+
 
 
   // Check for end of game after flipping
