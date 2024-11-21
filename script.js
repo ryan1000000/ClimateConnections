@@ -224,32 +224,31 @@ closeStats.onclick = function () {
   document.querySelector(".loading-message").style.display = "block";
 };
 
-function submitScore() {
-  const playerName = document.getElementById("playerNameInput").value;
-  const score = getScore();
-  const formURL = `https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse`; // Replace with your form's URL
+submitScoreBtn.onclick = function() {
+    const playerName = playerNameInput.value;
+    const score = getScore();
+    const formURL = https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse;
 
-  if (!playerName) {
-    showAlert("Please enter your name before submitting.");
-    return;
-  }
+    // Create form data
+    let formData = new FormData();
+    formData.append("entry.1698848551", playerName);
+    formData.append("entry.1512423051", score);
 
-  const formData = new FormData();
-  formData.append("entry.YOUR_NAME_FIELD_ID", playerName); // Replace with the actual "Name" field ID
-  formData.append("entry.YOUR_SCORE_FIELD_ID", score);     // Replace with the actual "Score" field ID
-
-  fetch(formURL, {
-    method: "POST",
-    body: formData,
-    mode: "no-cors"
-  })
-    .then(() => {
-      showAlert("Score submitted successfully!");
-      document.getElementById("scoreModal").style.display = "none";
+    // Make the HTTP POST request
+    fetch(formURL, {
+        method: 'POST',
+        mode: 'no-cors', // required for a request to Google Forms
+        body: formData
     })
-    .catch((error) => {
-      console.error("Error submitting score:", error);
-      showAlert("Failed to submit score. Please try again.");
+    .then(response => {
+        modal.style.display = "none"; // Close the modal
+        // Add a delay of 1 second to account for lag between writing/reading from google sheet
+        setTimeout(() => {
+            statsLink.onclick();
+        }, 1000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 }
 
