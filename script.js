@@ -138,37 +138,58 @@ function submitGuess() {
 }
 
 function flipTiles(tiles, guess) {
+  const wordLength = targetWord.replace(/ /g, "").length;
+  const targetLetterCounts = {};
+
+  // Step 1: Count the frequency of each letter in the target word
+  for (const letter of targetWord) {
+    const lowercaseLetter = letter.toLowerCase();
+    if (!targetLetterCounts[lowercaseLetter]) {
+      targetLetterCounts[lowercaseLetter] = 0;
+    }
+    targetLetterCounts[lowercaseLetter]++;
+  }
+
+  // Step 2: First pass - mark correct letters in correct positions (green)
   tiles.forEach((tile, index) => {
-    const letter = tile.dataset.letter.toLowerCase();
-    const key = keyboard.querySelector(`[data-key="${letter.toUpperCase()}"]`);
+    const guessedLetter = tile.dataset.letter.toLowerCase();
+    const targetLetter = targetWord[index].toLowerCase();
 
-    setTimeout(() => {
-      tile.classList.add("flip");
-
-      setTimeout(() => {
-        if (targetWord[index].toLowerCase() === letter) {
-          tile.dataset.state = "correct";
-          key.classList.add("correct");
-          tile.style.backgroundColor = "hsl(155, 67%, 45%)";
-        } else if (targetWord.includes(letter)) {
-          tile.dataset.state = "wrong-location";
-          key.classList.add("wrong-location");
-          tile.style.backgroundColor = "hsl(49, 51%, 47%)";
-        } else {
-          tile.dataset.state = "wrong";
-          key.classList.add("wrong");
-          tile.style.backgroundColor = "hsl(240, 2%, 23%)";
-        }
-
-        tile.classList.remove("flip");
-
-        if (index === tiles.length - 1) {
-          checkWinLose(guess, tiles);
-        }
-      }, FLIP_ANIMATION_DURATION / 2);
-    }, index * FLIP_ANIMATION_DURATION / 2);
+    if (guessedLetter === targetLetter) {
+      tile.dataset.state = "correct";
+      tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Green
+      const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
+      if (key) key.classList.add("correct");
+      targetLetterCounts[guessedLetter]--; // Decrement the count for this letter
+    }
   });
+
+  // Step 3: Second pass - mark correct letters in wrong positions (yellow)
+  tiles.forEach((tile, index) => {
+    if (tile.dataset.state === "correct") return; // Skip already processed (green)
+
+    const guessedLetter = tile.dataset.letter.toLowerCase();
+    if (targetLetterCounts[guessedLetter] > 0) {
+      tile.dataset.state = "wrong-location";
+      tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Yellow
+      const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
+      if (key) key.classList.add("wrong-location");
+      targetLetterCounts[guessedLetter]--; // Decrement the count for this letter
+    } else {
+      // Step 4: Mark incorrect letters (grey)
+      tile.dataset.state = "wrong";
+      tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Grey
+      const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
+      if (key) key.classList.add("wrong");
+    }
+  });
+
+  // Check for end of game after flipping
+  setTimeout(() => {
+    checkWinLose(guess, tiles);
+  }, FLIP_ANIMATION_DURATION);
 }
+
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
