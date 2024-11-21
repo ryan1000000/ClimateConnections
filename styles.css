@@ -24,13 +24,13 @@ body {
 /* Guess Grid */
 .guess-grid {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); /* 10 columns */
+  grid-template-columns: repeat(12, 1fr); /* 12 columns */
   grid-template-rows: repeat(6, 1fr); /* 6 rows */
   gap: 0.25em;
   width: 90vw; /* Adjust grid to viewport width */
   max-width: 600px; /* Cap the maximum width */
   height: auto; /* Maintain responsive height */
-  aspect-ratio: 10 / 6; /* Maintain proportions */
+  aspect-ratio: 12 / 6; /* Maintain proportions */
 }
 
 .tile {
