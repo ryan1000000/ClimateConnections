@@ -124,7 +124,8 @@ function getActiveTiles() {
 
 function submitGuess() {
   const activeTiles = [...getActiveTiles()];
-  const wordLength = targetWord.replace(/ /g, "").length;
+  //const wordLength = targetWord.replace(/ /g, "").length;
+  const wordLength = guessGrid.querySelectorAll(":not(.inactive)").length / GUESSES_MAX;
 
   if (activeTiles.length !== wordLength) {
     showAlert(`The word needs to be ${wordLength} letters long.`);
