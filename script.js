@@ -263,3 +263,15 @@ function showAlert(message) {
     alert.remove();
   }, 3000); // Remove the alert after 3 seconds
 }
+
+function danceTiles(tiles) {
+  tiles.forEach((tile, index) => {
+    setTimeout(() => {
+      tile.classList.add("dance");
+      setTimeout(() => {
+        tile.classList.remove("dance");
+      }, DANCE_ANIMATION_DURATION);
+    }, index * 100); // Add a delay between tiles
+  });
+}
+
