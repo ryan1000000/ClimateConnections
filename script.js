@@ -8,7 +8,7 @@ const targetWords = [
 
 const WORD_LENGTH_MAX = 10;
 const GUESSES_MAX = 6;
-const FLIP_ANIMATION_DURATION = 300;
+const FLIP_ANIMATION_DURATION = 500;
 const DANCE_ANIMATION_DURATION = 500;
 
 let gameEnded = false;
