@@ -252,3 +252,14 @@ function submitScore() {
       showAlert("Failed to submit score. Please try again.");
     });
 }
+
+function showAlert(message) {
+  const alert = document.createElement("div");
+  alert.textContent = message;
+  alert.className = "alert";
+  alertContainer.appendChild(alert);
+
+  setTimeout(() => {
+    alert.remove();
+  }, 3000); // Remove the alert after 3 seconds
+}
