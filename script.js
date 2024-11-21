@@ -26,6 +26,9 @@ const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
 const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily through targetWords
 
+const playerNameInput = document.getElementById("playerNameInput");
+const modal = document.getElementById("scoreModal");
+
 startInteraction();
 setupBoard(targetWord);
 
@@ -199,6 +202,33 @@ function getScore() {
   return guessesMade;
 }
 
+function submitScore() {
+  const playerName = playerNameInput.value;
+  const score = getScore();
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse";
+
+  // Create form data
+  let formData = new FormData();
+  formData.append("entry.1698848551", playerName);
+  formData.append("entry.1512423051", score);
+
+  // Make the HTTP POST request
+  fetch(formURL, {
+    method: 'POST',
+    mode: 'no-cors', // required for a request to Google Forms
+    body: formData
+  })
+    .then(response => {
+      modal.style.display = "none"; // Close the modal
+      setTimeout(() => {
+        statsLink.onclick();
+      }, 1000);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
 statsLink.onclick = function () {
   statsOverlay.style.display = "block";
 
@@ -223,34 +253,6 @@ closeStats.onclick = function () {
   statsOverlay.style.display = "none";
   document.querySelector(".loading-message").style.display = "block";
 };
-
-function submitScore() {
-    const playerName = playerNameInput.value;
-    const score = getScore();
-    const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse";
-
-    // Create form data
-    let formData = new FormData();
-    formData.append("entry.1698848551", playerName);
-    formData.append("entry.1512423051", score);
-
-    // Make the HTTP POST request
-    fetch(formURL, {
-        method: 'POST',
-        mode: 'no-cors', // required for a request to Google Forms
-        body: formData
-    })
-    .then(response => {
-        modal.style.display = "none"; // Close the modal
-        // Add a delay of 1 second to account for lag between writing/reading from google sheet
-        setTimeout(() => {
-            statsLink.onclick();
-        }, 1000);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
 
 function showAlert(message) {
   const alert = document.createElement("div");
@@ -284,4 +286,3 @@ document.getElementById("submitScoreBtn").onclick = function () {
   const scoreModal = document.getElementById("scoreModal");
   scoreModal.style.display = "none";
 };
-
