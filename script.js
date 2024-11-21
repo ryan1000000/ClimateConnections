@@ -275,3 +275,14 @@ function danceTiles(tiles) {
   });
 }
 
+document.getElementById("modal-close").onclick = function () {
+  const scoreModal = document.getElementById("scoreModal");
+  scoreModal.style.display = "none";
+};
+
+document.getElementById("submitScoreBtn").onclick = function () {
+  submitScore(); // Call the score submission logic
+  const scoreModal = document.getElementById("scoreModal");
+  scoreModal.style.display = "none";
+};
+
