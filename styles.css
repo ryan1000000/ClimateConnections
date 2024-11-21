@@ -34,7 +34,7 @@ body {
 }
 
 .tile {
-  background-color: hsl(240, 2%, 23%);
+  background-color: #acabab;
   border: 0.05em solid hsl(240, 2%, 23%);
   font-size: clamp(1rem, 2.5vw, 1.5rem); /* Responsive font size */
   font-weight: bold;
@@ -70,7 +70,7 @@ body {
 }
 
 .tile.inactive {
-  background-color: darkgrey;
+  background-color: rgb(72,72,72);
   pointer-events: none;
 }
 
