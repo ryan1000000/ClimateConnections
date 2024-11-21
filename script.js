@@ -227,7 +227,7 @@ closeStats.onclick = function () {
 submitScoreBtn.onclick = function() {
     const playerName = playerNameInput.value;
     const score = getScore();
-    const formURL = https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse;
+    const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse";
 
     // Create form data
     let formData = new FormData();
