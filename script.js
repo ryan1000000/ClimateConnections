@@ -192,13 +192,6 @@ function flipTiles(tiles, guess) {
 }
 
 
-
-  // Check for end of game after flipping
-  setTimeout(() => {
-    checkWinLose(guess, tiles);
-  }, FLIP_ANIMATION_DURATION);
-}
-
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
     showAlert("Congratulations! You guessed the word!");
