@@ -137,6 +137,16 @@ function submitGuess() {
   flipTiles(activeTiles, guess);
 }
 
+function shakeTiles(tiles) {
+  tiles.forEach((tile) => {
+    tile.classList.add("shake"); // Add a CSS class for the shake animation
+    setTimeout(() => {
+      tile.classList.remove("shake"); // Remove the class after the animation duration
+    }, 500); // Adjust duration to match your CSS animation
+  });
+}
+
+
 function flipTiles(tiles, guess) {
   const wordLength = targetWord.replace(/ /g, "").length;
   const targetLetterCounts = {};
