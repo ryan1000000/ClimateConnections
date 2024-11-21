@@ -343,8 +343,9 @@ statsLink.onclick = function () {
   fetch(GAS_URL)
     .then((response) => response.json())
     .then((data) => {
-      // Adjust to match the new JSON format
-      const statsData = data.body; // Extract the 'body' field that contains the array
+      console.log(data); // Log the full response to inspect its structure
+      const statsData = data.body; // Adjust based on the actual structure
+      console.log(statsData); // Log the extracted statsData
 
       document.querySelector(".loading-message").style.display = "none";
 
@@ -359,6 +360,7 @@ statsLink.onclick = function () {
       console.error("Error fetching stats:", error);
     });
 };
+
 
 
 closeStats.onclick = function () {
