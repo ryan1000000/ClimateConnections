@@ -45,7 +45,7 @@ function setupBoard(targetWord) {
       // Mark inactive tiles if they exceed the target word length or represent spaces
       if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
         tile.classList.add("inactive");
-        tile.style.backgroundColor = "darkgrey";
+        tile.style.backgroundColor = #2e2d2d;
       }
 
       guessGrid.appendChild(tile);
