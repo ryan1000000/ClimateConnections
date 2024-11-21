@@ -34,8 +34,7 @@ setupBoard(targetWord);
 
 function setupBoard(targetWord) {
   guessGrid.innerHTML = ""; // Clear existing tiles
-  const cleanedTargetWord = targetWord.replace(/ /g, ""); // Remove spaces for correct length
-  let charIndex = 0; // Tracks actual character position in the word
+  let charIndex = 0; // Tracks the position in the targetWord
 
   for (let i = 0; i < GUESSES_MAX; i++) {
     for (let j = 0; j < WORD_LENGTH_MAX; j++) {
@@ -44,12 +43,18 @@ function setupBoard(targetWord) {
       tile.textContent = "";
       tile.style.backgroundColor = "";
 
-      // Mark inactive tiles for spaces or exceeding the word length
-      if (charIndex >= cleanedTargetWord.length || targetWord[charIndex] === " ") {
+      // Mark inactive tiles if:
+      // 1. We've passed all characters in the target word.
+      // 2. The current character is a space.
+      if (charIndex >= targetWord.length || targetWord[charIndex] === " ") {
         tile.classList.add("inactive");
         tile.style.backgroundColor = "#2e2d2d";
+
+        if (charIndex < targetWord.length && targetWord[charIndex] === " ") {
+          charIndex++; // Skip over the space in the targetWord
+        }
       } else {
-        charIndex++; // Increment only for non-space characters
+        charIndex++; // Move to the next character in the targetWord
       }
 
       guessGrid.appendChild(tile);
