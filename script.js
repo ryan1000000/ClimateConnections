@@ -151,9 +151,10 @@ function submitGuess() {
 
 function flipTiles(tiles, guess) {
   const targetLetterCounts = {};
+  const cleanedTargetWord = targetWord.replace(/ /g, ""); // Remove spaces for comparison
 
   // Step 1: Count the frequency of each letter in the target word
-  for (const letter of targetWord) {
+  for (const letter of cleanedTargetWord) {
     const lowercaseLetter = letter.toLowerCase();
     if (!targetLetterCounts[lowercaseLetter]) {
       targetLetterCounts[lowercaseLetter] = 0;
@@ -163,8 +164,9 @@ function flipTiles(tiles, guess) {
 
   // Step 2: Process each tile with a delay for sequential flipping
   tiles.forEach((tile, index) => {
-    const guessedLetter = tile.dataset.letter.toLowerCase();
-    const targetLetter = targetWord[index]?.toLowerCase();
+    const guessedLetter = tile.dataset.letter?.toLowerCase();
+    const cleanIndex = [...targetWord].filter((char, i) => char !== " ").slice(0, index + 1).length - 1;
+    const targetLetter = cleanedTargetWord[cleanIndex]?.toLowerCase();
 
     setTimeout(() => {
       // Add the flip class to start the animation
