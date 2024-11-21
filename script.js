@@ -343,10 +343,13 @@ statsLink.onclick = function () {
   fetch(GAS_URL)
     .then((response) => response.json())
     .then((data) => {
+      // Adjust to match the new JSON format
+      const statsData = data.body; // Extract the 'body' field that contains the array
+
       document.querySelector(".loading-message").style.display = "none";
 
       dailyStatsList.innerHTML = "";
-      data.slice(0, 100).forEach((row) => {
+      statsData.slice(0, 100).forEach((row) => {
         const li = document.createElement("li");
         li.textContent = `${row[1]}: ${row[2]}`; // Assuming name is in the second column and score in the third
         dailyStatsList.appendChild(li);
@@ -356,6 +359,7 @@ statsLink.onclick = function () {
       console.error("Error fetching stats:", error);
     });
 };
+
 
 closeStats.onclick = function () {
   statsOverlay.style.display = "none";
