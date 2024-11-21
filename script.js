@@ -224,7 +224,7 @@ closeStats.onclick = function () {
   document.querySelector(".loading-message").style.display = "block";
 };
 
-submitScoreBtn.onclick = function() {
+submitScore.onclick = function() {
     const playerName = playerNameInput.value;
     const score = getScore();
     const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse";
