@@ -197,8 +197,10 @@ function showScoreOverlay() {
 }
 
 function getScore() {
-  const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])").length;
-  const guessesMade = GUESSES_MAX - remainingTiles / WORD_LENGTH_MAX;
+  const wordLength = targetWord.replace(/ /g, "").length; // Actual length of the target word
+  const rowsInPlay = guessGrid.querySelectorAll(`.tile:not(.inactive)`); // Only active tiles
+  const remainingTiles = Array.from(rowsInPlay).filter(tile => !tile.dataset.letter).length; // Unused active tiles
+  const guessesMade = GUESSES_MAX - remainingTiles / wordLength; // Calculate guesses
   return guessesMade;
 }
 
