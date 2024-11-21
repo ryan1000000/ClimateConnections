@@ -6,7 +6,7 @@ const targetWords = [
   "the climate"
 ];
 
-const WORD_LENGTH_MAX = 10;
+const WORD_LENGTH_MAX = 12;
 const GUESSES_MAX = 6;
 const FLIP_ANIMATION_DURATION = 500;
 const DANCE_ANIMATION_DURATION = 500;
