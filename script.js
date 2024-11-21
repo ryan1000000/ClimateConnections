@@ -128,7 +128,7 @@ function submitGuess() {
 
   if (activeTiles.length !== wordLength) {
     showAlert(`The word needs to be ${wordLength} letters long.`);
-    shakeTiles(activeTiles);
+    shakeTiles(activeTiles); // Shake tiles one at a time
     return;
   }
 
@@ -136,16 +136,6 @@ function submitGuess() {
   stopInteraction();
   flipTiles(activeTiles, guess);
 }
-
-function shakeTiles(tiles) {
-  tiles.forEach((tile) => {
-    tile.classList.add("shake"); // Add a CSS class for the shake animation
-    setTimeout(() => {
-      tile.classList.remove("shake"); // Remove the class after the animation duration
-    }, 500); // Adjust duration to match your CSS animation
-  });
-}
-
 
 function flipTiles(tiles, guess) {
   const wordLength = targetWord.replace(/ /g, "").length;
@@ -200,7 +190,6 @@ function flipTiles(tiles, guess) {
   }, FLIP_ANIMATION_DURATION);
 }
 
-
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
     showAlert("Congratulations! You guessed the word!");
@@ -220,6 +209,17 @@ function checkWinLose(guess, tiles) {
   startInteraction(); // Allow next guess
 }
 
+function shakeTiles(tiles) {
+  tiles.forEach((tile, index) => {
+    setTimeout(() => {
+      tile.classList.add("shake");
+      setTimeout(() => {
+        tile.classList.remove("shake");
+      }, 500); // Duration of the shake animation for each tile
+    }, index * 100); // Delay between each tile shake
+  });
+}
+
 function showScoreOverlay() {
   const scoreModal = document.getElementById("scoreModal");
   if (scoreModal) {
@@ -235,7 +235,6 @@ function getScore() {
   const guessesMade = GUESSES_MAX - remainingTiles / wordLength; // Compute guesses made
   return guessesMade;
 }
-
 
 function submitScore() {
   const playerName = playerNameInput.value;
