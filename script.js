@@ -27,7 +27,7 @@ const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
 const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily through targetWords
 
 const playerNameInput = document.getElementById("playerNameInput");
-const modal = document.getElementById("scoreModal");
+const modal = document.getElementById("scoreModal"); // Correctly initialized
 
 startInteraction();
 setupBoard(targetWord);
