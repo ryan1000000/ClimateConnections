@@ -48,7 +48,7 @@ body {
 
 
 .tile.inactive {
-  background-color: darkgrey;
+  background-color: #A9A9A9;
   pointer-events: none;
 }
 
