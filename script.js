@@ -34,6 +34,8 @@ setupBoard(targetWord);
 
 function setupBoard(targetWord) {
   guessGrid.innerHTML = ""; // Clear existing tiles
+  const cleanedTargetWord = targetWord.replace(/ /g, ""); // Remove spaces for correct length
+  let charIndex = 0; // Tracks actual character position in the word
 
   for (let i = 0; i < GUESSES_MAX; i++) {
     for (let j = 0; j < WORD_LENGTH_MAX; j++) {
@@ -42,16 +44,20 @@ function setupBoard(targetWord) {
       tile.textContent = "";
       tile.style.backgroundColor = "";
 
-      // Mark inactive tiles if they exceed the target word length or represent spaces
-      if (j >= targetWord.replace(/ /g, "").length || targetWord[j] === " ") {
+      // Mark inactive tiles for spaces or exceeding the word length
+      if (charIndex >= cleanedTargetWord.length || targetWord[charIndex] === " ") {
         tile.classList.add("inactive");
         tile.style.backgroundColor = "#2e2d2d";
+      } else {
+        charIndex++; // Increment only for non-space characters
       }
 
       guessGrid.appendChild(tile);
     }
+    charIndex = 0; // Reset for the next row
   }
 }
+
 
 function startInteraction() {
   document.addEventListener("click", handleMouseClick);
@@ -124,8 +130,8 @@ function getActiveTiles() {
 
 function submitGuess() {
   const activeTiles = [...getActiveTiles()];
-  //const wordLength = targetWord.replace(/ /g, "").length;
-  const wordLength = guessGrid.querySelectorAll(":not(.inactive)").length / GUESSES_MAX;
+  const wordLength = targetWord.replace(/ /g, "").length;
+  //const wordLength = guessGrid.querySelectorAll(":not(.inactive)").length / GUESSES_MAX;
 
   if (activeTiles.length !== wordLength) {
     showAlert(`The word needs to be ${wordLength} letters long.`);
