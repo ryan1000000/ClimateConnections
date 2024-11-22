@@ -304,15 +304,11 @@ function showPersistentAlert(message) {
   alertContainer.innerHTML = ""; // Clear previous alerts
   const alert = document.createElement("div");
   alert.className = "alert persistent";
-  alert.textContent = message;
-
-  const closeButton = document.createElement("button");
-  closeButton.textContent = "Close";
-  closeButton.onclick = () => alert.remove();
-  alert.appendChild(closeButton);
+  alert.textContent = `Today's theme: ${message}`; // Add "Today's theme: " before the clue word
 
   alertContainer.appendChild(alert);
 }
+
 
 function showAlert(message) {
   const alert = document.createElement("div");
