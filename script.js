@@ -1,68 +1,67 @@
-const targetWords = [
-  "dewpoint",
-  "clean energy",
-  "carbon tax",
-  "global warming",
-  "heatwave",
-  "icebergs",
-  "supportive",
-  "coral reefs",
-  "blizzard",
-  "drizzle",
-  "dataset",
-  "solar flare",
-  "spatial map",
-  "baseline",
-  "freezing",
-  "engagement",
-  "emissions",
-  "sunlight",
-  "extreme heat",
-  "just transition",
-  "energy grid",
-  "knowledge",
-  "regional",
-  "water crisis",
-  "graphical",
-  "wildfire ash",
-  "wildfire",
-  "data viewer",
-  "historical",
-  "air quality",
-  "snowstorm",
-  "cyclone",
-  "arctic ice",
-  "downpour",
-  "adaptation",
-  "heat domes",
-  "data portal",
-  "analogues",
-  "drought",
-  "risk map",
-  "wind power",
-  "dashboard",
-  "snow melt",
-  "fossil fuel",
-  "climate data",
-  "methane gas",
-  "sea level",
-  "flood risk",
-  "client focus",
-  "resources",
-  "frostbite",
-  "ocean heat",
-  "hailstorm",
-  "tornado",
-  "thunder",
-  "windy day",
-  "rainfall",
-  "outreach",
-  "renewable",
-  "raincloud",
-  "chinook",
-  "projection"
-];
-
+const climateDictionary = {
+  dewpoint: "Saturation threshold",
+  clean_energy: "Byproduct-free",
+  carbon_tax: "Market incentive",
+  global_warming: "Radiative imbalance",
+  heatwave: "Temperature anomaly",
+  icebergs: "Drifting ice",
+  supportive: "Resilience-building",
+  coral_reefs: "Marine bleaching",
+  blizzard: "Visibility collapse",
+  drizzle: "Light hydrometeor",
+  dataset: "Empirical backbone",
+  solar_flare: "Magnetic ejection",
+  spatial_map: "Geographic variability",
+  baseline: "Reference period",
+  freezing: "Phase transition",
+  engagement: "Stakeholder alignment",
+  emissions: "Quantified outputs",
+  sunlight: "Energy source",
+  extreme_heat: "Wet-bulb",
+  just_transition: "Equitable shift",
+  energy_grid: "Infrastructure balance",
+  knowledge: "Adaptation asset",
+  regional: "Localized scope",
+  water_crisis: "Scarcity challenge",
+  graphical: "Visual aid",
+  wildfire_ash: "Particulate residue",
+  wildfire: "Ignition-driven",
+  data_viewer: "Exploration tool",
+  historical: "Precedent baseline",
+  air_quality: "Aerosol metric",
+  snowstorm: "Frozen turbulence",
+  cyclone: "Rotational system",
+  arctic_ice: "Polar reservoir",
+  downpour: "Convective rainfall",
+  adaptation: "Systemic adjustment",
+  heat_domes: "Pressure trap",
+  data_portal: "Access point",
+  analogues: "Comparative periods",
+  drought: "Moisture deficit",
+  risk_map: "Vulnerability visualization",
+  wind_power: "Kinetic energy",
+  dashboard: "Consolidated interface",
+  snow_melt: "Seasonal runoff",
+  fossil_fuel: "Carbon source",
+  climate_data: "Empirical evidence",
+  methane_gas: "Short-lived",
+  sea_level: "Thermal expansion",
+  flood_risk: "Inundation potential",
+  client_focus: "Service tailoring",
+  resources: "Mobilized assets",
+  frostbite: "Tissue freezing",
+  ocean_heat: "Energy storage",
+  hailstorm: "Ice spheroids",
+  tornado: "Rotating column",
+  thunder: "Acoustic channel",
+  windy_day: "Kinetic transfer",
+  rainfall: "Hydrological input",
+  outreach: "Science translation",
+  renewable: "Cyclic source",
+  raincloud: "Condensation",
+  chinook: "Warming wind",
+  projection: "Future trend"
+};
 
 const WORD_LENGTH_MAX = 12;
 const GUESSES_MAX = 6;
@@ -71,6 +70,7 @@ const DANCE_ANIMATION_DURATION = 500;
 
 let gameEnded = false;
 
+// DOM Elements
 const keyboard = document.querySelector("[data-keyboard]");
 const alertContainer = document.querySelector("[data-alert-container]");
 const guessGrid = document.querySelector("[data-guess-grid]");
@@ -78,17 +78,24 @@ const statsLink = document.querySelector("#seeStats");
 const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
 const dailyStatsList = document.querySelector("#dailyStats");
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwv8MZFfU3ki7BjhU5MQK4C_JBPQIRlKJKUzVg0xKkE72EEy86k8G4iokk7j9y1IIUlsg/exec'; 
+
+// Select target word and clue
+const wordList = Object.keys(climateDictionary);
+const clues = Object.values(climateDictionary);
 const offsetFromDate = new Date(2023, 9, 24);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
-const targetWord = targetWords[dayOffset % targetWords.length]; // Rotate daily through targetWords
+const targetWord = wordList[dayOffset % wordList.length]; // Rotate daily
+const targetClue = climateDictionary[targetWord];
 
 const playerNameInput = document.getElementById("playerNameInput");
-const modal = document.getElementById("scoreModal"); // Correctly initialized
+const modal = document.getElementById("scoreModal");
 
 startInteraction();
 setupBoard(targetWord);
+
+// Show clue at the start of the game
+showPersistentAlert(targetClue);
 
 function setupBoard(targetWord) {
   guessGrid.innerHTML = ""; // Clear existing tiles
@@ -120,7 +127,6 @@ function setupBoard(targetWord) {
     charIndex = 0; // Reset for the next row
   }
 }
-
 
 function startInteraction() {
   document.addEventListener("click", handleMouseClick);
@@ -194,7 +200,6 @@ function getActiveTiles() {
 function submitGuess() {
   const activeTiles = [...getActiveTiles()];
   const wordLength = targetWord.replace(/ /g, "").length;
-  //const wordLength = guessGrid.querySelectorAll(":not(.inactive)").length / GUESSES_MAX;
 
   if (activeTiles.length !== wordLength) {
     showAlert(`The word needs to be ${wordLength} letters long.`);
@@ -211,7 +216,6 @@ function flipTiles(tiles, guess) {
   const targetLetterCounts = {};
   const cleanedTargetWord = targetWord.replace(/ /g, ""); // Remove spaces for comparison
 
-  // Step 1: Count the frequency of each letter in the target word
   for (const letter of cleanedTargetWord) {
     const lowercaseLetter = letter.toLowerCase();
     if (!targetLetterCounts[lowercaseLetter]) {
@@ -220,30 +224,27 @@ function flipTiles(tiles, guess) {
     targetLetterCounts[lowercaseLetter]++;
   }
 
-  // Step 2: Process each tile with a delay for sequential flipping
   tiles.forEach((tile, index) => {
     const guessedLetter = tile.dataset.letter?.toLowerCase();
     const cleanIndex = [...targetWord].filter((char, i) => char !== " ").slice(0, index + 1).length - 1;
     const targetLetter = cleanedTargetWord[cleanIndex]?.toLowerCase();
 
     setTimeout(() => {
-      // Add the flip class to start the animation
       tile.classList.add("flip");
 
       setTimeout(() => {
-        // Determine the state of the tile after the flip
         if (guessedLetter === targetLetter) {
           tile.dataset.state = "correct";
           tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Green
           const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
           if (key) key.classList.add("correct");
-          targetLetterCounts[guessedLetter]--; // Decrement the count for this letter
+          targetLetterCounts[guessedLetter]--;
         } else if (targetLetterCounts[guessedLetter] > 0) {
           tile.dataset.state = "wrong-location";
           tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Yellow
           const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
           if (key) key.classList.add("wrong-location");
-          targetLetterCounts[guessedLetter]--; // Decrement the count for this letter
+          targetLetterCounts[guessedLetter]--;
         } else {
           tile.dataset.state = "wrong";
           tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Grey
@@ -251,18 +252,15 @@ function flipTiles(tiles, guess) {
           if (key) key.classList.add("wrong");
         }
 
-        // Remove the flip class after the animation ends
         tile.classList.remove("flip");
 
-        // Step 4: Check for the end of the game after the last tile flips
         if (index === tiles.length - 1) {
           checkWinLose(guess, tiles);
         }
-      }, FLIP_ANIMATION_DURATION / 2); // Animation midpoint
-    }, index * FLIP_ANIMATION_DURATION); // Delay for each tile
+      }, FLIP_ANIMATION_DURATION / 2);
+    }, index * FLIP_ANIMATION_DURATION);
   });
 }
-
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
@@ -280,7 +278,7 @@ function checkWinLose(guess, tiles) {
     return;
   }
 
-  startInteraction(); // Allow next guess
+  startInteraction();
 }
 
 function shakeTiles(tiles) {
@@ -289,8 +287,8 @@ function shakeTiles(tiles) {
       tile.classList.add("shake");
       setTimeout(() => {
         tile.classList.remove("shake");
-      }, 500); // Duration of the shake animation for each tile
-    }, index * 100); // Delay between each tile shake
+      }, 500);
+    }, index * 100);
   });
 }
 
@@ -301,76 +299,19 @@ function showScoreOverlay() {
   }
 }
 
-function getScore() {
-  const wordLength = targetWord.replace(/ /g, "").length; // Actual length of the target word
-  const totalPlayableTiles = GUESSES_MAX * wordLength; // Total tiles in play
-  const usedTiles = guessGrid.querySelectorAll("[data-letter]").length; // Tiles already used
-  const remainingTiles = totalPlayableTiles - usedTiles; // Tiles not used
-  const guessesMade = GUESSES_MAX - remainingTiles / wordLength; // Compute guesses made
-  return guessesMade;
+function showPersistentAlert(message) {
+  alertContainer.innerHTML = ""; // Clear previous alerts
+  const alert = document.createElement("div");
+  alert.className = "alert persistent";
+  alert.textContent = message;
+
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "Close";
+  closeButton.onclick = () => alert.remove();
+  alert.appendChild(closeButton);
+
+  alertContainer.appendChild(alert);
 }
-
-function submitScore() {
-  const playerName = playerNameInput.value;
-  const score = getScore();
-  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse";
-
-  // Create form data
-  let formData = new FormData();
-  formData.append("entry.1698848551", playerName);
-  formData.append("entry.1512423051", score);
-
-  // Make the HTTP POST request
-  fetch(formURL, {
-    method: 'POST',
-    mode: 'no-cors', // required for a request to Google Forms
-    body: formData
-  })
-    .then(response => {
-      modal.style.display = "none"; // Close the modal
-      setTimeout(() => {
-        statsLink.onclick();
-      }, 1000);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-}
-
-statsLink.onclick = function () {
-  statsOverlay.style.display = "block";
-
-  fetch(GAS_URL)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data); // Log the response for debugging
-
-      // Parse the 'body' field to convert it from a string to an array
-      const statsData = JSON.parse(data.body);
-
-      console.log(statsData); // Log the parsed statsData array
-
-      document.querySelector(".loading-message").style.display = "none";
-
-      dailyStatsList.innerHTML = "";
-      statsData.slice(0, 100).forEach((row) => {
-        const li = document.createElement("li");
-        li.textContent = `${row[1]}: ${row[2]}`; // Assuming name is in the second column and score in the third
-        dailyStatsList.appendChild(li);
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching stats:", error);
-    });
-};
-
-
-
-
-closeStats.onclick = function () {
-  statsOverlay.style.display = "none";
-  document.querySelector(".loading-message").style.display = "block";
-};
 
 function showAlert(message) {
   const alert = document.createElement("div");
@@ -380,7 +321,7 @@ function showAlert(message) {
 
   setTimeout(() => {
     alert.remove();
-  }, 3000); // Remove the alert after 3 seconds
+  }, 3000);
 }
 
 function danceTiles(tiles) {
@@ -390,17 +331,11 @@ function danceTiles(tiles) {
       setTimeout(() => {
         tile.classList.remove("dance");
       }, DANCE_ANIMATION_DURATION);
-    }, index * 100); // Add a delay between tiles
+    }, index * 100);
   });
 }
 
 document.getElementById("modal-close").onclick = function () {
-  const scoreModal = document.getElementById("scoreModal");
-  scoreModal.style.display = "none";
-};
-
-document.getElementById("submitScoreBtn").onclick = function () {
-  submitScore(); // Call the score submission logic
   const scoreModal = document.getElementById("scoreModal");
   scoreModal.style.display = "none";
 };
