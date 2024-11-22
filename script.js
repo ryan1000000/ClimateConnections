@@ -1,68 +1,67 @@
 const climateDictionary = {
-  "dewpoint": "Saturation threshold",
-  "clean energy": "Byproduct-free",
-  "carbon tax": "Market incentive",
-  "global warming": "Radiative imbalance",
-  "heatwave": "Temperature anomaly",
-  "icebergs": "Drifting ice",
-  "supportive": "Resilience-building",
-  "coral reefs": "Marine bleaching",
-  "blizzard": "Visibility collapse",
-  "drizzle": "Light hydrometeor",
-  "dataset": "Empirical backbone",
-  "solar flare": "Magnetic ejection",
-  "spatial map": "Geographic variability",
-  "baseline": "Reference period",
-  "freezing": "Phase transition",
-  "engagement": "Stakeholder alignment",
-  "emissions": "Quantified outputs",
-  "sunlight": "Energy source",
-  "extreme heat": "Wet-bulb",
-  "just transition": "Equitable shift",
-  "energy grid": "Infrastructure balance",
-  "knowledge": "Adaptation asset",
-  "regional": "Localized scope",
-  "water crisis": "Scarcity challenge",
-  "graphical": "Visual aid",
-  "wildfire ash": "Particulate residue",
-  "wildfire": "Ignition-driven",
-  "data viewer": "Exploration tool",
-  "historical": "Precedent baseline",
-  "air quality": "Aerosol metric",
-  "snowstorm": "Frozen turbulence",
-  "cyclone": "Rotational system",
-  "arctic ice": "Polar reservoir",
-  "downpour": "Convective rainfall",
-  "adaptation": "Systemic adjustment",
-  "heat domes": "Pressure trap",
-  "data portal": "Access point",
-  "analogues": "Comparative periods",
-  "drought": "Moisture deficit",
-  "risk map": "Vulnerability visualization",
-  "wind power": "Kinetic energy",
-  "dashboard": "Consolidated interface",
-  "snow melt": "Seasonal runoff",
-  "fossil fuel": "Carbon source",
-  "climate data": "Empirical evidence",
-  "methane gas": "Short-lived",
-  "sea level": "Thermal expansion",
-  "flood risk": "Inundation potential",
-  "client focus": "Service tailoring",
-  "resources": "Mobilized assets",
-  "frostbite": "Tissue freezing",
-  "ocean heat": "Energy storage",
-  "hailstorm": "Ice spheroids",
-  "tornado": "Rotating column",
-  "thunder": "Acoustic channel",
-  "windy day": "Kinetic transfer",
-  "rainfall": "Hydrological input",
-  "outreach": "Science translation",
-  "renewable": "Cyclic source",
-  "raincloud": "Condensation",
-  "chinook": "Warming wind",
-  "projection": "Future trend"
+  dewpoint: "Saturation threshold",
+  clean_energy: "Byproduct-free",
+  carbon_tax: "Market incentive",
+  global_warming: "Radiative imbalance",
+  heatwave: "Temperature anomaly",
+  icebergs: "Drifting ice",
+  supportive: "Resilience-building",
+  coral_reefs: "Marine bleaching",
+  blizzard: "Visibility collapse",
+  drizzle: "Light hydrometeor",
+  dataset: "Empirical backbone",
+  solar_flare: "Magnetic ejection",
+  spatial_map: "Geographic variability",
+  baseline: "Reference period",
+  freezing: "Phase transition",
+  engagement: "Stakeholder alignment",
+  emissions: "Quantified outputs",
+  sunlight: "Energy source",
+  extreme_heat: "Wet-bulb",
+  just_transition: "Equitable shift",
+  energy_grid: "Infrastructure balance",
+  knowledge: "Adaptation asset",
+  regional: "Localized scope",
+  water_crisis: "Scarcity challenge",
+  graphical: "Visual aid",
+  wildfire_ash: "Particulate residue",
+  wildfire: "Ignition-driven",
+  data_viewer: "Exploration tool",
+  historical: "Precedent baseline",
+  air_quality: "Aerosol metric",
+  snowstorm: "Frozen turbulence",
+  cyclone: "Rotational system",
+  arctic_ice: "Polar reservoir",
+  downpour: "Convective rainfall",
+  adaptation: "Systemic adjustment",
+  heat_domes: "Pressure trap",
+  data_portal: "Access point",
+  analogues: "Comparative periods",
+  drought: "Moisture deficit",
+  risk_map: "Vulnerability visualization",
+  wind_power: "Kinetic energy",
+  dashboard: "Consolidated interface",
+  snow_melt: "Seasonal runoff",
+  fossil_fuel: "Carbon source",
+  climate_data: "Empirical evidence",
+  methane_gas: "Short-lived",
+  sea_level: "Thermal expansion",
+  flood_risk: "Inundation potential",
+  client_focus: "Service tailoring",
+  resources: "Mobilized assets",
+  frostbite: "Tissue freezing",
+  ocean_heat: "Energy storage",
+  hailstorm: "Ice spheroids",
+  tornado: "Rotating column",
+  thunder: "Acoustic channel",
+  windy_day: "Kinetic transfer",
+  rainfall: "Hydrological input",
+  outreach: "Science translation",
+  renewable: "Cyclic source",
+  raincloud: "Condensation",
+  chinook: "Warming wind",
+  projection: "Future trend"
 };
-
 
 const WORD_LENGTH_MAX = 12;
 const GUESSES_MAX = 6;
@@ -71,7 +70,6 @@ const DANCE_ANIMATION_DURATION = 500;
 
 let gameEnded = false;
 
-// DOM Elements
 const keyboard = document.querySelector("[data-keyboard]");
 const alertContainer = document.querySelector("[data-alert-container]");
 const guessGrid = document.querySelector("[data-guess-grid]");
@@ -79,14 +77,12 @@ const statsLink = document.querySelector("#seeStats");
 const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
 const dailyStatsList = document.querySelector("#dailyStats");
-
-// Select target word and clue
-const wordList = Object.keys(climateDictionary);
-const clues = Object.values(climateDictionary);
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwv8MZFfU3ki7BjhU5MQK4C_JBPQIRlKJKUzVg0xKkE72EEy86k8G4iokk7j9y1IIUlsg/exec'; 
 const offsetFromDate = new Date(2023, 9, 24);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = Math.floor(msOffset / 1000 / 60 / 60 / 24);
-const targetWord = wordList[dayOffset % wordList.length]; // Rotate daily
+const wordList = Object.keys(climateDictionary);
+const targetWord = wordList[dayOffset % wordList.length];
 const targetClue = climateDictionary[targetWord];
 
 const playerNameInput = document.getElementById("playerNameInput");
@@ -95,7 +91,7 @@ const modal = document.getElementById("scoreModal");
 startInteraction();
 setupBoard(targetWord);
 
-// Show clue at the start of the game
+// Show the clue at the start of the game
 showPersistentAlert(targetClue);
 
 function setupBoard(targetWord) {
@@ -204,7 +200,7 @@ function submitGuess() {
 
   if (activeTiles.length !== wordLength) {
     showAlert(`The word needs to be ${wordLength} letters long.`);
-    shakeTiles(activeTiles); // Shake tiles one at a time
+    shakeTiles(activeTiles);
     return;
   }
 
@@ -214,9 +210,10 @@ function submitGuess() {
 }
 
 function flipTiles(tiles, guess) {
-  const targetLetterCounts = {};
   const cleanedTargetWord = targetWord.replace(/ /g, ""); // Remove spaces for comparison
+  const targetLetterCounts = {};
 
+  // Count the frequency of each letter in the target word
   for (const letter of cleanedTargetWord) {
     const lowercaseLetter = letter.toLowerCase();
     if (!targetLetterCounts[lowercaseLetter]) {
@@ -227,8 +224,7 @@ function flipTiles(tiles, guess) {
 
   tiles.forEach((tile, index) => {
     const guessedLetter = tile.dataset.letter?.toLowerCase();
-    const cleanIndex = [...targetWord].filter((char, i) => char !== " ").slice(0, index + 1).length - 1;
-    const targetLetter = cleanedTargetWord[cleanIndex]?.toLowerCase();
+    const targetLetter = cleanedTargetWord[index]?.toLowerCase();
 
     setTimeout(() => {
       tile.classList.add("flip");
@@ -236,21 +232,14 @@ function flipTiles(tiles, guess) {
       setTimeout(() => {
         if (guessedLetter === targetLetter) {
           tile.dataset.state = "correct";
-          tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Green
-          const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
-          if (key) key.classList.add("correct");
-          targetLetterCounts[guessedLetter]--;
+          tile.style.backgroundColor = "hsl(155, 67%, 45%)";
         } else if (targetLetterCounts[guessedLetter] > 0) {
           tile.dataset.state = "wrong-location";
-          tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Yellow
-          const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
-          if (key) key.classList.add("wrong-location");
+          tile.style.backgroundColor = "hsl(49, 51%, 47%)";
           targetLetterCounts[guessedLetter]--;
         } else {
           tile.dataset.state = "wrong";
-          tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Grey
-          const key = keyboard.querySelector(`[data-key="${guessedLetter.toUpperCase()}"]`);
-          if (key) key.classList.add("wrong");
+          tile.style.backgroundColor = "hsl(240, 2%, 23%)";
         }
 
         tile.classList.remove("flip");
@@ -300,15 +289,66 @@ function showScoreOverlay() {
   }
 }
 
-function showPersistentAlert(message) {
-  alertContainer.innerHTML = ""; // Clear previous alerts
-  const alert = document.createElement("div");
-  alert.className = "alert persistent";
-  alert.textContent = `Today's theme: ${message}`; // Add "Today's theme: " before the clue word
+function submitScore() {
+  const playerName = playerNameInput.value;
+  const score = getScore();
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfD3lvoGvcDx16P-pQd_2HpZEHEesnsCC3aHNe_NNXnQxqNTQ/formResponse";
 
-  alertContainer.appendChild(alert);
+  const formData = new FormData();
+  formData.append("entry.1698848551", playerName);
+  formData.append("entry.1512423051", score);
+
+  fetch(formURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: formData
+  })
+    .then(() => {
+      modal.style.display = "none";
+      setTimeout(() => statsLink.onclick(), 1000);
+    })
+    .catch((error) => console.error("Error:", error));
 }
 
+function getScore() {
+  const wordLength = targetWord.replace(/ /g, "").length;
+  const totalPlayableTiles = GUESSES_MAX * wordLength;
+  const usedTiles = guessGrid.querySelectorAll("[data-letter]").length;
+  return GUESSES_MAX - (totalPlayableTiles - usedTiles) / wordLength;
+}
+
+statsLink.onclick = function () {
+  statsOverlay.style.display = "block";
+
+  fetch(GAS_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      const statsData = JSON.parse(data.body);
+
+      document.querySelector(".loading-message").style.display = "none";
+
+      dailyStatsList.innerHTML = "";
+      statsData.slice(0, 100).forEach((row) => {
+        const li = document.createElement("li");
+        li.textContent = `${row[1]}: ${row[2]}`;
+        dailyStatsList.appendChild(li);
+      });
+    })
+    .catch((error) => console.error("Error fetching stats:", error));
+};
+
+closeStats.onclick = function () {
+  statsOverlay.style.display = "none";
+  document.querySelector(".loading-message").style.display = "block";
+};
+
+function showPersistentAlert(message) {
+  alertContainer.innerHTML = ""; // Clear existing alerts
+  const alert = document.createElement("div");
+  alert.className = "alert persistent";
+  alert.textContent = `Today's theme: ${message}`;
+  alertContainer.appendChild(alert);
+}
 
 function showAlert(message) {
   const alert = document.createElement("div");
@@ -316,23 +356,23 @@ function showAlert(message) {
   alert.className = "alert";
   alertContainer.appendChild(alert);
 
-  setTimeout(() => {
-    alert.remove();
-  }, 3000);
+  setTimeout(() => alert.remove(), 3000);
 }
 
 function danceTiles(tiles) {
   tiles.forEach((tile, index) => {
     setTimeout(() => {
       tile.classList.add("dance");
-      setTimeout(() => {
-        tile.classList.remove("dance");
-      }, DANCE_ANIMATION_DURATION);
+      setTimeout(() => tile.classList.remove("dance"), DANCE_ANIMATION_DURATION);
     }, index * 100);
   });
 }
 
 document.getElementById("modal-close").onclick = function () {
-  const scoreModal = document.getElementById("scoreModal");
-  scoreModal.style.display = "none";
+  modal.style.display = "none";
+};
+
+document.getElementById("submitScoreBtn").onclick = function () {
+  submitScore();
+  modal.style.display = "none";
 };
