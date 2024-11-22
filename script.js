@@ -78,7 +78,7 @@ const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
 const dailyStatsList = document.querySelector("#dailyStats");
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwv8MZFfU3ki7BjhU5MQK4C_JBPQIRlKJKUzVg0xKkE72EEy86k8G4iokk7j9y1IIUlsg/exec'; 
-const offsetFromDate = new Date(2024, 11, 21);
+const offsetFromDate = new Date(2024, 10, 22);
 const msOffset = Date.now() - offsetFromDate;
 
 console.log(Date.now());
