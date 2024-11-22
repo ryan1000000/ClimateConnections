@@ -162,7 +162,7 @@ body {
 .alert-container {
   position: fixed;
   color: white;
-  top: 10vh;
+  top: 11vh;
   z-index: 1;
   display: flex;
   align-items: center;
