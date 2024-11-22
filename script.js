@@ -343,6 +343,8 @@ function showPersistentAlert(message) {
   alert.className = "alert persistent";
   alert.textContent = `Today's theme: ${message}`;
   alertContainer.appendChild(alert);
+
+  setTimeout(() => alert.remove(), 5000);
 }
 
 function showAlert(message) {
