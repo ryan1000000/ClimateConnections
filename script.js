@@ -4,7 +4,6 @@ const climateDictionary = {
   "carbon tax": "Put a price on it.",
   "global warming": "Degrees of freedom.",
   "heat wave": "Persistent percentiles",
-  "iceberg": "It's just the tip.",
   "coral reef": "Please don't bleach",
   "blizzard": "Pass the whiteout, please.",
   "drizzle": "Miniature hydrometeor.",
