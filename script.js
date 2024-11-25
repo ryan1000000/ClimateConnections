@@ -45,7 +45,7 @@ const statsOverlay = document.querySelector("#statsOverlay");
 const closeStats = statsOverlay.querySelector(".close");
 const dailyStatsList = document.querySelector("#dailyStats");
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwv8MZFfU3ki7BjhU5MQK4C_JBPQIRlKJKUzVg0xKkE72EEy86k8G4iokk7j9y1IIUlsg/exec'; 
-const offsetFromDate = new Date(2024, 10, 22);
+const offsetFromDate = new Date(2024, 10, 25);
 const msOffset = Date.now() - offsetFromDate;
 
 console.log(Date.now());
@@ -64,7 +64,8 @@ startInteraction();
 setupBoard(targetWord);
 
 // Show the clue at the start of the game
-showPersistentAlert(targetClue);
+// TURNING OFF FOR NOW, I THINK IT MAKES THINGS TOO EASY...
+//showPersistentAlert(targetClue);
 
 function setupBoard(targetWord) {
   guessGrid.innerHTML = ""; // Clear existing tiles
