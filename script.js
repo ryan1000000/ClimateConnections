@@ -182,53 +182,67 @@ function submitGuess() {
 }
 
 function flipTiles(tiles, guess) {
-  const cleanedTargetWord = targetWord.replace(/ /g, ""); // Remove spaces for comparison
+  const cleanedTargetWord = targetWord.replace(/ /g, "").toLowerCase(); // Remove spaces and normalize case
   const targetLetterCounts = {};
 
   // Count the frequency of each letter in the target word
   for (const letter of cleanedTargetWord) {
-    const lowercaseLetter = letter.toLowerCase();
-    if (!targetLetterCounts[lowercaseLetter]) {
-      targetLetterCounts[lowercaseLetter] = 0;
+    if (!targetLetterCounts[letter]) {
+      targetLetterCounts[letter] = 0;
     }
-    targetLetterCounts[lowercaseLetter]++;
+    targetLetterCounts[letter]++;
   }
 
+  // First pass: Identify and mark correct (green) tiles
+  const resultStates = tiles.map((tile, index) => {
+    const guessedLetter = tile.dataset.letter?.toLowerCase();
+    const targetLetter = cleanedTargetWord[index];
+
+    if (guessedLetter === targetLetter) {
+      targetLetterCounts[guessedLetter]--; // Deduct from counts
+      return "correct"; // Mark as green
+    }
+    return null; // Not determined yet
+  });
+
+  // Second pass: Mark wrong-location (yellow) and incorrect (grey) tiles
   tiles.forEach((tile, index) => {
     const guessedLetter = tile.dataset.letter?.toLowerCase();
-    const targetLetter = cleanedTargetWord[index]?.toLowerCase();
+    if (resultStates[index] === "correct") {
+      // Already marked as correct
+      tile.dataset.state = "correct";
+      tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Green
+      return;
+    }
 
-    // Set a delay for each tile to flip one by one
+    if (guessedLetter && targetLetterCounts[guessedLetter] > 0) {
+      // Mark as wrong-location (yellow)
+      tile.dataset.state = "wrong-location";
+      tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Yellow
+      targetLetterCounts[guessedLetter]--; // Deduct from counts
+    } else {
+      // Mark as incorrect (grey)
+      tile.dataset.state = "wrong";
+      tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Grey
+    }
+  });
+
+  // Apply animations sequentially
+  tiles.forEach((tile, index) => {
     setTimeout(() => {
       tile.classList.add("flip");
 
       setTimeout(() => {
-        // First pass: Mark correct tiles
-        if (guessedLetter === targetLetter) {
-          tile.dataset.state = "correct";
-          tile.style.backgroundColor = "hsl(155, 67%, 45%)";
-          targetLetterCounts[guessedLetter]--; // Deduct from counts
-        } else if (targetLetterCounts[guessedLetter] > 0) {
-          // Second pass: Mark wrong-location tiles
-          tile.dataset.state = "wrong-location";
-          tile.style.backgroundColor = "hsl(49, 51%, 47%)";
-          targetLetterCounts[guessedLetter]--; // Deduct from counts
-        } else {
-          // Mark wrong tiles
-          tile.dataset.state = "wrong";
-          tile.style.backgroundColor = "hsl(240, 2%, 23%)";
-        }
-
         tile.classList.remove("flip");
 
-        // Check win/lose condition after the last tile is revealed
         if (index === tiles.length - 1) {
-          checkWinLose(guess, tiles);
+          checkWinLose(guess, tiles); // Check win/lose after last tile
         }
       }, FLIP_ANIMATION_DURATION / 2);
     }, index * FLIP_ANIMATION_DURATION); // Sequential delay
   });
 }
+
 
 
 function checkWinLose(guess, tiles) {
