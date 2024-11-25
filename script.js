@@ -3,7 +3,6 @@ const climateDictionary = {
   "climate data": "DPO can hook you up.",
   "clean energy": "Detergent power user.",
   "carbon tax": "Put a price on it.",
-  "global warming": "Is it hot in here, or just me?",
   "heat wave": "say 'hello' to more of these.",
   "dewpoint": "It's a wet kind of cold.",
   "coral reef": "Don't use bleach.",
@@ -25,7 +24,8 @@ const climateDictionary = {
   "flood map": "Ya, ya, we know.",
   "wind power": "This blows!",
   "fossil fuel": "drill baby, drill!",
-  "sea level": "Remember, it's all relative."
+  "sea level": "Remember, it's all relative.",
+  "clean energy": "Detergent power user.",
 
 };
 
