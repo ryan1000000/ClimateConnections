@@ -2,7 +2,7 @@ const climateDictionary = {
   
   "climate data": "DPO can hook you up.",
   "clean energy": "Detergent power user?",
-  "bomb cyclone": "Intense intensification?",
+  "bomb cyclone": "This game is intensifying quickly!",
   "carbon tax": "Is MB taking a holiday?",
   "heat wave": "Persistent percentile?",
   "dewpoint": "It's a wet kind of cold.",
