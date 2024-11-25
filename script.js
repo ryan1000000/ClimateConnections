@@ -25,7 +25,6 @@ const climateDictionary = {
   "wind power": "This blows!",
   "fossil fuel": "drill baby, drill!",
   "sea level": "Remember, it's all relative.",
-  "clean energy": "Detergent power user.",
 
 };
 
