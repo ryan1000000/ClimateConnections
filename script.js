@@ -210,33 +210,46 @@ function flipTiles(tiles, guess) {
     const guessedLetter = tile.dataset.letter?.toLowerCase();
     if (resultStates[index] === "correct") {
       // Already marked as correct
-      tile.dataset.state = "correct";
-      tile.style.backgroundColor = "hsl(155, 67%, 45%)"; // Green
+      resultStates[index] = {
+        state: "correct",
+        color: "hsl(155, 67%, 45%)", // Green
+      };
       return;
     }
 
     if (guessedLetter && targetLetterCounts[guessedLetter] > 0) {
       // Mark as wrong-location (yellow)
-      tile.dataset.state = "wrong-location";
-      tile.style.backgroundColor = "hsl(49, 51%, 47%)"; // Yellow
+      resultStates[index] = {
+        state: "wrong-location",
+        color: "hsl(49, 51%, 47%)", // Yellow
+      };
       targetLetterCounts[guessedLetter]--; // Deduct from counts
     } else {
       // Mark as incorrect (grey)
-      tile.dataset.state = "wrong";
-      tile.style.backgroundColor = "hsl(240, 2%, 23%)"; // Grey
+      resultStates[index] = {
+        state: "wrong",
+        color: "hsl(240, 2%, 23%)", // Grey
+      };
     }
   });
 
-  // Apply animations sequentially
+  // Apply animations and delayed visual updates
   tiles.forEach((tile, index) => {
+    const { state, color } = resultStates[index];
+
     setTimeout(() => {
       tile.classList.add("flip");
 
       setTimeout(() => {
+        // Update the tile's state and color at the halfway point of the flip
+        tile.dataset.state = state;
+        tile.style.backgroundColor = color;
+
         tile.classList.remove("flip");
 
+        // Check win/lose after the last tile is revealed
         if (index === tiles.length - 1) {
-          checkWinLose(guess, tiles); // Check win/lose after last tile
+          checkWinLose(guess, tiles);
         }
       }, FLIP_ANIMATION_DURATION / 2);
     }, index * FLIP_ANIMATION_DURATION); // Sequential delay
