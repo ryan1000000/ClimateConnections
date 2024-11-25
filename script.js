@@ -194,35 +194,43 @@ function flipTiles(tiles, guess) {
     targetLetterCounts[lowercaseLetter]++;
   }
 
+  // First pass: Mark correct tiles
   tiles.forEach((tile, index) => {
     const guessedLetter = tile.dataset.letter?.toLowerCase();
     const targetLetter = cleanedTargetWord[index]?.toLowerCase();
 
+    if (guessedLetter === targetLetter) {
+      tile.dataset.state = "correct";
+      tile.style.backgroundColor = "hsl(155, 67%, 45%)";
+      targetLetterCounts[guessedLetter]--; // Deduct from counts
+    }
+  });
+
+  // Second pass: Mark wrong-location tiles
+  tiles.forEach((tile, index) => {
+    if (tile.dataset.state === "correct") return; // Skip already marked tiles
+
+    const guessedLetter = tile.dataset.letter?.toLowerCase();
+    if (targetLetterCounts[guessedLetter] > 0) {
+      tile.dataset.state = "wrong-location";
+      tile.style.backgroundColor = "hsl(49, 51%, 47%)";
+      targetLetterCounts[guessedLetter]--; // Deduct from counts
+    } else {
+      tile.dataset.state = "wrong";
+      tile.style.backgroundColor = "hsl(240, 2%, 23%)";
+    }
+  });
+
+  tiles.forEach((tile, index) => {
     setTimeout(() => {
-      tile.classList.add("flip");
-
-      setTimeout(() => {
-        if (guessedLetter === targetLetter) {
-          tile.dataset.state = "correct";
-          tile.style.backgroundColor = "hsl(155, 67%, 45%)";
-        } else if (targetLetterCounts[guessedLetter] > 0) {
-          tile.dataset.state = "wrong-location";
-          tile.style.backgroundColor = "hsl(49, 51%, 47%)";
-          targetLetterCounts[guessedLetter]--;
-        } else {
-          tile.dataset.state = "wrong";
-          tile.style.backgroundColor = "hsl(240, 2%, 23%)";
-        }
-
-        tile.classList.remove("flip");
-
-        if (index === tiles.length - 1) {
-          checkWinLose(guess, tiles);
-        }
-      }, FLIP_ANIMATION_DURATION / 2);
+      tile.classList.remove("flip");
+      if (index === tiles.length - 1) {
+        checkWinLose(guess, tiles);
+      }
     }, index * FLIP_ANIMATION_DURATION);
   });
 }
+
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
