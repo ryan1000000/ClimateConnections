@@ -171,7 +171,7 @@ function submitGuess() {
   const wordLength = targetWord.replace(/ /g, "").length;
 
   if (activeTiles.length !== wordLength) {
-    showAlert(The word needs to be ${wordLength} letters long.);
+    showAlert(`The word needs to be ${wordLength} letters long.`);
     shakeTiles(activeTiles);
     return;
   }
@@ -235,7 +235,7 @@ function checkWinLose(guess, tiles) {
 
   const remainingGuesses = guessGrid.querySelectorAll(":not([data-letter])").length / WORD_LENGTH_MAX;
   if (remainingGuesses === 0) {
-    showAlert(Game over! The word was "${targetWord}".);
+    showAlert(`Game over! The word was "${targetWord}".`);
     gameEnded = true;
     return;
   }
@@ -302,7 +302,7 @@ statsLink.onclick = function () {
       dailyStatsList.innerHTML = "";
       statsData.slice(0, 100).forEach((row) => {
         const li = document.createElement("li");
-        li.textContent = ${row[1]}: ${row[2]};
+        li.textContent = `${row[1]}: ${row[2]}`;
         dailyStatsList.appendChild(li);
       });
     })
@@ -318,7 +318,7 @@ function showPersistentAlert(message) {
   alertContainer.innerHTML = ""; // Clear existing alerts
   const alert = document.createElement("div");
   alert.className = "alert persistent";
-  alert.textContent = Today's theme: ${message};
+  alert.textContent = `Today's theme: ${message}`;
   alertContainer.appendChild(alert);
 
   setTimeout(() => alert.remove(), 5000);
