@@ -21,8 +21,8 @@ const climateDictionary = {
   "flash flood": "Pluvial possibility.",
   "heat dome": "Put a lid on it!",
   "analogue app": "What will my climate look like?",
-  "flood map": "Ya, ya, we know.",
-  "wind power": "This blows!",
+  "flood map": "I used LIDAR to make this one.",
+  "wind power": "Does this turn me on?",
   "fossil fuel": "drill baby, drill!",
   "sea level": "Remember, it's all relative.",
 
