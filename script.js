@@ -2,21 +2,21 @@ const climateDictionary = {
   
   "climate data": "DPO can hook you up.",
   "clean energy": "Detergent power user.",
-  "carbon tax": "Put a price on it.",
-  "heat wave": "say 'hello' to more of these.",
+  "bomb cyclone": "Intense intensification.",
+  "carbon tax": "MB is taking a holiday.",
+  "heat wave": "Persistent percentile?",
   "dewpoint": "It's a wet kind of cold.",
   "coral reef": "Don't use bleach.",
-  "snow storm": "Oh, the weather outside is frightful.",
+  "snow storm": "Oh, the weather outside is frightful!",
   "drizzle": "Miniature hydrometeor.",
   "baseline": "Is this the new normal?",
   "engagement": "What do YOU think?",
-  "lapse rate": "Stable or unstable?",
-  "extreme heat": "Persistant percentiles.",
-  "low carbon": "Decoupled growth",
+  "lapse rate": "feeling stable today.",
+  "extreme heat": "Radical temps!",
+  "low carbon": "clean growth?",
   "fire risk": "Don't let the FWI team hear you say this.",
   "data viewer": "Oldschool CCCS Product.",
   "air quality": "Mask up!",
-  "bomb cyclone": "Intense intensification.",
   "arctic ice": "early breakups are hard.",
   "flash flood": "Pluvial possibility.",
   "heat dome": "Put a lid on it!",
@@ -64,7 +64,7 @@ setupBoard(targetWord);
 
 // Show the clue at the start of the game
 // TURNING OFF FOR NOW, I THINK IT MAKES THINGS TOO EASY...
-//showPersistentAlert(targetClue);
+showPersistentAlert(targetClue);
 
 function setupBoard(targetWord) {
   guessGrid.innerHTML = ""; // Clear existing tiles
