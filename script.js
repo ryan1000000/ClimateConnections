@@ -171,7 +171,7 @@ function submitGuess() {
   const wordLength = targetWord.replace(/ /g, "").length;
 
   if (activeTiles.length !== wordLength) {
-    showAlert(`The word needs to be ${wordLength} letters long.`);
+    showAlert(The word needs to be ${wordLength} letters long.);
     shakeTiles(activeTiles);
     return;
   }
@@ -194,43 +194,35 @@ function flipTiles(tiles, guess) {
     targetLetterCounts[lowercaseLetter]++;
   }
 
-  // First pass: Mark correct tiles
   tiles.forEach((tile, index) => {
     const guessedLetter = tile.dataset.letter?.toLowerCase();
     const targetLetter = cleanedTargetWord[index]?.toLowerCase();
 
-    if (guessedLetter === targetLetter) {
-      tile.dataset.state = "correct";
-      tile.style.backgroundColor = "hsl(155, 67%, 45%)";
-      targetLetterCounts[guessedLetter]--; // Deduct from counts
-    }
-  });
-
-  // Second pass: Mark wrong-location tiles
-  tiles.forEach((tile, index) => {
-    if (tile.dataset.state === "correct") return; // Skip already marked tiles
-
-    const guessedLetter = tile.dataset.letter?.toLowerCase();
-    if (targetLetterCounts[guessedLetter] > 0) {
-      tile.dataset.state = "wrong-location";
-      tile.style.backgroundColor = "hsl(49, 51%, 47%)";
-      targetLetterCounts[guessedLetter]--; // Deduct from counts
-    } else {
-      tile.dataset.state = "wrong";
-      tile.style.backgroundColor = "hsl(240, 2%, 23%)";
-    }
-  });
-
-  tiles.forEach((tile, index) => {
     setTimeout(() => {
-      tile.classList.remove("flip");
-      if (index === tiles.length - 1) {
-        checkWinLose(guess, tiles);
-      }
+      tile.classList.add("flip");
+
+      setTimeout(() => {
+        if (guessedLetter === targetLetter) {
+          tile.dataset.state = "correct";
+          tile.style.backgroundColor = "hsl(155, 67%, 45%)";
+        } else if (targetLetterCounts[guessedLetter] > 0) {
+          tile.dataset.state = "wrong-location";
+          tile.style.backgroundColor = "hsl(49, 51%, 47%)";
+          targetLetterCounts[guessedLetter]--;
+        } else {
+          tile.dataset.state = "wrong";
+          tile.style.backgroundColor = "hsl(240, 2%, 23%)";
+        }
+
+        tile.classList.remove("flip");
+
+        if (index === tiles.length - 1) {
+          checkWinLose(guess, tiles);
+        }
+      }, FLIP_ANIMATION_DURATION / 2);
     }, index * FLIP_ANIMATION_DURATION);
   });
 }
-
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord.replace(/ /g, "")) {
@@ -243,7 +235,7 @@ function checkWinLose(guess, tiles) {
 
   const remainingGuesses = guessGrid.querySelectorAll(":not([data-letter])").length / WORD_LENGTH_MAX;
   if (remainingGuesses === 0) {
-    showAlert(`Game over! The word was "${targetWord}".`);
+    showAlert(Game over! The word was "${targetWord}".);
     gameEnded = true;
     return;
   }
@@ -310,7 +302,7 @@ statsLink.onclick = function () {
       dailyStatsList.innerHTML = "";
       statsData.slice(0, 100).forEach((row) => {
         const li = document.createElement("li");
-        li.textContent = `${row[1]}: ${row[2]}`;
+        li.textContent = ${row[1]}: ${row[2]};
         dailyStatsList.appendChild(li);
       });
     })
@@ -326,7 +318,7 @@ function showPersistentAlert(message) {
   alertContainer.innerHTML = ""; // Clear existing alerts
   const alert = document.createElement("div");
   alert.className = "alert persistent";
-  alert.textContent = `Today's theme: ${message}`;
+  alert.textContent = Today's theme: ${message};
   alertContainer.appendChild(alert);
 
   setTimeout(() => alert.remove(), 5000);
