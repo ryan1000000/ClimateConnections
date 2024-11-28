@@ -4,7 +4,7 @@ const climateDictionary = {
   "clean energy": "Detergent power user?",
   "bomb cyclone": "This game has intensified quickly over the past 24h!",
   "carbon tax": "Supply and demand?",
-  "heat wave": "Persistent percentile?",
+  "heat wave": "One word or two? Honestly can never remember.",
   "dewpoint": "It's a wet kind of cold.",
   "coral reef": "Don't bleach?",
   "snow storm": "Oh, the weather outside is frightful!",
