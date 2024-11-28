@@ -19,7 +19,7 @@ const climateDictionary = {
   "air quality": "Mask up!",
   "arctic ice": "early breakups are hard.",
   "flash flood": "Pluvial possibility.",
-  "heat dome": "Put a lid on it!",
+  "heat dome": "Sorry, was I blocking you?",
   "analogue app": "What will my climate look like?",
   "flood map": "I used LIDAR to make this one.",
   "wind power": "Does this turn me on?",
