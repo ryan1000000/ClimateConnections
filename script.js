@@ -9,7 +9,7 @@ const climateDictionary = {
   "drizzle": "Miniature hydrometeor.",
   "fire weather": "There's an app for that.",
   "heat dome": "Sorry, was I blocking you?",
-  "engagement": "What do YOU think?",
+  "engagement": "What do you think of Climdle so far?",
   "lapse rate": "Feeling stable today.",
   "sea level": "Remember, it's all relative.",
   "funnel cloud": "It ain't scud if its swirl'n.",
