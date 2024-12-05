@@ -12,6 +12,9 @@ const climateDictionary = {
   "engagement": "Is Climdle meeting your needs?",
   "lapse rate": "Feeling stable today.",
   "sea level": "Remember, it's all relative.",
+  "flood plain": "LIDAR said don't build there.",
+  "wind power": "Does this turn me on?",
+  "freeze thaw": "This one cracks me up.",
   "funnel cloud": "It ain't scud if its swirl'n.",
   "extreme heat": "Radical temps!",
   "dewpoint": "It's a wet kind of cold.",
@@ -20,8 +23,7 @@ const climateDictionary = {
   "air quality": "Mask up!",
   "arctic ice": "early breakups are hard.",
   "analogue app": "What will my climate look like?",
-  "flood map": "I used LIDAR to make this one.",
-  "wind power": "Does this turn me on?",
+
   "fossil fuel": "drill baby, drill!",
   
 
