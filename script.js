@@ -22,9 +22,9 @@ const climateDictionary = {
   "extreme heat": "Radical temps!",
   "air quality": "Mask up!",
   "arctic ice": "Early breakups are hard.",
-  "analogue app": "Time to move cities?",
+  "analogue app": "My computer told me it is time to move cities.",
   "intensity": "I stand for this!",
-  "fossil fuel": "what a shell company sells?",
+  "fossil fuel": "what a shell company deals in?",
   "carrington": "Congratulations",
 };
 
