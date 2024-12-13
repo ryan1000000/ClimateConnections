@@ -21,12 +21,11 @@ const climateDictionary = {
   "snow squall": "Oh, the weather outside is frightful!",
   "extreme heat": "Radical temps!",
   "air quality": "Mask up!",
-  "arctic ice": "early breakups are hard.",
-  "analogue app": "What will my climate look like?",
-
-  "fossil fuel": "drill baby, drill!",
-  
-
+  "arctic ice": "Early breakups are hard.",
+  "analogue app": "Time to move cities?",
+  "intensity": "I stand for this!",
+  "fossil fuel": "what a shell company sells?",
+  "carrington": "Congratulations",
 };
 
 
