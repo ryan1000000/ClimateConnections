@@ -244,7 +244,12 @@
     // ====== PUZZLE LOADING ======
     async function pickPuzzleFromJSON() {
       try {
-        const res = await fetch(PUZZLES_URL, { cache: 'no-store' });
+        // Create a unique query parameter each load to bypass caches
+        const bust = Date.now();
+        const url = `${PUZZLES_URL}${PUZZLES_URL.includes('?') ? '&' : '?'}v=${bust}`;
+    
+        // Request fresh copy every time
+        const res = await fetch(url, { cache: 'no-store' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         const puzzles = (data && data.puzzles) ? data.puzzles : [];
@@ -484,4 +489,5 @@
   </script>
 </body>
 </html>
+
 
