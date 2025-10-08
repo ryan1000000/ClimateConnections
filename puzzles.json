@@ -25,7 +25,7 @@
     {
       "id": "Rachel-test1",
       "title": "Rachel's first CCCS puzzle",
-      "releaseDate": "2025-10-8",
+      "releaseDate": "2025-10-08",
       "categories": [
         { "key": "a", "name": "WORDS THAT GO WITH 'CELL'", "words": ["GRID", "WALL", "PHONE", "SICKLE"] },
         { "key": "b", "name": "TYPE OF WAVES", "words": ["SOUND", "TSUNAMI", "HEAT", "TIDAL"] },
@@ -36,6 +36,7 @@
     }
   ]
 }
+
 
 
 
