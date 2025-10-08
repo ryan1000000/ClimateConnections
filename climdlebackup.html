@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js?v=1.1.9" defer></script>
+  <title>CLIMdle 12</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+  <h1 class="header">CLIMdle<sup>[12]</sup></h1>
+
+  <div class="stats-link-container">
+    <a href="#" id="seeStats">See daily stats</a>
+  </div>
+
+  <!-- Overlay for displaying stats -->
+  <div id="statsOverlay" class="overlay">
+    <div class="overlay-content">
+      <span class="close">&times;</span>
+      <h2>Daily CLIMdle Leaderboard</h2>
+      <div class="header-row">
+        <h3>Player Name: # of Guesses</h3>
+      </div>
+      <p class="loading-message">Loading...</p>
+      <ul id="dailyStats"></ul>
+    </div>
+  </div>
+
+  <div class="alert-container" data-alert-container></div>
+  <div data-guess-grid class="guess-grid"></div>
+
+  <div data-keyboard class="keyboard">
+    <button class="key disable-dbl-tap-zoom" data-key="Q">Q</button>
+    <button class="key disable-dbl-tap-zoom" data-key="W">W</button>
+    <button class="key disable-dbl-tap-zoom" data-key="E">E</button>
+    <button class="key disable-dbl-tap-zoom" data-key="R">R</button>
+    <button class="key disable-dbl-tap-zoom" data-key="T">T</button>
+    <button class="key disable-dbl-tap-zoom" data-key="Y">Y</button>
+    <button class="key disable-dbl-tap-zoom" data-key="U">U</button>
+    <button class="key disable-dbl-tap-zoom" data-key="I">I</button>
+    <button class="key disable-dbl-tap-zoom" data-key="O">O</button>
+    <button class="key disable-dbl-tap-zoom" data-key="P">P</button>
+    <div class="space"></div>
+    <button class="key disable-dbl-tap-zoom" data-key="A">A</button>
+    <button class="key disable-dbl-tap-zoom" data-key="S">S</button>
+    <button class="key disable-dbl-tap-zoom" data-key="D">D</button>
+    <button class="key disable-dbl-tap-zoom" data-key="F">F</button>
+    <button class="key disable-dbl-tap-zoom" data-key="G">G</button>
+    <button class="key disable-dbl-tap-zoom" data-key="H">H</button>
+    <button class="key disable-dbl-tap-zoom" data-key="J">J</button>
+    <button class="key disable-dbl-tap-zoom" data-key="K">K</button>
+    <button class="key disable-dbl-tap-zoom" data-key="L">L</button>
+    <div class="space"></div>
+    <button data-enter class="key large disable-dbl-tap-zoom">Enter</button>
+    <button class="key disable-dbl-tap-zoom" data-key="Z">Z</button>
+    <button class="key disable-dbl-tap-zoom" data-key="X">X</button>
+    <button class="key disable-dbl-tap-zoom" data-key="C">C</button>
+    <button class="key disable-dbl-tap-zoom" data-key="V">V</button>
+    <button class="key disable-dbl-tap-zoom" data-key="B">B</button>
+    <button class="key disable-dbl-tap-zoom" data-key="N">N</button>
+    <button class="key disable-dbl-tap-zoom" data-key="M">M</button>
+    <button data-delete class="key large disable-dbl-tap-zoom">Del</button>
+  </div>
+
+  <div id="scoreModal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close" class="close">&times;</span>
+      <p>&nbsp;</p>
+      <p>Thanks for playing!</p>
+      <p>Do you want to share your score with CCCS?</p>
+      <p>&nbsp;</p>
+      <p>Enter your player name:</p>
+      <input type="text" id="playerNameInput" placeholder="Name">
+      <p>&nbsp;</p>
+      <button id="submitScoreBtn">Submit</button>
+      <p>&nbsp;</p>
+    </div>
+  </div>
+</body>
+</html>
