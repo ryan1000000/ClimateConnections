@@ -1,8 +1,8 @@
 {
   "puzzles": [
     {
-      "id": "001",
-      "title": "Ryan-01",
+      "id": "demo-001",
+      "title": "Ryan-test1",
       "releaseDate": "2025-10-08",
       "categories": [
         { "key": "a", "name": "FIRE WEATHER", "words": ["HOT", "LOW HUMIDITY", "WINDY", "NO RAIN"] },
@@ -12,7 +12,7 @@
       ]
     },
     {
-      "id": "002",
+      "id": "demo-001",
       "title": "Ryan-02",
       "releaseDate": "2025-10-09",
       "categories": [
@@ -24,6 +24,7 @@
     }
   ]
 }
+
 
 
 
