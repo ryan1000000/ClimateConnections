@@ -3,30 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Climate Connections – 4×4</title>
+  <title>CCCS Climate Connections</title>
   <style>
     :root {
-      --bg: #0f172a;            /* slate-900 */
-      --panel: #111827;         /* gray-900 */
-      --muted: #94a3b8;         /* slate-400 */
-      --text: #e5e7eb;          /* gray-200 */
-      --accent: #38bdf8;        /* sky-400 */
-      --tile: #1f2937;          /* gray-800 */
-      --tile-hover: #374151;    /* gray-700 */
-      --selected: #2563eb;      /* blue-600 */
+      --bg: #0f172a;
+      --panel: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --tile: #1f2937;
+      --tile-hover: #374151;
+      --selected: #2563eb;
       --selected-text: #fff;
-
-      /* Category colors (customizable) */
-      --cat-a: #f59e0b; /* amber */
-      --cat-b: #22c55e; /* green */
-      --cat-c: #a78bfa; /* violet */
-      --cat-d: #38bdf8; /* sky */
-
-      /* Status colors */
-      --danger: #ef4444; /* red-500 */
-      --success: #22c55e; /* green-500 */
+      --cat-a: #f59e0b;
+      --cat-b: #22c55e;
+      --cat-c: #a78bfa;
+      --cat-d: #38bdf8;
+      --danger: #ef4444;
+      --success: #22c55e;
     }
-
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
@@ -38,9 +33,7 @@
       place-items: center;
       padding: 24px;
     }
-
     .app { width: min(980px, 95vw); display: grid; gap: 20px; }
-
     header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .title-wrap { display: grid; gap: 6px; }
     h1 { font-size: 20px; letter-spacing: 0.4px; margin: 0; color: #f3f4f6; }
@@ -74,8 +67,6 @@
     .group-title { font-weight: 700; letter-spacing: .3px; }
     .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); padding: 6px 10px; border-radius: 999px; font-size: 13px; }
-
-    /* Color accents for category reveals */
     .cat-a { outline: 2px solid color-mix(in oklab, var(--cat-a) 60%, transparent); background: color-mix(in oklab, var(--cat-a) 12%, #0b1221); }
     .cat-b { outline: 2px solid color-mix(in oklab, var(--cat-b) 60%, transparent); background: color-mix(in oklab, var(--cat-b) 12%, #0b1221); }
     .cat-c { outline: 2px solid color-mix(in oklab, var(--cat-c) 60%, transparent); background: color-mix(in oklab, var(--cat-c) 12%, #0b1221); }
@@ -90,7 +81,6 @@
 
     .footer-note { font-size: 12px; color: #9aa7ba; }
 
-    /* Overlay for end states */
     .overlay { position:absolute; inset:0; display:none; place-items:center; background: rgba(2,6,23,0.8); backdrop-filter: blur(2px); border-radius: 16px; }
     .overlay.show { display:grid; }
     .overlay-card { background:#0b1221; border:1px solid #2b3442; border-radius:16px; padding:24px; width:min(520px, 92%); display:grid; gap:14px; text-align:center; }
@@ -98,7 +88,7 @@
     .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
     input[type="text"] { background:#0e162a; color:var(--text); border:1px solid #2b3442; border-radius:10px; padding:10px 12px; min-width:200px; }
 
-      .table { width:100%; border-collapse: collapse; }
+    .table { width:100%; border-collapse: collapse; }
     .table th, .table td { border-bottom: 1px solid #283141; padding: 8px 10px; text-align: left; font-size: 14px; }
     .table th { color:#cbd5e1; font-weight:700; }
     .table tr:hover td { background:#0e1624; }
@@ -109,7 +99,8 @@
     <header>
       <div class="title-wrap">
         <h1>Climate Connections</h1>
-        <div class="subtle">Four categories with four terms each. Find them all without making any mistakes!</div>
+        <!-- Subtitle now shows the puzzle title (e.g., Demo-001) -->
+        <div id="subtitle" class="subtle">Four categories with four terms each. Find them all without making any mistakes!</div>
       </div>
       <div class="scorebar" aria-live="polite">
         <span class="badge" id="scoreBadge">Score: 4</span>
@@ -178,14 +169,19 @@
   <script>
     // ====== CONFIG ======
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxWY1rKdc3c2hnzBKq34bfp6556NeCzM_5_QvWmudPBciqAmKE1zMbmEhmVJbxb7AS1/exec";
-    const PUZZLE_ID = "demo-001";
+    const PUZZLES_URL = "./puzzles.json";  // << separate JSON file
 
-    const categoriesTemplate = [
-      { key: 'a', name: 'FIRE WEATHER',   words: ['HOT', 'LOW HUMIDITY', 'WINDY', 'NO RAIN'] },
-      { key: 'b', name: 'HISTORICAL DATASETS',    words: ['AHCCD', 'STATION OBS', 'ANNUSPLIN', 'NORMALS'] },
-      { key: 'c', name: 'SECTOR MODULES',    words: ['AGRICULTURE', 'HEALTH', 'BUILDINGS', 'TRANSPORTATION'] },
-      { key: 'd', name: 'LEARNING ZONE DEEP-DIVES', words: ['MARINE', 'SEASONAL TO DECADAL', 'IDF', 'NORTH'] },
-    ];
+    // ====== STATE ======
+    let currentPuzzle = {
+      id: "demo-001",
+      title: "Demo-001",
+      categories: [
+        { key: 'a', name: 'FIRE WEATHER', words: ['HOT', 'LOW HUMIDITY', 'WINDY', 'NO RAIN'] },
+        { key: 'b', name: 'HISTORICAL DATASETS', words: ['AHCCD', 'STATION OBS', 'ANNUSPLIN', 'NORMALS'] },
+        { key: 'c', name: 'SECTOR MODULES', words: ['AGRICULTURE', 'HEALTH', 'BUILDINGS', 'TRANSPORTATION'] },
+        { key: 'd', name: 'LEARNING ZONE DEEP-DIVES', words: ['MARINE', 'SEASONAL TO DECADAL', 'IDF', 'NORTH'] },
+      ],
+    }; // Fallback used only if puzzles.json fails to load.
 
     let categories = [];
     let remainingWordToCategory = new Map();
@@ -195,6 +191,8 @@
     let score = 4;
     let ended = false;
 
+    // ====== DOM ======
+    const subtitleEl = document.getElementById('subtitle');
     const gridEl = document.getElementById('grid');
     const solvedEl = document.getElementById('solved');
     const statusEl = document.getElementById('status');
@@ -204,7 +202,6 @@
     const resetBtn = document.getElementById('resetBtn');
     const scoreBadge = document.getElementById('scoreBadge');
     const mistakesBadge = document.getElementById('mistakesBadge');
-
     const overlay = document.getElementById('overlay');
     const overlayTitle = document.getElementById('overlayTitle');
     const overlayDetails = document.getElementById('overlayDetails');
@@ -212,12 +209,12 @@
     const playAgainBtn = document.getElementById('playAgainBtn');
     const playerNameInput = document.getElementById('playerName');
     const submitMsg = document.getElementById('submitMsg');
-
     const scoresOverlay = document.getElementById('scoresOverlay');
     const scoresTableBody = document.querySelector('#scoresTable tbody');
     const closeScoresBtn = document.getElementById('closeScoresBtn');
     const viewScoresBtn = document.getElementById('viewScoresBtn');
 
+    // ====== UTIL ======
     function setButtonLoading(btn, isLoading, label) {
       if (isLoading) {
         btn.dataset.originalText = btn.textContent;
@@ -228,7 +225,6 @@
         btn.disabled = false;
       }
     }
-
     function shuffle(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -236,25 +232,73 @@
       }
       return arr;
     }
-
     function nowISO() { return new Date().toISOString(); }
+    function todayLocalISO() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
 
+    // ====== PUZZLE LOADING ======
+    async function pickPuzzleFromJSON() {
+      try {
+        const res = await fetch(PUZZLES_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const puzzles = (data && data.puzzles) ? data.puzzles : [];
+
+        if (!puzzles.length) throw new Error('No puzzles found');
+
+        const today = todayLocalISO();
+        // All puzzles with releaseDate <= today, pick the most recent
+        const eligible = puzzles
+          .filter(p => typeof p.releaseDate === 'string' && p.releaseDate <= today)
+          .sort((a, b) => (a.releaseDate < b.releaseDate ? 1 : -1));
+
+        const chosen = eligible.length ? eligible[0] :
+          puzzles.slice().sort((a, b) => (a.releaseDate < b.releaseDate ? -1 : 1))[0];
+
+        // Ensure required fields exist; fall back gracefully if not
+        currentPuzzle = {
+          id: chosen.id || 'unknown',
+          title: chosen.title || chosen.id || 'Untitled',
+          categories: (chosen.categories || []).map((c, i) => ({
+            key: c.key || ['a','b','c','d'][i] || `k${i}`,
+            name: c.name,
+            words: c.words
+          }))
+        };
+      } catch (e) {
+        console.warn('Failed to load puzzles.json, using fallback puzzle.', e);
+        // currentPuzzle already defined as fallback above
+      }
+    }
+
+    // ====== GAME LOGIC ======
     function init() {
-      categories = JSON.parse(JSON.stringify(categoriesTemplate));
+      categories = JSON.parse(JSON.stringify(currentPuzzle.categories || []));
       solvedKeys = new Set();
       selected.clear();
       statusEl.textContent = '';
       mistakes = 0; score = 4; ended = false;
       updateScoreUI();
+
       try { playerNameInput.value = localStorage.getItem('connections_player_name') || ''; } catch(_) {}
+
       remainingWordToCategory = new Map();
       categories.forEach(cat => cat.words.forEach(w => remainingWordToCategory.set(w, cat.key)));
+
       const words = categories.flatMap(c => c.words);
       renderGrid(shuffle(words.slice()));
       solvedEl.innerHTML = '';
       overlay.classList.remove('show');
       scoresOverlay.classList.remove('show');
       updateControls();
+
+      // Update subtitle to include the puzzle title (e.g., Demo-001)
+      subtitleEl.textContent = `Today's Puzzle: ${currentPuzzle.title}`;
     }
 
     function renderGrid(words) {
@@ -268,9 +312,7 @@
         gridEl.appendChild(btn);
       });
     }
-
     function getTileButtons() { return Array.from(gridEl.querySelectorAll('.tile')); }
-
     function toggleSelect(word, el) {
       if (ended || el.classList.contains('solved')) return;
       if (selected.has(word)) { selected.delete(word); el.classList.remove('selected'); }
@@ -280,14 +322,11 @@
       }
       updateControls();
     }
-
     function updateControls() { submitBtn.disabled = (selected.size !== 4) || ended; }
-
     function flashStatus(msg, ms = 1800) {
       statusEl.textContent = msg;
       if (ms) { clearTimeout(flashStatus._t); flashStatus._t = setTimeout(() => { statusEl.textContent = ''; }, ms); }
     }
-
     function currentSelection() { return Array.from(selected); }
 
     function checkSelection() {
@@ -361,13 +400,21 @@
     resetBtn.addEventListener('click', () => { init(); flashStatus('Game reset.'); });
     playAgainBtn.addEventListener('click', () => { overlay.classList.remove('show'); });
 
+    // ====== SCORE SUBMIT / VIEW (now uses currentPuzzle.id) ======
     submitScoreBtn.addEventListener('click', async () => {
       submitMsg.textContent = '';
       const name = (playerNameInput.value || '').trim();
       if (!GAS_URL) { submitMsg.textContent = 'No submission endpoint configured.'; return; }
       if (!name) { submitMsg.textContent = 'Please enter your name.'; return; }
       try { localStorage.setItem('connections_player_name', name); } catch(_) {}
-      const params = new URLSearchParams({ name, score: String(score), mistakes: String(mistakes), puzzleId: PUZZLE_ID, timestamp: nowISO(), ua: navigator.userAgent });
+      const params = new URLSearchParams({
+        name,
+        score: String(score),
+        mistakes: String(mistakes),
+        puzzleId: currentPuzzle.id || 'unknown',
+        timestamp: nowISO(),
+        ua: navigator.userAgent
+      });
       setButtonLoading(submitScoreBtn, true, 'Submitting…');
       try {
         await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: params });
@@ -388,31 +435,52 @@
       const cbName = 'jsonp_cb_' + Math.random().toString(36).slice(2);
       const script = document.createElement('script');
       window[cbName] = function(payload){
-        try { renderScores(payload && payload.rows ? payload.rows : []); } finally {
+        try {
+          const rows = (payload && payload.rows) ? payload.rows : [];
+          renderScores(rows);
+        } finally {
           delete window[cbName];
           if (script && script.parentNode) script.parentNode.removeChild(script);
           setButtonLoading(viewScoresBtn, false);
         }
       };
-      const url = GAS_URL + (GAS_URL.includes('?') ? '&' : '?') + 'action=read&limit=' + encodeURIComponent(limit) + '&puzzleId=' + encodeURIComponent(PUZZLE_ID) + '&callback=' + encodeURIComponent(cbName);
+      const url = GAS_URL
+        + (GAS_URL.includes('?') ? '&' : '?')
+        + 'action=read'
+        + '&limit=' + encodeURIComponent(limit)
+        + '&puzzleId=' + encodeURIComponent(currentPuzzle.id || 'unknown')
+        + '&callback=' + encodeURIComponent(cbName);
       script.src = url; document.body.appendChild(script);
     }
 
+    // Sort newest first before rendering
     function renderScores(rows) {
       scoresTableBody.innerHTML = '';
-      rows.forEach(r => {
-        const tr = document.createElement('tr');
-        const t = new Date(r.timestamp);
-        const timeStr = isNaN(t.getTime()) ? r.timestamp : t.toLocaleString();
-        tr.innerHTML = `<td>${timeStr}</td><td>${r.name}</td><td>${r.score}</td><td>${r.mistakes}</td><td>${r.puzzleId}</td>`;
-        scoresTableBody.appendChild(tr);
-      });
+      rows
+        .slice()
+        .sort((a, b) => {
+          const ta = new Date(a.timestamp).getTime();
+          const tb = new Date(b.timestamp).getTime();
+          if (isNaN(ta) && isNaN(tb)) return 0;
+          if (isNaN(ta)) return 1;
+          if (isNaN(tb)) return -1;
+          return tb - ta; // newest first
+        })
+        .forEach(r => {
+          const tr = document.createElement('tr');
+          const t = new Date(r.timestamp);
+          const timeStr = isNaN(t.getTime()) ? (r.timestamp || '') : t.toLocaleString();
+          tr.innerHTML = `<td>${timeStr}</td><td>${r.name}</td><td>${r.score}</td><td>${r.mistakes}</td><td>${r.puzzleId}</td>`;
+          scoresTableBody.appendChild(tr);
+        });
       scoresOverlay.classList.add('show');
     }
 
-    init();
+    // ====== BOOT ======
+    (async function boot(){
+      await pickPuzzleFromJSON();
+      init();
+    })();
   </script>
-
-
 </body>
 </html>
