@@ -3,7 +3,7 @@
     {
       "id": "Ryan-test1",
       "title": "Ryan-test1",
-      "releaseDate": "2025-10-07",
+      "releaseDate": "2025-10-06",
       "categories": [
         { "key": "a", "name": "FIRE WEATHER", "words": ["HOT", "LOW HUMIDITY", "WINDY", "NO RAIN"] },
         { "key": "b", "name": "HISTORICAL DATASETS", "words": ["AHCCD", "STATION OBS", "ANNUSPLIN", "NORMALS"] },
@@ -14,14 +14,31 @@
     {
       "id": "Ryan-tricky",
       "title": "Ryan's Super Hard Math Puzzle!",
-      "releaseDate": "2025-10-08",
+      "releaseDate": "2025-10-07",
       "categories": [
         { "key": "a", "name": "SOME PRIME NUMBERS", "words": ["13", "2", "107", "47"] },
         { "key": "b", "name": "SSP EMISSIONS SCENARIOS", "words": ["2.6", "4.5", "7", "8.5"] },
         { "key": "c", "name": "SOME SQUARE NUMBERS", "words": ["9", "16", "25", "64"] },
         { "key": "d", "name": "FIRST FOUR TRIANGLE NUMBERS", "words": ["1", "3", "6", "10"] }
       ]
+    },
+    {
+      "id": "Rachel-test1",
+      "title": "Rachel's first CCCS puzzle",
+      "releaseDate": "2025-10-8",
+      "categories": [
+        { "key": "a", "name": "WORDS THAT GO WITH 'CELL'", "words": ["GRID", "WALL", "PHONE", "SICKLE"] },
+        { "key": "b", "name": "TYPE OF WAVES", "words": ["SOUND", "TSUNAMI", "HEAT", "TIDAL"] },
+        { "key": "c", "name": "HAZARDS", "words": ["FREEZING RAIN", "SEVERE HAIL", "EARTHQUAKE", "ATMOSPHERIC RIVER"] },
+        { "key": "d", "name": "VARIABLES MINUS 'DAYS'", "words": ["ICE", "COLD SPELL", "WET", "FROST"] }
+      ]
+
     }
   ]
 }
+
+
+
+
+
 
