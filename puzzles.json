@@ -1,0 +1,26 @@
+{
+  "puzzles": [
+    {
+      "id": "demo-001",
+      "title": "Ryan-01",
+      "releaseDate": "2025-10-08",
+      "categories": [
+        { "key": "a", "name": "FIRE WEATHER", "words": ["HOT", "LOW HUMIDITY", "WINDY", "NO RAIN"] },
+        { "key": "b", "name": "HISTORICAL DATASETS", "words": ["AHCCD", "STATION OBS", "ANNUSPLIN", "NORMALS"] },
+        { "key": "c", "name": "SECTOR MODULES", "words": ["AGRICULTURE", "HEALTH", "BUILDINGS", "TRANSPORTATION"] },
+        { "key": "d", "name": "LEARNING ZONE DEEP-DIVES", "words": ["MARINE", "SEASONAL TO DECADAL", "IDF", "NORTH"] }
+      ]
+    },
+    {
+      "id": "demo-002",
+      "title": "Ryan-02",
+      "releaseDate": "2025-10-09",
+      "categories": [
+        { "key": "a", "name": "PRAIRIE HAZARDS", "words": ["DROUGHT", "HAIL", "HEAT WAVE", "GRASSFIRE"] },
+        { "key": "b", "name": "CLIMATE SCENARIOS", "words": ["SSP1-2.6", "SSP2-4.5", "SSP3-7.0", "SSP5-8.5"] },
+        { "key": "c", "name": "PRECIP EXTREMES", "words": ["IDF", "SHORT-DURATION", "RETURN PERIOD", "ATLAS"] },
+        { "key": "d", "name": "SEASONAL MARKERS", "words": ["FIRST FROST", "LAST FROST", "GROWING SEASON", "CHILL HOURS"] }
+      ]
+    }
+  ]
+}
