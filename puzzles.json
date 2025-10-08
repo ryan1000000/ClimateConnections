@@ -1,7 +1,7 @@
 {
   "puzzles": [
     {
-      "id": "Ryan-01",
+      "id": "demo-001",
       "title": "Ryan-01",
       "releaseDate": "2025-10-08",
       "categories": [
@@ -12,7 +12,7 @@
       ]
     },
     {
-      "id": "Ryan-02",
+      "id": "demo-002",
       "title": "Ryan-02",
       "releaseDate": "2025-10-09",
       "categories": [
@@ -24,5 +24,6 @@
     }
   ]
 }
+
 
 
