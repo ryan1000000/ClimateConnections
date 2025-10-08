@@ -1,82 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js?v=1.1.9" defer></script>
-  <title>CLIMdle 12</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climate Connections – 4×4</title>
+  <style>
+    :root {
+      --bg: #0f172a;            /* slate-900 */
+      --panel: #111827;         /* gray-900 */
+      --muted: #94a3b8;         /* slate-400 */
+      --text: #e5e7eb;          /* gray-200 */
+      --accent: #38bdf8;        /* sky-400 */
+      --tile: #1f2937;          /* gray-800 */
+      --tile-hover: #374151;    /* gray-700 */
+      --selected: #2563eb;      /* blue-600 */
+      --selected-text: #fff;
+
+      /* Category colors (customizable) */
+      --cat-a: #f59e0b; /* amber */
+      --cat-b: #22c55e; /* green */
+      --cat-c: #a78bfa; /* violet */
+      --cat-d: #38bdf8; /* sky */
+
+      /* Status colors */
+      --danger: #ef4444; /* red-500 */
+      --success: #22c55e; /* green-500 */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 10% 0%, #0b1229, var(--bg));
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .app { width: min(980px, 95vw); display: grid; gap: 20px; }
+
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .title-wrap { display: grid; gap: 6px; }
+    h1 { font-size: 20px; letter-spacing: 0.4px; margin: 0; color: #f3f4f6; }
+    .subtle { color: var(--muted); font-size: 14px; }
+
+    .scorebar { display:flex; gap:14px; align-items:center; font-weight:600; }
+    .badge { padding: 6px 10px; border:1px solid #2b3442; border-radius: 999px; background:#111827; font-size:13px; }
+    .badge.danger { border-color: color-mix(in oklab, var(--danger) 50%, #2b3442); }
+    .badge.success { border-color: color-mix(in oklab, var(--success) 50%, #2b3442); }
+
+    .board { background: color-mix(in oklab, var(--panel) 92%, black); border: 1px solid #1f2937; border-radius: 16px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.02); display: grid; gap: 16px; position:relative; }
+
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+    .tile { user-select: none; background: var(--tile); border: 1px solid #2b3442; border-radius: 12px; padding: 16px 12px; text-align: center; font-weight: 650; letter-spacing: 0.3px; min-height: 62px; display: grid; place-items: center; cursor: pointer; transition: transform .08s ease, background .18s ease, border-color .18s ease, color .18s ease, opacity .2s ease; }
+    .tile:hover { background: var(--tile-hover); border-color: #3a4556; transform: translateY(-1px); }
+    .tile.selected { background: var(--selected); color: var(--selected-text); border-color: #1e40af; }
+    .tile.solved { cursor: default; opacity: 0; pointer-events: none; }
+
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items:center; }
+    button { background: #0ea5e9; color: white; border: 0; padding: 10px 14px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: filter .15s ease, transform .05s ease; }
+    button.secondary { background: #374151; color: #e5e7eb; }
+    button.ghost { background: transparent; border: 1px solid #374151; color: #cbd5e1; }
+    button:disabled { filter: grayscale(0.8) brightness(0.85); cursor: not-allowed; }
+    button:active { transform: translateY(1px); }
+
+    .status { min-height: 24px; font-size: 14px; color: var(--muted); }
+
+    .solved { display: grid; gap: 10px; }
+    .group-reveal { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 12px 14px; border-radius: 12px; background: #111827; border: 1px solid #283141; }
+    .group-title { font-weight: 700; letter-spacing: .3px; }
+    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); padding: 6px 10px; border-radius: 999px; font-size: 13px; }
+
+    /* Color accents for category reveals */
+    .cat-a { outline: 2px solid color-mix(in oklab, var(--cat-a) 60%, transparent); background: color-mix(in oklab, var(--cat-a) 12%, #0b1221); }
+    .cat-b { outline: 2px solid color-mix(in oklab, var(--cat-b) 60%, transparent); background: color-mix(in oklab, var(--cat-b) 12%, #0b1221); }
+    .cat-c { outline: 2px solid color-mix(in oklab, var(--cat-c) 60%, transparent); background: color-mix(in oklab, var(--cat-c) 12%, #0b1221); }
+    .cat-d { outline: 2px solid color-mix(in oklab, var(--cat-d) 60%, transparent); background: color-mix(in oklab, var(--cat-d) 12%, #0b1221); }
+
+    .legend { display:flex; gap:8px; flex-wrap: wrap; align-items:center; }
+    .swatch { width: 14px; height: 14px; border-radius: 3px; display:inline-block; margin-right:6px; vertical-align: -2px; }
+    .swatch.a{ background: var(--cat-a); }
+    .swatch.b{ background: var(--cat-b); }
+    .swatch.c{ background: var(--cat-c); }
+    .swatch.d{ background: var(--cat-d); }
+
+    .footer-note { font-size: 12px; color: #9aa7ba; }
+
+    /* Overlay for end states */
+    .overlay { position:absolute; inset:0; display:none; place-items:center; background: rgba(2,6,23,0.8); backdrop-filter: blur(2px); border-radius: 16px; }
+    .overlay.show { display:grid; }
+    .overlay-card { background:#0b1221; border:1px solid #2b3442; border-radius:16px; padding:24px; width:min(520px, 92%); display:grid; gap:14px; text-align:center; }
+    .overlay h2 { margin:0; font-size:22px; }
+    .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    input[type="text"] { background:#0e162a; color:var(--text); border:1px solid #2b3442; border-radius:10px; padding:10px 12px; min-width:200px; }
+
+      .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { border-bottom: 1px solid #283141; padding: 8px 10px; text-align: left; font-size: 14px; }
+    .table th { color:#cbd5e1; font-weight:700; }
+    .table tr:hover td { background:#0e1624; }
+  </style>
 </head>
 <body>
-  <h1 class="header">CLIMdle<sup>[12]</sup></h1>
-
-  <div class="stats-link-container">
-    <a href="#" id="seeStats">See daily stats</a>
-  </div>
-
-  <!-- Overlay for displaying stats -->
-  <div id="statsOverlay" class="overlay">
-    <div class="overlay-content">
-      <span class="close">&times;</span>
-      <h2>Daily CLIMdle Leaderboard</h2>
-      <div class="header-row">
-        <h3>Player Name: # of Guesses</h3>
+  <main class="app" aria-live="polite">
+    <header>
+      <div class="title-wrap">
+        <h1>Climate Connections</h1>
+        <div class="subtle">Four categories with four terms each. Find them all without making any mistakes!</div>
       </div>
-      <p class="loading-message">Loading...</p>
-      <ul id="dailyStats"></ul>
-    </div>
-  </div>
+      <div class="scorebar" aria-live="polite">
+        <span class="badge" id="scoreBadge">Score: 4</span>
+        <span class="badge danger" id="mistakesBadge">Mistakes: 0 / 4</span>
+        <button id="viewScoresBtn" class="ghost" style="margin-left:6px;">View Scores</button>
+      </div>
+    </header>
 
-  <div class="alert-container" data-alert-container></div>
-  <div data-guess-grid class="guess-grid"></div>
+    <section class="board" aria-label="Game board">
+      <div id="solved" class="solved" aria-live="polite"></div>
+      <div id="grid" class="grid" role="group" aria-label="Word grid"></div>
 
-  <div data-keyboard class="keyboard">
-    <button class="key disable-dbl-tap-zoom" data-key="Q">Q</button>
-    <button class="key disable-dbl-tap-zoom" data-key="W">W</button>
-    <button class="key disable-dbl-tap-zoom" data-key="E">E</button>
-    <button class="key disable-dbl-tap-zoom" data-key="R">R</button>
-    <button class="key disable-dbl-tap-zoom" data-key="T">T</button>
-    <button class="key disable-dbl-tap-zoom" data-key="Y">Y</button>
-    <button class="key disable-dbl-tap-zoom" data-key="U">U</button>
-    <button class="key disable-dbl-tap-zoom" data-key="I">I</button>
-    <button class="key disable-dbl-tap-zoom" data-key="O">O</button>
-    <button class="key disable-dbl-tap-zoom" data-key="P">P</button>
-    <div class="space"></div>
-    <button class="key disable-dbl-tap-zoom" data-key="A">A</button>
-    <button class="key disable-dbl-tap-zoom" data-key="S">S</button>
-    <button class="key disable-dbl-tap-zoom" data-key="D">D</button>
-    <button class="key disable-dbl-tap-zoom" data-key="F">F</button>
-    <button class="key disable-dbl-tap-zoom" data-key="G">G</button>
-    <button class="key disable-dbl-tap-zoom" data-key="H">H</button>
-    <button class="key disable-dbl-tap-zoom" data-key="J">J</button>
-    <button class="key disable-dbl-tap-zoom" data-key="K">K</button>
-    <button class="key disable-dbl-tap-zoom" data-key="L">L</button>
-    <div class="space"></div>
-    <button data-enter class="key large disable-dbl-tap-zoom">Enter</button>
-    <button class="key disable-dbl-tap-zoom" data-key="Z">Z</button>
-    <button class="key disable-dbl-tap-zoom" data-key="X">X</button>
-    <button class="key disable-dbl-tap-zoom" data-key="C">C</button>
-    <button class="key disable-dbl-tap-zoom" data-key="V">V</button>
-    <button class="key disable-dbl-tap-zoom" data-key="B">B</button>
-    <button class="key disable-dbl-tap-zoom" data-key="N">N</button>
-    <button class="key disable-dbl-tap-zoom" data-key="M">M</button>
-    <button data-delete class="key large disable-dbl-tap-zoom">Del</button>
-  </div>
+      <div class="controls">
+        <button id="submitBtn" aria-label="Submit selection (4 words)" disabled>Submit</button>
+        <button id="deselectBtn" class="secondary" aria-label="Clear selection">Deselect</button>
+        <button id="shuffleBtn" class="ghost" aria-label="Shuffle remaining tiles">Shuffle</button>
+        <button id="resetBtn" class="ghost" aria-label="Restart game">Reset</button>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
 
-  <div id="scoreModal" class="modal">
-    <div class="modal-content">
-      <span id="modal-close" class="close">&times;</span>
-      <p>&nbsp;</p>
-      <p>Thanks for playing!</p>
-      <p>Do you want to share your score with CCCS?</p>
-      <p>&nbsp;</p>
-      <p>Enter your player name:</p>
-      <input type="text" id="playerNameInput" placeholder="Name">
-      <p>&nbsp;</p>
-      <button id="submitScoreBtn">Submit</button>
-      <p>&nbsp;</p>
-    </div>
-  </div>
+      <!-- End-state overlay -->
+      <div id="overlay" class="overlay" aria-modal="true" role="dialog">
+        <div class="overlay-card">
+          <h2 id="overlayTitle">Game Over</h2>
+          <div id="overlayDetails" class="subtle"></div>
+          <div class="row">
+            <input id="playerName" type="text" placeholder="Your name" aria-label="Your name" />
+            <button id="submitScoreBtn">Submit Score</button>
+          </div>
+          <div id="submitMsg" class="subtle"></div>
+          <div class="row">
+            <button id="playAgainBtn" class="secondary">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scores overlay -->
+      <div id="scoresOverlay" class="overlay" aria-modal="true" role="dialog">
+        <div class="overlay-card" style="text-align:left;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+            <h2 style="margin:0;">Recent Scores</h2>
+            <button id="closeScoresBtn" class="ghost">Close</button>
+          </div>
+          <div class="subtle">Showing the latest entries for this puzzle.</div>
+          <div style="max-height:45vh; overflow:auto; border:1px solid #283141; border-radius:12px;">
+            <table class="table" id="scoresTable">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Name</th>
+                  <th>Score</th>
+                  <th>Mistakes</th>
+                  <th>Puzzle</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    // ====== CONFIG ======
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxWY1rKdc3c2hnzBKq34bfp6556NeCzM_5_QvWmudPBciqAmKE1zMbmEhmVJbxb7AS1/exec";
+    const PUZZLE_ID = "demo-001";
+
+    const categoriesTemplate = [
+      { key: 'a', name: 'FIRE WEATHER',   words: ['HOT', 'LOW HUMIDITY', 'WINDY', 'NO RAIN'] },
+      { key: 'b', name: 'HISTORICAL DATASETS',    words: ['AHCCD', 'STATION OBS', 'ANNUSPLIN', 'NORMALS'] },
+      { key: 'c', name: 'SECTOR MODULES',    words: ['AGRICULTURE', 'HEALTH', 'BUILDINGS', 'TRANSPORTATION'] },
+      { key: 'd', name: 'LEARNING ZONE DEEP-DIVES', words: ['MARINE', 'SEASONAL TO DECADAL', 'IDF', 'NORTH'] },
+    ];
+
+    let categories = [];
+    let remainingWordToCategory = new Map();
+    let solvedKeys = new Set();
+    let selected = new Set();
+    let mistakes = 0;
+    let score = 4;
+    let ended = false;
+
+    const gridEl = document.getElementById('grid');
+    const solvedEl = document.getElementById('solved');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+    const deselectBtn = document.getElementById('deselectBtn');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const scoreBadge = document.getElementById('scoreBadge');
+    const mistakesBadge = document.getElementById('mistakesBadge');
+
+    const overlay = document.getElementById('overlay');
+    const overlayTitle = document.getElementById('overlayTitle');
+    const overlayDetails = document.getElementById('overlayDetails');
+    const submitScoreBtn = document.getElementById('submitScoreBtn');
+    const playAgainBtn = document.getElementById('playAgainBtn');
+    const playerNameInput = document.getElementById('playerName');
+    const submitMsg = document.getElementById('submitMsg');
+
+    const scoresOverlay = document.getElementById('scoresOverlay');
+    const scoresTableBody = document.querySelector('#scoresTable tbody');
+    const closeScoresBtn = document.getElementById('closeScoresBtn');
+    const viewScoresBtn = document.getElementById('viewScoresBtn');
+
+    function setButtonLoading(btn, isLoading, label) {
+      if (isLoading) {
+        btn.dataset.originalText = btn.textContent;
+        btn.textContent = label || 'Loading…';
+        btn.disabled = true;
+      } else {
+        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
+        btn.disabled = false;
+      }
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function nowISO() { return new Date().toISOString(); }
+
+    function init() {
+      categories = JSON.parse(JSON.stringify(categoriesTemplate));
+      solvedKeys = new Set();
+      selected.clear();
+      statusEl.textContent = '';
+      mistakes = 0; score = 4; ended = false;
+      updateScoreUI();
+      try { playerNameInput.value = localStorage.getItem('connections_player_name') || ''; } catch(_) {}
+      remainingWordToCategory = new Map();
+      categories.forEach(cat => cat.words.forEach(w => remainingWordToCategory.set(w, cat.key)));
+      const words = categories.flatMap(c => c.words);
+      renderGrid(shuffle(words.slice()));
+      solvedEl.innerHTML = '';
+      overlay.classList.remove('show');
+      scoresOverlay.classList.remove('show');
+      updateControls();
+    }
+
+    function renderGrid(words) {
+      gridEl.innerHTML = '';
+      words.forEach(word => {
+        const btn = document.createElement('button');
+        btn.className = 'tile';
+        btn.textContent = word;
+        btn.setAttribute('data-word', word);
+        btn.addEventListener('click', () => toggleSelect(word, btn));
+        gridEl.appendChild(btn);
+      });
+    }
+
+    function getTileButtons() { return Array.from(gridEl.querySelectorAll('.tile')); }
+
+    function toggleSelect(word, el) {
+      if (ended || el.classList.contains('solved')) return;
+      if (selected.has(word)) { selected.delete(word); el.classList.remove('selected'); }
+      else {
+        if (selected.size >= 4) { flashStatus('You can only select 4 words at a time.'); return; }
+        selected.add(word); el.classList.add('selected');
+      }
+      updateControls();
+    }
+
+    function updateControls() { submitBtn.disabled = (selected.size !== 4) || ended; }
+
+    function flashStatus(msg, ms = 1800) {
+      statusEl.textContent = msg;
+      if (ms) { clearTimeout(flashStatus._t); flashStatus._t = setTimeout(() => { statusEl.textContent = ''; }, ms); }
+    }
+
+    function currentSelection() { return Array.from(selected); }
+
+    function checkSelection() {
+      const picks = currentSelection();
+      if (picks.length !== 4 || ended) return;
+      const keys = new Set(picks.map(w => remainingWordToCategory.get(w)));
+      if (keys.size === 1) {
+        const key = keys.values().next().value;
+        const cat = categories.find(c => c.key === key);
+        const catSet = new Set(cat.words);
+        const exact = picks.every(w => catSet.has(w));
+        if (exact && !solvedKeys.has(key)) { applySolve(cat, picks); return true; }
+      }
+      mistakes = Math.min(4, mistakes + 1);
+      score = Math.max(0, 4 - mistakes);
+      updateScoreUI();
+      flashStatus(`Not a group. Try again. (${mistakes}/4 mistakes)`);
+      if (mistakes >= 4) endGame(false);
+      return false;
+    }
+
+    function updateScoreUI() {
+      scoreBadge.textContent = `Score: ${score}`;
+      mistakesBadge.textContent = `Mistakes: ${mistakes} / 4`;
+    }
+
+    function applySolve(cat, picks) {
+      solvedKeys.add(cat.key);
+      const tiles = getTileButtons();
+      picks.forEach(word => {
+        const t = tiles.find(btn => btn.getAttribute('data-word') === word);
+        if (t) { t.classList.add('solved'); setTimeout(() => t.remove(), 220); }
+        remainingWordToCategory.delete(word);
+      });
+      revealGroup(cat);
+      selected.clear();
+      tiles.forEach(btn => btn.classList.remove('selected'));
+      remainingWordToCategory = new Map();
+      categories.forEach(c => { if (!solvedKeys.has(c.key)) c.words.forEach(w => remainingWordToCategory.set(w, c.key)); });
+      if (solvedKeys.size === categories.length) { endGame(true); }
+      else { flashStatus(`Solved: ${cat.name}`); }
+      updateControls();
+    }
+
+    function revealGroup(cat) {
+      const group = document.createElement('div');
+      group.className = `group-reveal cat-${cat.key}`;
+      const title = document.createElement('div');
+      title.className = 'group-title';
+      title.textContent = cat.name;
+      const row = document.createElement('div');
+      row.className = 'chip-row';
+      cat.words.forEach(w => { const chip = document.createElement('span'); chip.className = 'chip'; chip.textContent = w; row.appendChild(chip); });
+      group.appendChild(title); group.appendChild(row); solvedEl.appendChild(group);
+    }
+
+    function endGame(win) {
+      ended = true;
+      updateControls();
+      overlayTitle.textContent = win ? 'Nice work!' : 'Game Over';
+      overlayDetails.textContent = win ? `Nice work. Final score: ${score}. Mistakes: ${mistakes}.` : `You reached 4 mistakes. Final score: ${score}.`;
+      overlay.classList.add('show');
+    }
+
+    submitBtn.addEventListener('click', () => { const ok = checkSelection(); if (!ok && !ended) {} });
+    deselectBtn.addEventListener('click', () => { selected.clear(); getTileButtons().forEach(btn => btn.classList.remove('selected')); updateControls(); });
+    shuffleBtn.addEventListener('click', () => {
+      const remaining = getTileButtons().map(btn => btn.getAttribute('data-word'));
+      renderGrid(shuffle(remaining)); selected.clear(); updateControls(); flashStatus('Shuffled.');
+    });
+    resetBtn.addEventListener('click', () => { init(); flashStatus('Game reset.'); });
+    playAgainBtn.addEventListener('click', () => { overlay.classList.remove('show'); });
+
+    submitScoreBtn.addEventListener('click', async () => {
+      submitMsg.textContent = '';
+      const name = (playerNameInput.value || '').trim();
+      if (!GAS_URL) { submitMsg.textContent = 'No submission endpoint configured.'; return; }
+      if (!name) { submitMsg.textContent = 'Please enter your name.'; return; }
+      try { localStorage.setItem('connections_player_name', name); } catch(_) {}
+      const params = new URLSearchParams({ name, score: String(score), mistakes: String(mistakes), puzzleId: PUZZLE_ID, timestamp: nowISO(), ua: navigator.userAgent });
+      setButtonLoading(submitScoreBtn, true, 'Submitting…');
+      try {
+        await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: params });
+        submitMsg.textContent = 'Submitted. Thanks for playing!';
+      } catch (err) {
+        submitMsg.textContent = `Submission failed: ${err.message}`;
+      } finally {
+        setButtonLoading(submitScoreBtn, false);
+      }
+    });
+
+    viewScoresBtn.addEventListener('click', () => { loadScores(50); });
+    closeScoresBtn.addEventListener('click', () => { scoresOverlay.classList.remove('show'); });
+
+    function loadScores(limit = 50) {
+      if (!GAS_URL) { flashStatus('No scores endpoint configured.'); return; }
+      setButtonLoading(viewScoresBtn, true, 'Loading…');
+      const cbName = 'jsonp_cb_' + Math.random().toString(36).slice(2);
+      const script = document.createElement('script');
+      window[cbName] = function(payload){
+        try { renderScores(payload && payload.rows ? payload.rows : []); } finally {
+          delete window[cbName];
+          if (script && script.parentNode) script.parentNode.removeChild(script);
+          setButtonLoading(viewScoresBtn, false);
+        }
+      };
+      const url = GAS_URL + (GAS_URL.includes('?') ? '&' : '?') + 'action=read&limit=' + encodeURIComponent(limit) + '&puzzleId=' + encodeURIComponent(PUZZLE_ID) + '&callback=' + encodeURIComponent(cbName);
+      script.src = url; document.body.appendChild(script);
+    }
+
+    function renderScores(rows) {
+      scoresTableBody.innerHTML = '';
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        const t = new Date(r.timestamp);
+        const timeStr = isNaN(t.getTime()) ? r.timestamp : t.toLocaleString();
+        tr.innerHTML = `<td>${timeStr}</td><td>${r.name}</td><td>${r.score}</td><td>${r.mistakes}</td><td>${r.puzzleId}</td>`;
+        scoresTableBody.appendChild(tr);
+      });
+      scoresOverlay.classList.add('show');
+    }
+
+    init();
+  </script>
+
+
 </body>
 </html>
