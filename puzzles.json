@@ -3,7 +3,7 @@
     {
       "id": "Ryan-test1",
       "title": "Ryan-test1",
-      "releaseDate": "2025-10-08",
+      "releaseDate": "2025-10-07",
       "categories": [
         { "key": "a", "name": "FIRE WEATHER", "words": ["HOT", "LOW HUMIDITY", "WINDY", "NO RAIN"] },
         { "key": "b", "name": "HISTORICAL DATASETS", "words": ["AHCCD", "STATION OBS", "ANNUSPLIN", "NORMALS"] },
@@ -14,7 +14,7 @@
     {
       "id": "Ryan-tricky",
       "title": "Ryan's Super Hard Math Puzzle!",
-      "releaseDate": "2025-10-09",
+      "releaseDate": "2025-10-08",
       "categories": [
         { "key": "a", "name": "SOME PRIME NUMBERS", "words": ["13", "2", "107", "47"] },
         { "key": "b", "name": "SSP EMISSIONS SCENARIOS", "words": ["2.6", "4.5", "7", "8.5"] },
@@ -24,3 +24,4 @@
     }
   ]
 }
+
