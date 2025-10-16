@@ -3,7 +3,7 @@
     {
       "id": "time-for-another-puzzle",
       "title": "Time for another puzzle",
-      "releaseDate": "2025-10-17",
+      "releaseDate": "2025-10-20",
       "categories": [
         { "key": "a", "name": "Earth words", "words": ["DAY", "PLANET", "QUAKE", "WORM"] },
         { "key": "b", "name": "To move forward", "words": ["APPROVE", "FURTHER", "SECOND", "ENDORSE"] },
@@ -14,7 +14,7 @@
     {
       "id": "how-well-do-you-know-your-variables",
       "title": "How well do you know your variables?",
-      "releaseDate": "2025-10-20",
+      "releaseDate": "2025-10-17",
       "categories": [
         { "key": "a", "name": "Words that go with “cell”", "words": ["GRID", "WALL", "PHONE", "SICKLE"] },
         { "key": "b", "name": "Types of waves", "words": ["HEAT", "TIDAL", "SOUND", "ROUGE"] },
@@ -211,3 +211,4 @@
     }
   ]
 }
+
