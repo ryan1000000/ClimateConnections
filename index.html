@@ -422,13 +422,29 @@
       });
       setButtonLoading(submitScoreBtn, true, 'Submitting…');
       try {
-        await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: params });
-        submitMsg.textContent = 'Submitted. Thanks for playing!';
-      } catch (err) {
-        submitMsg.textContent = `Submission failed: ${err.message}`;
-      } finally {
+      // Prevent double-clicks mid-flight
+      if (submitScoreBtn.dataset.submitted === "true") return;
+    
+      await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: params });
+    
+      // Treat as success (no-cors gives an opaque response but resolves if it reached the server)
+      submitMsg.textContent = 'Submitted. Thanks for playing!';
+      submitScoreBtn.dataset.submitted = "true";
+      submitScoreBtn.disabled = true;
+      submitScoreBtn.textContent = 'Score submitted';
+    } catch (err) {
+      // On failure, keep the button enabled so they can retry
+      submitMsg.textContent = `Submission failed: ${err.message}`;
+    } finally {
+      // Remove the loading state, but only re-enable if not submitted
+      if (submitScoreBtn.dataset.submitted !== "true") {
         setButtonLoading(submitScoreBtn, false);
+      } else {
+        // Clear any loading text if it was shown
+        submitScoreBtn.dataset.originalText = '';
       }
+    }
+
     });
 
     viewScoresBtn.addEventListener('click', () => { loadScores(50); });
@@ -489,5 +505,6 @@
   </script>
 </body>
 </html>
+
 
 
