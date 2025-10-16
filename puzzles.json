@@ -7,8 +7,8 @@
       "categories": [
         { "key": "a", "name": "Earth words", "words": ["DAY", "PLANET", "QUAKE", "WORM"] },
         { "key": "b", "name": "To move forward", "words": ["APPROVE", "FURTHER", "SECOND", "ENDORSE"] },
-        { "key": "c", "name": "Hand___", "words": ["HOUR", "CREAM", "SHAKE", "OVER"] },
-        { "key": "d", "name": "Man___", "words": ["MINUTE", "THE", "PAC", "SAND"] }
+        { "key": "c", "name": "Words that include Hand", "words": ["HOUR", "CREAM", "SHAKE", "OVER"] },
+        { "key": "d", "name": "Words that include Man", "words": ["MINUTE", "THE", "PAC", "SAND"] }
       ]
     },
     {
@@ -211,6 +211,7 @@
     }
   ]
 }
+
 
 
 
