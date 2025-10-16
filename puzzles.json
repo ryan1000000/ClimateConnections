@@ -17,7 +17,7 @@
       "releaseDate": "2025-10-17",
       "categories": [
         { "key": "a", "name": "Words that go with “cell”", "words": ["GRID", "WALL", "PHONE", "SICKLE"] },
-        { "key": "b", "name": "Types of waves", "words": ["HEAT", "TIDAL", "SOUND", "ROUGE"] },
+        { "key": "b", "name": "Types of waves", "words": ["HEAT", "TIDAL", "SOUND", "ROGUE"] },
         { "key": "c", "name": "Hazards", "words": ["FREEZING RAIN", "FLOODING RAIN", "TORNADO", "EARTHQUAKE"] },
         { "key": "d", "name": "CD.ca variables minus the word “days”", "words": ["ICE", "CONSECUTIVE DRY", "WET", "FROST"] }
       ]
@@ -211,6 +211,7 @@
     }
   ]
 }
+
 
 
 
