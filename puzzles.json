@@ -1,45 +1,213 @@
 {
   "puzzles": [
     {
-      "id": "Ryan-test1",
-      "title": "Ryan-test1",
-      "releaseDate": "2025-10-06",
+      "id": "time-for-another-puzzle",
+      "title": "Time for another puzzle",
+      "releaseDate": "2025-10-17",
       "categories": [
-        { "key": "a", "name": "FIRE WEATHER", "words": ["HOT", "LOW HUMIDITY", "WINDY", "NO RAIN"] },
-        { "key": "b", "name": "HISTORICAL DATASETS", "words": ["AHCCD", "STATION OBS", "ANNUSPLIN", "NORMALS"] },
-        { "key": "c", "name": "SECTOR MODULES", "words": ["AGRICULTURE", "HEALTH", "BUILDINGS", "TRANSPORTATION"] },
-        { "key": "d", "name": "LEARNING ZONE DEEP-DIVES", "words": ["MARINE", "SEASONAL TO DECADAL", "IDF", "NORTH"] }
+        { "key": "a", "name": "Earth words", "words": ["DAY", "PLANET", "QUAKE", "WORM"] },
+        { "key": "b", "name": "To move forward", "words": ["APPROVE", "FURTHER", "SECOND", "ENDORSE"] },
+        { "key": "c", "name": "Hand___", "words": ["HOUR", "CREAM", "SHAKE", "OVER"] },
+        { "key": "d", "name": "Man___", "words": ["MINUTE", "THE", "PAC", "SAND"] }
       ]
     },
     {
-      "id": "Ryan-tricky",
-      "title": "Ryan's Super Hard Math Puzzle!",
-      "releaseDate": "2025-10-07",
+      "id": "how-well-do-you-know-your-variables",
+      "title": "How well do you know your variables?",
+      "releaseDate": "2025-10-20",
       "categories": [
-        { "key": "a", "name": "SOME PRIME NUMBERS", "words": ["13", "2", "107", "47"] },
-        { "key": "b", "name": "SSP EMISSIONS SCENARIOS", "words": ["2.6", "4.5", "7", "8.5"] },
-        { "key": "c", "name": "SOME SQUARE NUMBERS", "words": ["9", "16", "25", "64"] },
-        { "key": "d", "name": "FIRST FOUR TRIANGLE NUMBERS", "words": ["1", "3", "6", "10"] }
+        { "key": "a", "name": "Words that go with “cell”", "words": ["GRID", "WALL", "PHONE", "SICKLE"] },
+        { "key": "b", "name": "Types of waves", "words": ["HEAT", "TIDAL", "SOUND", "ROUGE"] },
+        { "key": "c", "name": "Hazards", "words": ["FREEZING RAIN", "FLOODING RAIN", "TORNADO", "EARTHQUAKE"] },
+        { "key": "d", "name": "CD.ca variables minus the word “days”", "words": ["ICE", "CONSECUTIVE DRY", "WET", "FROST"] }
       ]
     },
     {
-      "id": "Rachel-test1",
-      "title": "Rachel's first CCCS puzzle",
-      "releaseDate": "2025-10-08",
+      "id": "live-laugh-love",
+      "title": "Live Laugh Love",
+      "releaseDate": "2025-10-21",
       "categories": [
-        { "key": "a", "name": "WORDS THAT GO WITH 'CELL'", "words": ["GRID", "WALL", "PHONE", "SICKLE"] },
-        { "key": "b", "name": "TYPE OF WAVES", "words": ["SOUND", "TSUNAMI", "HEAT", "TIDAL"] },
-        { "key": "c", "name": "HAZARDS", "words": ["FREEZING RAIN", "SEVERE HAIL", "EARTHQUAKE", "ATMOSPHERIC RIVER"] },
-        { "key": "d", "name": "VARIABLES MINUS 'DAYS'", "words": ["ICE", "COLD SPELL", "WET", "FROST"] }
+        { "key": "a", "name": "Types of gas", "words": ["GREENHOUSE", "TOXIC", "LAUGHING", "NATURAL"] },
+        { "key": "b", "name": "Things we’ve written blogs about", "words": ["HIKING", "RUNNING", "SKATING", "ASSET MANAGEMENT"] },
+        { "key": "c", "name": "Types of balloons", "words": ["WEATHER", "BIRTHDAY", "HOT AIR", "HELIUM"] },
+        { "key": "d", "name": "Words associated with ENSO", "words": ["TRADE WINDS", "MILD WINTER", "FERREL CELL", "POLAR JET STREAM"] }
       ]
-
+    },
+    {
+      "id": "stream-of-consciousness",
+      "title": "Stream of Consciousness",
+      "releaseDate": "2025-10-22",
+      "categories": [
+        { "key": "a", "name": "Greek letters", "words": ["CHI", "PI", "PSI", "IOTA"] },
+        { "key": "b", "name": "Words that go with Pole", "words": ["DI", "NORTH", "BARBER", "FLAG"] },
+        { "key": "c", "name": "Words that go with Jet", "words": ["JOAN", "SETTER", "STREAM", "WEST"] },
+        { "key": "d", "name": "Words that go with Rain", "words": ["GUAGE", "STORM", "BARREL", "JACKET"] }
+      ]
+    },
+    {
+      "id": "context-matters",
+      "title": "Context matters",
+      "releaseDate": "2025-10-23",
+      "categories": [
+        { "key": "a", "name": "Social media metrics", "words": ["REACH", "COMMENT", "IMPRESSION", "MENTION"] },
+        { "key": "b", "name": "___ cast", "words": ["OVER", "NEWS", "BROAD", "FORE"] },
+        { "key": "c", "name": "Down___ (or Up ___!)", "words": ["LOAD", "SCALE", "TOWN", "HILL"] },
+        { "key": "d", "name": "Heteronyms", "words": ["PROJECT", "MINUTE", "WIND", "PRESENT"] }
+      ]
+    },
+    {
+      "id": "ch-ch-changes",
+      "title": "Ch-ch-changes",
+      "releaseDate": "2025-10-24",
+      "categories": [
+        { "key": "a", "name": "Things that turn from green to red", "words": ["BATTERY INDICATOR", "TOMATOES", "LEAVES", "TRAFFIC LIGHT"] },
+        { "key": "b", "name": "Things you carve out", "words": ["PUMPKIN", "WATERMELON", "WOOD", "TIME FOR COFFEE CHATS"] },
+        { "key": "c", "name": "Sidekicks", "words": ["WATSON", "ROBIN", "DONKEY", "OLAF"] },
+        { "key": "d", "name": "African animals", "words": ["CHEETAH", "GIRAFFE", "HIPPO", "ELEPHANT"] }
+      ]
+    },
+    {
+      "id": "happy-new-year",
+      "title": "Happy new year!",
+      "releaseDate": "2025-10-27",
+      "categories": [
+        { "key": "a", "name": "Net___", "words": ["CDF", "FLIX", "WORK", "SON"] },
+        { "key": "b", "name": "Things on a desk", "words": ["PAPER", "MONITOR", "MOUSE", "PEN"] },
+        { "key": "c", "name": "Zodiac signs", "words": ["OX", "DOG", "DRAGON", "PIG"] },
+        { "key": "d", "name": "Types of seeds", "words": ["FLAX", "SUNFLOWER", "PUMPKIN", "WATERMELON"] }
+      ]
+    },
+    {
+      "id": "calculated-risk",
+      "title": "Calculated risk",
+      "releaseDate": "2025-10-28",
+      "categories": [
+        { "key": "a", "name": "Two", "words": ["STEP", "TIMING", "CENTS", "LEFT FEET"] },
+        { "key": "b", "name": "Four", "words": ["SEASONS", "FANTASTIC", "PETIT", "EYES"] },
+        { "key": "c", "name": "Five", "words": ["TAKE", "HIGH", "SLAUGHTERHOUSE", "SPICE"] },
+        { "key": "d", "name": "Eight", "words": ["BALL", "FIGURE", "MAIDS", "AFTER"] }
+      ]
+    },
+    {
+      "id": "how-are-you-feeling-today",
+      "title": "How are you feeling today?",
+      "releaseDate": "2025-10-29",
+      "categories": [
+        { "key": "a", "name": "Angry words", "words": ["FURY", "RAGE", "ANTAGONISM", "ANNOYANCE"] },
+        { "key": "b", "name": "Words that go with fear", "words": ["FACTOR", "PRIMAL", "STREET", "RESPONSE"] },
+        { "key": "c", "name": "Words that contain SAD", "words": ["PALISADE", "SADDLE", "MISADVENTURES", "MISADDRESS"] },
+        { "key": "d", "name": "Hope words", "words": ["OPTIMISM", "BRIGHT OUTLOOK", "GREAT EXPECTATIONS", "SILVER LINING"] }
+      ]
+    },
+    {
+      "id": "whats-for-dinner",
+      "title": "What’s for dinner?",
+      "releaseDate": "2025-10-30",
+      "categories": [
+        { "key": "a", "name": "Best soup flavours", "words": ["VEGETABLE", "MUSHROOM", "BUTTERNUT SQUASH", "BROCCOLI"] },
+        { "key": "b", "name": "Words that go with “Branch”", "words": ["OLIVE", "TREE", "DEPARTMENT", "BANK"] },
+        { "key": "c", "name": "Paper ____", "words": ["TOWEL", "PLATE", "NAPKIN", "MÂCHÉ"] },
+        { "key": "d", "name": "UNDER ___", "words": ["THE WEATHER", "PRESSURE", "FUNDED", "ARMOUR"] }
+      ]
+    },
+    {
+      "id": "this-one-rocks",
+      "title": "This one rocks",
+      "releaseDate": "2025-10-31",
+      "categories": [
+        { "key": "a", "name": "Things that suck", "words": ["NURSING BABY", "LEECH", "SUCTION CUP", "VACUUM"] },
+        { "key": "b", "name": "Things that blow", "words": ["CIRCUIT BREAKER", "WIND", "BREATH", "HAIR DRYER"] },
+        { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
+        { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
+      ]
+    },
+    {
+      "id": "cosmic-connections",
+      "title": "Cosmic connections:",
+      "releaseDate": "2025-11-03",
+      "categories": [
+        { "key": "a", "name": "Bars", "words": ["Mars", "Gold", "Behind", "Dive"] },
+        { "key": "b", "name": "Moons", "words": ["Frozen", "harvest", "strawberry", "flower"] },
+        { "key": "c", "name": "Time", "words": ["space", "dilation", "change", "zone"] },
+        { "key": "d", "name": "Planet", "words": ["earth", "Hollywood", "exo", "dwarf"] }
+      ]
+    },
+    {
+      "id": "land-ho",
+      "title": "Land, ho!",
+      "releaseDate": "2025-11-04",
+      "categories": [
+        { "key": "a", "name": "Words that go with ‘Rain’", "words": ["SHADOW", "MAKER", "CLOUD", "BOW"] },
+        { "key": "b", "name": "Synonyms for “Serious”", "words": ["GRAVE", "SOMBER", "STERN", "GRIM"] },
+        { "key": "c", "name": "Words that go with “yard”", "words": ["SALE", "27 CU. FT.", "BACK", "WASTE"] },
+        { "key": "d", "name": "Words that go with “ground”", "words": ["COMMON", "FORE", "SWELL", "WATER"] }
+      ]
+    },
+    {
+      "id": "our-favourite-fall-bon-bons",
+      "title": "Our favourite fall bon bons",
+      "releaseDate": "2025-11-05",
+      "categories": [
+        { "key": "a", "name": "Words that go with PUMPKIN", "words": ["PUREE", "SEED", "PATCH", "SPICE"] },
+        { "key": "b", "name": "French treats", "words": ["MILLE-FEUILLE", "CROISSANT", "MACARON", "CRÈME-BRULE"] },
+        { "key": "c", "name": "French words/phrases that are used in English", "words": ["CAFÉ", "BOUTIQUE", "DÉJÀ VU", "FAUX PAS"] },
+        { "key": "d", "name": "Sugar___", "words": ["CANE", "RUSH", "BEET", "COAT"] }
+      ]
+    },
+    {
+      "id": "cccs-cameos",
+      "title": "CCCS Cameos?",
+      "releaseDate": "2025-11-06",
+      "categories": [
+        { "key": "a", "name": "Words that go with Rose", "words": ["CORNFORTH", "GLASSES", "RED", "QUARTZ"] },
+        { "key": "b", "name": "Words that go with Heather", "words": ["MORRISON", "PURPLE", "GREY", "KNIT"] },
+        { "key": "c", "name": "St. ___", "words": ["LAURENT-THIBAULT", "NICK", "HELENS", "LAWRENCE"] },
+        { "key": "d", "name": "Last name Moore", "words": ["RUTH", "JULIANNE", "ROGER", "DEMI"] }
+      ]
+    },
+    {
+      "id": "hazardous-locations",
+      "title": "hazardous locations?",
+      "releaseDate": "2025-11-07",
+      "categories": [
+        { "key": "a", "name": "Location of deadly/notable tornadoes in Canada", "words": ["EDMONTON", "ELIE", "REGINA", "MONT-LAURIER"] },
+        { "key": "b", "name": "Location damaged/destroyed by fire in Canada", "words": ["FORT MACMURRAY", "JASPER", "WEST KELOWNA", "LYTTON"] },
+        { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
+        { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
+      ]
+    },
+    {
+      "id": "stay-neutral",
+      "title": "Stay neutral",
+      "releaseDate": "2025-11-10",
+      "categories": [
+        { "key": "a", "name": "Cloud types", "words": ["WALL", "NINE", "ROLL", "SHELF"] },
+        { "key": "b", "name": "Swiss _____", "words": ["ALPS", "ARMY", "CHEESE", "WATER"] },
+        { "key": "c", "name": "Palindromes", "words": ["RACECAR", "CIVIC", "KAYAK", "RADAR"] },
+        { "key": "d", "name": "Types of boats", "words": ["CANOE", "YACHT", "FERRY", "ARK"] }
+      ]
+    },
+    {
+      "id": "name-that-puzzle",
+      "title": "Name that puzzle",
+      "releaseDate": "2025-11-11",
+      "categories": [
+        { "key": "a", "name": "Notable hurricanes that impacted Canada", "words": ["FIONA", "HAZEL", "DORIAN", "IRENE"] },
+        { "key": "b", "name": "Common eye colours", "words": ["GREY", "BLUE", "GREEN", "BROWN"] },
+        { "key": "c", "name": "Film festivals", "words": ["SUNDANCE", "CANNES", "TORONTO", "VENICE"] },
+        { "key": "d", "name": "Pixar movies", "words": ["SHREK", "UP", "COCO", "ENCANTO"] }
+      ]
+    },
+    {
+      "id": "brr-getting-cold-out",
+      "title": "brr, getting cold out!",
+      "releaseDate": "2025-11-12",
+      "categories": [
+        { "key": "a", "name": "Things with blades", "words": ["SAW", "SKATE", "RAZOR", "GRATER"] },
+        { "key": "b", "name": "Words that go with ‘down’", "words": ["JACKET", "TOWN", "VEST", "PILLOW"] },
+        { "key": "c", "name": "Things that go on your feet", "words": ["CLOG", "SOCK", "SNOWSHOE", "SLIPPER"] },
+        { "key": "d", "name": "Words that go with jump", "words": ["SKI", "DOUBLE", "UP", "AROUND"] }
+      ]
     }
   ]
 }
-
-
-
-
-
-
-
