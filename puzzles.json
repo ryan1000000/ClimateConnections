@@ -89,14 +89,14 @@
       ]
     },
     {
-      "id": "how-are-you-feeling-today",
-      "title": "How are you feeling today?",
+      "id": "Eva-puzzle-1",
+      "title": "Eva's first puzzle!",
       "releaseDate": "2025-10-29",
       "categories": [
-        { "key": "a", "name": "Angry words", "words": ["FURY", "RAGE", "ANTAGONISM", "ANNOYANCE"] },
-        { "key": "b", "name": "Words that go with fear", "words": ["FACTOR", "PRIMAL", "STREET", "RESPONSE"] },
-        { "key": "c", "name": "Words that contain SAD", "words": ["PALISADE", "SADDLE", "MISADVENTURES", "MISADDRESS"] },
-        { "key": "d", "name": "Hope words", "words": ["OPTIMISM", "BRIGHT OUTLOOK", "GREAT EXPECTATIONS", "SILVER LINING"] }
+        { "key": "a", "name": "Pixar Movies", "words": ["UP", "CARS", "BRAVE", "SOUL"] },
+        { "key": "b", "name": "Convective storm clouds", "words": ["SHELF", "SCUD", "FUNNEL", "WALL"] },
+        { "key": "c", "name": "Taylor Swift Songs", "words": ["CHANGE", "CLEAN", "PEACE", "WOOD"] },
+        { "key": "d", "name": "Beginning of ECCC Building Names", "words": ["QUEEN", "PLACE", "DOWN", "EAST"] }
       ]
     },
     {
@@ -111,14 +111,14 @@
       ]
     },
     {
-      "id": "this-one-rocks",
-      "title": "This one rocks",
+      "id": "Teah-puzzle-2",
+      "title": "Shine bright like a diamond",
       "releaseDate": "2025-10-31",
       "categories": [
-        { "key": "a", "name": "Things that suck", "words": ["NURSING BABY", "LEECH", "SUCTION CUP", "VACUUM"] },
-        { "key": "b", "name": "Things that blow", "words": ["CIRCUIT BREAKER", "WIND", "BREATH", "HAIR DRYER"] },
-        { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
-        { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
+        { "key": "a", "name": "Types of future data", "words": ["FORECAST", "SEASONAL", "DECADAL", "PROJECTIONS"] },
+        { "key": "b", "name": "Words with no E in them!", "words": ["LA NINA", "ARCTIC", "WARMING", "VOLCANO"] },
+        { "key": "c", "name": "Mountain Ranges", "words": ["DOLOMITES", "CORDILLERA", "ANDES", "ROCKIES"] },
+        { "key": "d", "name": "Minerals and Gems", "words": ["JASPER", "JADE", "LIMESTONE", "PYRITE"] }
       ]
     },
     {
@@ -219,9 +219,32 @@
         { "key": "c", "name": "Words that go with Jet", "words": ["JOAN", "SETTER", "STREAM", "WEST"] },
         { "key": "d", "name": "Words that go with Rain", "words": ["GUAGE", "STORM", "BARREL", "JACKET"] }
       ]
+    },
+    {
+      "id": "how-are-you-feeling-today",
+      "title": "How are you feeling today?",
+      "releaseDate": "2025-11-14",
+      "categories": [
+        { "key": "a", "name": "Angry words", "words": ["FURY", "RAGE", "ANTAGONISM", "ANNOYANCE"] },
+        { "key": "b", "name": "Words that go with fear", "words": ["FACTOR", "PRIMAL", "STREET", "RESPONSE"] },
+        { "key": "c", "name": "Words that contain SAD", "words": ["PALISADE", "SADDLE", "MISADVENTURES", "MISADDRESS"] },
+        { "key": "d", "name": "Hope words", "words": ["OPTIMISM", "BRIGHT OUTLOOK", "GREAT EXPECTATIONS", "SILVER LINING"] }
+      ]
+    },
+    {
+      "id": "this-one-rocks",
+      "title": "This one rocks",
+      "releaseDate": "2025-11-17",
+      "categories": [
+        { "key": "a", "name": "Things that suck", "words": ["NURSING BABY", "LEECH", "SUCTION CUP", "VACUUM"] },
+        { "key": "b", "name": "Things that blow", "words": ["CIRCUIT BREAKER", "WIND", "BREATH", "HAIR DRYER"] },
+        { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
+        { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
+      ]
     }
   ]
 }
+
 
 
 
