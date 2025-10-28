@@ -126,10 +126,10 @@
       "title": "Cosmic connections:",
       "releaseDate": "2025-11-03",
       "categories": [
-        { "key": "a", "name": "Bars", "words": ["Mars", "Gold", "Behind", "Dive"] },
-        { "key": "b", "name": "Moons", "words": ["Frozen", "harvest", "strawberry", "flower"] },
-        { "key": "c", "name": "Time", "words": ["space", "dilation", "change", "zone"] },
-        { "key": "d", "name": "Planet", "words": ["earth", "Hollywood", "exo", "dwarf"] }
+        { "key": "a", "name": "Bars", "words": ["MARS", "GOLD", "BEHIND", "DIVE"] },
+        { "key": "b", "name": "Moons", "words": ["FROZEN", "HARVEST", "STRAWBERRY", "FLOWER"] },
+        { "key": "c", "name": "Time", "words": ["SPACE", "DILATION", "CHANGE", "ZONE"] },
+        { "key": "d", "name": "Planet", "words": ["EARTH", "HOLLYWOOD", "EXO", "DWARF"] }
       ]
     },
     {
@@ -255,6 +255,7 @@
     }
   ]
 }
+
 
 
 
