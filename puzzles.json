@@ -133,14 +133,14 @@
       ]
     },
     {
-      "id": "land-ho",
-      "title": "Land, ho!",
+      "id": "portals-cary",
+      "title": "Portals (by Cary)",
       "releaseDate": "2025-11-04",
       "categories": [
-        { "key": "a", "name": "Words that go with ‘Rain’", "words": ["SHADOW", "MAKER", "CLOUD", "BOW"] },
-        { "key": "b", "name": "Synonyms for “Serious”", "words": ["GRAVE", "SOMBER", "STERN", "GRIM"] },
-        { "key": "c", "name": "Words that go with “yard”", "words": ["SALE", "27 CU. FT.", "BACK", "WASTE"] },
-        { "key": "d", "name": "Words that go with “ground”", "words": ["COMMON", "FORE", "SWELL", "WATER"] }
+        { "key": "a", "name": "Greek Deities", "words": ["ATLAS", "GAIA", "CALYPSO", "BOREAS"] },
+        { "key": "b", "name": "Browsers", "words": ["EXPLORER", "EDGE", "BRAVE", "OPERA"] },
+        { "key": "c", "name": "Info Management", "words": ["DATA", "CLOUD", "SERVER", "RECORD"] },
+        { "key": "d", "name": "Photo Types", "words": ["PORTRAIT", "PROFILE", "LANDSCAPE", "AERIAL"] }
       ]
     },
     {
@@ -241,9 +241,21 @@
         { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
         { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
       ]
+    },
+        {
+      "id": "land-ho",
+      "title": "Land, ho!",
+      "releaseDate": "2025-11-18",
+      "categories": [
+        { "key": "a", "name": "Words that go with ‘Rain’", "words": ["SHADOW", "MAKER", "CLOUD", "BOW"] },
+        { "key": "b", "name": "Synonyms for “Serious”", "words": ["GRAVE", "SOMBER", "STERN", "GRIM"] },
+        { "key": "c", "name": "Words that go with “yard”", "words": ["SALE", "27 CU. FT.", "BACK", "WASTE"] },
+        { "key": "d", "name": "Words that go with “ground”", "words": ["COMMON", "FORE", "SWELL", "WATER"] }
+      ]
     }
   ]
 }
+
 
 
 
