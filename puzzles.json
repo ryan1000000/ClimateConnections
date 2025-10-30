@@ -112,7 +112,7 @@
     },
     {
       "id": "Teah-puzzle-2",
-      "title": "Shine bright like a diamond",
+      "title": "Shine bright like a diamond (By Teah)",
       "releaseDate": "2025-10-31",
       "categories": [
         { "key": "a", "name": "Types of future data", "words": ["FORECAST", "SEASONAL", "DECADAL", "PROJECTIONS"] },
@@ -255,6 +255,7 @@
     }
   ]
 }
+
 
 
 
