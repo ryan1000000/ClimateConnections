@@ -263,9 +263,10 @@
         { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
         { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
       ]
-    },
+    }
   ]
 }
+
 
 
 
