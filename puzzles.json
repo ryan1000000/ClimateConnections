@@ -166,14 +166,14 @@
       ]
     },
     {
-      "id": "hazardous-locations",
-      "title": "hazardous locations?",
+      "id": "it-aint-easy",
+      "title": "It ain't easy (by Teah)",
       "releaseDate": "2025-11-07",
       "categories": [
-        { "key": "a", "name": "Location of deadly/notable tornadoes in Canada", "words": ["EDMONTON", "ELIE", "REGINA", "MONT-LAURIER"] },
-        { "key": "b", "name": "Location damaged/destroyed by fire in Canada", "words": ["FORT MACMURRAY", "JASPER", "WEST KELOWNA", "LYTTON"] },
-        { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
-        { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
+        { "key": "a", "name": "COPs", "words": ["UNFCCC", "POLICE", "COMMUNITY OF PRACTICE", "RCMP"] },
+        { "key": "b", "name": "Clouds", "words": ["STRATUS", "NIMBUS", "CIRRUS", "CHEMTRAILS"] },
+        { "key": "c", "name": "Rocks", "words": ["ULURU", "DWAYNE JOHNSON", "BLARNEY", "METAMORPHIC"] },
+        { "key": "d", "name": "Things that are green", "words": ["KERMIT", "NORTHERN LIGHTS", "PRAYING MANTIS", "AVOCADO"] }
       ]
     },
     {
@@ -242,7 +242,7 @@
         { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
       ]
     },
-        {
+    {
       "id": "land-ho",
       "title": "Land, ho!",
       "releaseDate": "2025-11-18",
@@ -252,9 +252,21 @@
         { "key": "c", "name": "Words that go with “yard”", "words": ["SALE", "27 CU. FT.", "BACK", "WASTE"] },
         { "key": "d", "name": "Words that go with “ground”", "words": ["COMMON", "FORE", "SWELL", "WATER"] }
       ]
-    }
+    },
+    {
+      "id": "hazardous-locations",
+      "title": "hazardous locations?",
+      "releaseDate": "2025-11-19",
+      "categories": [
+        { "key": "a", "name": "Location of deadly/notable tornadoes in Canada", "words": ["EDMONTON", "ELIE", "REGINA", "MONT-LAURIER"] },
+        { "key": "b", "name": "Location damaged/destroyed by fire in Canada", "words": ["FORT MACMURRAY", "JASPER", "WEST KELOWNA", "LYTTON"] },
+        { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
+        { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
+      ]
+    },
   ]
 }
+
 
 
 
