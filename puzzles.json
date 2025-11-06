@@ -188,14 +188,14 @@
       ]
     },
     {
-      "id": "name-that-puzzle",
-      "title": "Name that puzzle",
+      "id": "something-in-air",
+      "title": "Something in the Air (by Reagan McKinney)",
       "releaseDate": "2025-11-11",
       "categories": [
-        { "key": "a", "name": "Notable hurricanes that impacted Canada", "words": ["FIONA", "HAZEL", "DORIAN", "IRENE"] },
-        { "key": "b", "name": "Common eye colours", "words": ["GREY", "BLUE", "GREEN", "BROWN"] },
-        { "key": "c", "name": "Film festivals", "words": ["SUNDANCE", "CANNES", "TORONTO", "VENICE"] },
-        { "key": "d", "name": "Pixar movies", "words": ["SHREK", "UP", "COCO", "ENCANTO"] }
+        { "key": "a", "name": "Primary pollutants emitted from wildfires", "words": ["PM2.5", "CO", "NOx", "SO2"] },
+        { "key": "b", "name": "secondary pollutants", "words": ["O3", "PHNs", "HAZE", "ACID RAIN"] },
+        { "key": "c", "name": "Compounds with global warming potential", "words": ["CO2", "CH4", "N20", "HFS"] },
+        { "key": "d", "name": "Aerosols (compounds that lead to global cooling)", "words": ["SULFATES", "NITRATES", "SEA SALT", "BLACK CARBON"] }
       ]
     },
     {
@@ -221,14 +221,14 @@
       ]
     },
     {
-      "id": "how-are-you-feeling-today",
-      "title": "How are you feeling today?",
+      "id": "tis-the-sea-son",
+      "title": "'Tis the sea-son (by Teah)",
       "releaseDate": "2025-11-14",
       "categories": [
-        { "key": "a", "name": "Angry words", "words": ["FURY", "RAGE", "ANTAGONISM", "ANNOYANCE"] },
-        { "key": "b", "name": "Words that go with fear", "words": ["FACTOR", "PRIMAL", "STREET", "RESPONSE"] },
-        { "key": "c", "name": "Words that contain SAD", "words": ["PALISADE", "SADDLE", "MISADVENTURES", "MISADDRESS"] },
-        { "key": "d", "name": "Hope words", "words": ["OPTIMISM", "BRIGHT OUTLOOK", "GREAT EXPECTATIONS", "SILVER LINING"] }
+        { "key": "a", "name": "Plant related names (also CCCS pet/kid names)", "words": ["CITROUILLE", "POPPY", "VIOLET", "DAISY"] },
+        { "key": "b", "name": "Ocen words with different first letter (i.e. Wish/Fish)", "words": ["WISH", "HATER", "DAVE", "WIDE"] },
+        { "key": "c", "name": "Cubes", "words": ["SUGAR", "THIRD POWER", "RUBIK", "DICE"] },
+        { "key": "d", "name": "Hurricane Names", "words": ["FIONA", "KATRINA", "IAN", "HARVEY"] }
       ]
     },
     {
@@ -263,9 +263,32 @@
         { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
         { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
       ]
+    },
+    {
+      "id": "name-that-puzzle",
+      "title": "Name that puzzle",
+      "releaseDate": "2025-11-20",
+      "categories": [
+        { "key": "a", "name": "Notable hurricanes that impacted Canada", "words": ["FIONA", "HAZEL", "DORIAN", "IRENE"] },
+        { "key": "b", "name": "Common eye colours", "words": ["GREY", "BLUE", "GREEN", "BROWN"] },
+        { "key": "c", "name": "Film festivals", "words": ["SUNDANCE", "CANNES", "TORONTO", "VENICE"] },
+        { "key": "d", "name": "Pixar movies", "words": ["SHREK", "UP", "COCO", "ENCANTO"] }
+      ]
+    },
+    {
+      "id": "how-are-you-feeling-today",
+      "title": "How are you feeling today?",
+      "releaseDate": "2025-11-21",
+      "categories": [
+        { "key": "a", "name": "Angry words", "words": ["FURY", "RAGE", "ANTAGONISM", "ANNOYANCE"] },
+        { "key": "b", "name": "Words that go with fear", "words": ["FACTOR", "PRIMAL", "STREET", "RESPONSE"] },
+        { "key": "c", "name": "Words that contain SAD", "words": ["PALISADE", "SADDLE", "MISADVENTURES", "MISADDRESS"] },
+        { "key": "d", "name": "Hope words", "words": ["OPTIMISM", "BRIGHT OUTLOOK", "GREAT EXPECTATIONS", "SILVER LINING"] }
+      ]
     }
   ]
 }
+
 
 
 
