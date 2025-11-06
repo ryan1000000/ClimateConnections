@@ -296,9 +296,32 @@
         { "key": "c", "name": "Words that go with Jet", "words": ["JOAN", "SETTER", "STREAM", "WEST"] },
         { "key": "d", "name": "Words that go with Rain", "words": ["GUAGE", "STORM", "BARREL", "JACKET"] }
       ]
+    },
+    {
+      "id": "tow-the-line",
+      "title": "Tow the line",
+      "releaseDate": "2025-11-25",
+      "categories": [
+        { "key": "a", "name": "___line", "words": ["COAST", "FINE", "BOTTOM", "PIPE"] },
+        { "key": "b", "name": "Types of hats", "words": ["TOP", "HARD", "TRICK", "COWBOY"] },
+        { "key": "c", "name": "CD.ca variables", "words": ["FROST", "PRECIPITATION", "TEMPERATURE", "SEA-LEVEL"] },
+        { "key": "d", "name": "Things with four legs", "words": ["TABLE", "HORSE", "CHAIR", "TURTLE"] }
+      ]
+    },
+    {
+      "id": "takes-one-to-know-one",
+      "title": "Takes one to know one",
+      "releaseDate": "2025-11-26",
+      "categories": [
+        { "key": "a", "name": "Colour measurement words", "words": ["VALUE", "CHROMA", "TEMPERATURE", "HUE"] },
+        { "key": "b", "name": "Powerpoint transitions", "words": ["PUSH", "REVEAL", "WIPE", "RANDOM BARS"] },
+        { "key": "c", "name": "Words that go with 'dad'", "words": ["BOD", "GRAND", "STEP", "JOKE"] },
+        { "key": "d", "name": "Types of dreams", "words": ["RECURRING", "PROPHETIC", "VIVID", "PIPE"] }
+      ]
     }
   ]
 }
+
 
 
 
