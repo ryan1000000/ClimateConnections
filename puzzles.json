@@ -214,10 +214,10 @@
       "title": "Stream of Consciousness",
       "releaseDate": "2025-11-13",
       "categories": [
-        { "key": "a", "name": "Greek letters", "words": ["CHI", "PI", "PSI", "IOTA"] },
-        { "key": "b", "name": "Words that go with Pole", "words": ["DI", "NORTH", "BARBER", "FLAG"] },
-        { "key": "c", "name": "Words that go with Jet", "words": ["JOAN", "SETTER", "STREAM", "WEST"] },
-        { "key": "d", "name": "Words that go with Rain", "words": ["GUAGE", "STORM", "BARREL", "JACKET"] }
+        { "key": "a", "name": "Cold___", "words": ["SPELL", "FEET", "FRONT", "CALL"] },
+        { "key": "b", "name": "Used to measure in the kitchen", "words": ["CUP", "SPOON", "SCALE", "THERMOMETER"] },
+        { "key": "c", "name": "Gossip", "words": ["TEA", "NEWS", "DRAMA", "SCOOP"] },
+        { "key": "d", "name": "Things with handles", "words": ["MUG", "FRYING PAN", "BRIEFCASE", "KNIFE"] }
       ]
     },
     {
@@ -285,9 +285,21 @@
         { "key": "c", "name": "Words that contain SAD", "words": ["PALISADE", "SADDLE", "MISADVENTURES", "MISADDRESS"] },
         { "key": "d", "name": "Hope words", "words": ["OPTIMISM", "BRIGHT OUTLOOK", "GREAT EXPECTATIONS", "SILVER LINING"] }
       ]
+    },
+    {
+      "id": "stream-of-consciousness",
+      "title": "Stream of Consciousness",
+      "releaseDate": "2025-11-24",
+      "categories": [
+        { "key": "a", "name": "Greek letters", "words": ["CHI", "PI", "PSI", "IOTA"] },
+        { "key": "b", "name": "Words that go with Pole", "words": ["DI", "NORTH", "BARBER", "FLAG"] },
+        { "key": "c", "name": "Words that go with Jet", "words": ["JOAN", "SETTER", "STREAM", "WEST"] },
+        { "key": "d", "name": "Words that go with Rain", "words": ["GUAGE", "STORM", "BARREL", "JACKET"] }
+      ]
     }
   ]
 }
+
 
 
 
