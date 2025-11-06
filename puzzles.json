@@ -210,8 +210,8 @@
       ]
     },
     {
-      "id": "stream-of-consciousness",
-      "title": "Stream of Consciousness",
+      "id": "heard-the-news",
+      "title": "Have you heard the news? (By Jill Psotka)",
       "releaseDate": "2025-11-13",
       "categories": [
         { "key": "a", "name": "Cold___", "words": ["SPELL", "FEET", "FRONT", "CALL"] },
@@ -299,6 +299,7 @@
     }
   ]
 }
+
 
 
 
