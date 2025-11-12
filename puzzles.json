@@ -232,14 +232,14 @@
       ]
     },
     {
-      "id": "this-one-rocks",
-      "title": "This one rocks",
+      "id": "something-in-air",
+      "title": "Something in the Air (by Reagan McKinney)",
       "releaseDate": "2025-11-17",
       "categories": [
-        { "key": "a", "name": "Things that suck", "words": ["NURSING BABY", "LEECH", "SUCTION CUP", "VACUUM"] },
-        { "key": "b", "name": "Things that blow", "words": ["CIRCUIT BREAKER", "WIND", "BREATH", "HAIR DRYER"] },
-        { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
-        { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
+        { "key": "a", "name": "Primary pollutants emitted from wildfires", "words": ["PM2.5", "CO", "NOx", "SO2"] },
+        { "key": "b", "name": "secondary pollutants", "words": ["O3", "PHNs", "HAZE", "ACID RAIN"] },
+        { "key": "c", "name": "Compounds with global warming potential", "words": ["CO2", "CH4", "N20", "HFS"] },
+        { "key": "d", "name": "Aerosols (compounds that lead to global cooling)", "words": ["SULFATES", "NITRATES", "SEA SALT", "BLACK CARBON"] }
       ]
     },
     {
@@ -318,9 +318,21 @@
         { "key": "c", "name": "Words that go with 'dad'", "words": ["BOD", "GRAND", "STEP", "JOKE"] },
         { "key": "d", "name": "Types of dreams", "words": ["RECURRING", "PROPHETIC", "VIVID", "PIPE"] }
       ]
+    },
+    {
+      "id": "this-one-rocks",
+      "title": "This one rocks",
+      "releaseDate": "2025-11-27",
+      "categories": [
+        { "key": "a", "name": "Things that suck", "words": ["NURSING BABY", "LEECH", "SUCTION CUP", "VACUUM"] },
+        { "key": "b", "name": "Things that blow", "words": ["CIRCUIT BREAKER", "WIND", "BREATH", "HAIR DRYER"] },
+        { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
+        { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
+      ]
     }
   ]
 }
+
 
 
 
