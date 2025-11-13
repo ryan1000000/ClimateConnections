@@ -254,14 +254,14 @@
       ]
     },
     {
-      "id": "hazardous-locations",
-      "title": "hazardous locations?",
+      "id": "blank",
+      "title": "___ (by Jill Psotka)",
       "releaseDate": "2025-11-19",
       "categories": [
-        { "key": "a", "name": "Location of deadly/notable tornadoes in Canada", "words": ["EDMONTON", "ELIE", "REGINA", "MONT-LAURIER"] },
-        { "key": "b", "name": "Location damaged/destroyed by fire in Canada", "words": ["FORT MACMURRAY", "JASPER", "WEST KELOWNA", "LYTTON"] },
-        { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
-        { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
+        { "key": "a", "name": "Jet___", "words": ["STREAM", "PACK", "SKI", "PLANE"] },
+        { "key": "b", "name": "___ effect", "words": ["LAKE", "BUTTERFLY", "RIPPLE", "GREENHOUSE"] },
+        { "key": "c", "name": "___ wave", "words": ["SHORT", "SHOCK", "NEW", "HEAT"] },
+        { "key": "d", "name": "Water___", "words": ["SHED", "PARK", "FALL", "WING"] }
       ]
     },
     {
@@ -329,9 +329,21 @@
         { "key": "c", "name": "Things that stick", "words": ["GUM", "MAGNET", "BURR", "TAPE"] },
         { "key": "d", "name": "Things that pop", "words": ["CORN", "FIRECRACKER", "BALLOON", "RICE CRISPIES"] }
       ]
+    },
+    {
+      "id": "hazardous-locations",
+      "title": "hazardous locations?",
+      "releaseDate": "2025-11-28",
+      "categories": [
+        { "key": "a", "name": "Location of deadly/notable tornadoes in Canada", "words": ["EDMONTON", "ELIE", "REGINA", "MONT-LAURIER"] },
+        { "key": "b", "name": "Location damaged/destroyed by fire in Canada", "words": ["FORT MACMURRAY", "JASPER", "WEST KELOWNA", "LYTTON"] },
+        { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
+        { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
+      ]
     }
   ]
 }
+
 
 
 
