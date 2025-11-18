@@ -332,7 +332,7 @@
     },
     {
       "id": "hazardous-locations",
-      "title": "hazardous locations?",
+      "title": "hazardous locations",
       "releaseDate": "2025-11-28",
       "categories": [
         { "key": "a", "name": "Location of deadly/notable tornadoes in Canada", "words": ["EDMONTON", "ELIE", "REGINA", "MONT-LAURIER"] },
@@ -340,9 +340,21 @@
         { "key": "c", "name": "Places prone to flooding", "words": ["WINNIPEG", "OTTAWA", "CALGARY", "HIGH RIVER"] },
         { "key": "d", "name": "Places in Canada that have registered a temperature below -60C", "words": ["FORT VERMILLION", "SNAG", "FORT SMITH", "EAGLE RIVER"] }
       ]
+    },
+    {
+      "id": "im-sorry",
+      "title": "I'm sorry (by: Reagan McKinney)",
+      "releaseDate": "2025-12-01",
+      "categories": [
+        { "key": "a", "name": "Letter sounds that are also words", "words": ["ARE", "QUEUE", "TEA", "SEE"] },
+        { "key": "b", "name": "Software with name of snakes", "words": ["PYTHON", "MAMBA", "ANACONDA", "ASP"] },
+        { "key": "c", "name": "Pokémon games", "words": ["PEARL", "DIAMOND", "EMERALD", "SAPHIRE"] },
+        { "key": "d", "name": "Major hurricanes in 2010", "words": ["JULIA", "IGOR", "EARL", "DANIELLE"] }
+      ]
     }
   ]
 }
+
 
 
 
