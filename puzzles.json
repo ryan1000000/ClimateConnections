@@ -375,29 +375,30 @@
       ]
     },
     {
-      "id": "im-sorry",
-      "title": "I'm sorry (by: Reagan McKinney)",
+      "id": "Business-as-usual",
+      "title": "Business as usual (by: Teah)",
       "releaseDate": "2025-12-04",
       "categories": [
-        { "key": "a", "name": "Letter sounds that are also words", "words": ["ARE", "QUEUE", "TEA", "SEE"] },
-        { "key": "b", "name": "Software with name of snakes", "words": ["PYTHON", "MAMBA", "ANACONDA", "ASP"] },
-        { "key": "c", "name": "Pokémon games", "words": ["PEARL", "DIAMOND", "EMERALD", "SAPHIRE"] },
-        { "key": "d", "name": "Major hurricanes in 2010", "words": ["JULIA", "IGOR", "EARL", "DANIELLE"] }
+        { "key": "a", "name": "Government words that have plain word homonyms", "words": ["DECK", "MINNOW", "HILL", "CABINET"] },
+        { "key": "b", "name": "Names for where carbon is stored", "words": ["SINK", "STORE", "RESERVOIR", "STOCK"] },
+        { "key": "c", "name": "Types and forms of sea ice", "words": ["SHELF", "SHUGA", "FRAZIL", "FAST"] },
+        { "key": "d", "name": "Things in lakes", "words": ["SNAIL", "HERRING", "GOBY", "LEECH"] }
       ]
     },
     {
-      "id": "im-sorry",
-      "title": "I'm sorry (by: Reagan McKinney)",
+      "id": "end-of-the-week",
+      "title": "End of a long week?",
       "releaseDate": "2025-12-05",
       "categories": [
-        { "key": "a", "name": "Letter sounds that are also words", "words": ["ARE", "QUEUE", "TEA", "SEE"] },
-        { "key": "b", "name": "Software with name of snakes", "words": ["PYTHON", "MAMBA", "ANACONDA", "ASP"] },
-        { "key": "c", "name": "Pokémon games", "words": ["PEARL", "DIAMOND", "EMERALD", "SAPHIRE"] },
-        { "key": "d", "name": "Major hurricanes in 2010", "words": ["JULIA", "IGOR", "EARL", "DANIELLE"] }
+        { "key": "a", "name": "___ hour", "words": ["GOLDEN", "RUSH", "STORY", "HAPPY"] },
+        { "key": "b", "name": "New ___", "words": ["GUINEA", "CASTLE", "YORK", "DELHI"] },
+        { "key": "c", "name": "Not feeling strong", "words": ["FRAIL", "WEAK", "FRAGILE", "FEEBLE"] },
+        { "key": "d", "name": "Fore___", "words": ["CAST", "BODE", "GONE", "WARN"] }
       ]
     }
   ]
 }
+
 
 
 
