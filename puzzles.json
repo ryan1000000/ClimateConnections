@@ -395,9 +395,43 @@
         { "key": "c", "name": "Not feeling strong", "words": ["FRAIL", "WEAK", "FRAGILE", "FEEBLE"] },
         { "key": "d", "name": "Fore___", "words": ["CAST", "BODE", "GONE", "WARN"] }
       ]
+    },
+    {
+      "id": "whats-snirt",
+      "title": "What's snirt?",
+      "releaseDate": "2025-12-08",
+      "categories": [
+        { "key": "a", "name": "Weather themed portmanteaus", "words": ["SNIRT", "SMOG", "THUNDERSNOW", "PYRONADO"] },
+        { "key": "b", "name": "Snow____", "words": ["GLOBE", "FALL", "PLOW", "STORM"] },
+        { "key": "c", "name": "Types of mint", "words": ["PEPPER", "WINTER", "MOROCCAN", "SPEAR"] },
+        { "key": "d", "name": "Tree decorations", "words": ["STAR", "TINSLE", "LIGHTS", "GARLAND"] }
+      ]
+    },
+    {
+      "id": "famous-one",
+      "title": "Do you recall the most famous one of all?",
+      "releaseDate": "2025-12-09",
+      "categories": [
+        { "key": "a", "name": "Seasonal characters", "words": ["EASTER BUNNY", "SANTA CLAUS", "LEPRECHAUN", "CUPID"] },
+        { "key": "b", "name": "Tiny____", "words": ["HOUSE", "DANCER", "TIME", "BIT"] },
+        { "key": "c", "name": "Female animals", "words": ["VIXEN", "EWE", "MARE", "DOE"] },
+        { "key": "d", "name": "Space things", "words": ["COMET", "PLANET", "ASTEROID", "MOON"] }
+      ]
+    },
+    {
+      "id": "winters-coming",
+      "title": "Winter is coming (by: Jill)",
+      "releaseDate": "2025-12-10",
+      "categories": [
+        { "key": "a", "name": "Words that go with jack", "words": ["FROST", "KNIFE", "JILL", "LUMBER"] },
+        { "key": "b", "name": "Components of a snowman", "words": ["CARROT", "BALL", "HAT", "SCARF"] },
+        { "key": "c", "name": "____back", "words": ["HORSE", "FALL", "NICKEL", "CALL"] },
+        { "key": "d", "name": "Words that go with hail", "words": ["MARY", "ALL", "STORM", "STONE"] }
+      ]
     }
   ]
 }
+
 
 
 
