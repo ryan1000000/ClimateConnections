@@ -428,9 +428,21 @@
         { "key": "c", "name": "____back", "words": ["HORSE", "FALL", "NICKEL", "CALL"] },
         { "key": "d", "name": "Words that go with hail", "words": ["MARY", "ALL", "STORM", "STONE"] }
       ]
+    },
+    {
+      "id": "christmas-carol",
+      "title": "A Christmas Carol",
+      "releaseDate": "2025-12-11",
+      "categories": [
+        { "key": "a", "name": "____ Bells", "words": ["JINGLE", "SILVER", "I HEARD THE", "CAROL OF THE"] },
+        { "key": "b", "name": "____ Christmas", "words": ["I DON'T WANT A LOT FOR", "LAST", "HOLLY JOLLY", "I'LL BE HOME FOR"] },
+        { "key": "c", "name": "____ Christmas Tree", "words": ["O", "ROCKN' AROUND THE", "THE HAPPIEST", "FARM"] },
+        { "key": "d", "name": "Snow themed Christmas songs", "words": ["WHITE CHRISTMAS", "FROSTY THE SNOWMAN", "LET IT SNOW", "WINTER WONDERLAND"] }
+      ]
     }
   ]
 }
+
 
 
 
