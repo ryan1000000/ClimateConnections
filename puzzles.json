@@ -450,9 +450,21 @@
         { "key": "c", "name": "To drink fast over the holidays?", "words": ["GUZZLE", "GULP", "SWIG", "KNOCK BACK"] },
         { "key": "d", "name": "Debris", "words": ["SCRAP", "CLUTTER", "RUBBISH", "JUNK"] }
       ]
+    },
+    {
+      "id": "zoo",
+      "title": "It's a zoo out there",
+      "releaseDate": "2025-12-15",
+      "categories": [
+        { "key": "a", "name": "Animals in the Gingerbread Man story", "words": ["PIG", "COW", "FOX", "HORSE"] },
+        { "key": "b", "name": "Types of Cheese", "words": ["GOAT", "BRIE", "BLUE", "CREAM"] },
+        { "key": "c", "name": "Animals in 12 days of Christmas", "words": ["DOVES", "HENS", "GEESE", "SWANS"] },
+        { "key": "d", "name": "Seasonal Treats", "words": ["TURTLES", "CANDY CANES", "EGGNOG", "POT OF GOLD"] }
+      ]
     }
   ]
 }
+
 
 
 
