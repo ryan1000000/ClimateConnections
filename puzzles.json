@@ -461,9 +461,21 @@
         { "key": "c", "name": "Animals in 12 days of Christmas", "words": ["DOVES", "HENS", "GEESE", "SWANS"] },
         { "key": "d", "name": "Seasonal Treats", "words": ["TURTLES", "CANDY CANES", "EGGNOG", "POT OF GOLD"] }
       ]
+    },
+    {
+      "id": "too-soon",
+      "title": "Too soon?",
+      "releaseDate": "2025-12-16",
+      "categories": [
+        { "key": "a", "name": "____off", "words": ["BRUSH", "SHRUG", "WRITE", "KICK"] },
+        { "key": "b", "name": "Planning documents", "words": ["BLUEPRINT", "MODEL", "LAYOUT", "ROADMAP"] },
+        { "key": "c", "name": "Words that go with candy", "words": ["FLOSS", "CANE", "BAR", "COTTON"] },
+        { "key": "d", "name": "Types of packages", "words": ["SEVERANCE", "VACATION", "WELCOME", "BENEFITS"] }
+      ]
     }
   ]
 }
+
 
 
 
