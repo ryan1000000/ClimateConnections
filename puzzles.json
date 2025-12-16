@@ -472,9 +472,21 @@
         { "key": "c", "name": "Words that go with candy", "words": ["FLOSS", "CANE", "BAR", "COTTON"] },
         { "key": "d", "name": "Types of packages", "words": ["SEVERANCE", "VACATION", "WELCOME", "BENEFITS"] }
       ]
+    },
+    {
+      "id": "yum",
+      "title": "Yum (by: Jill)",
+      "releaseDate": "2025-12-17",
+      "categories": [
+        { "key": "a", "name": "Soup", "words": ["ALPHABET", "SPOON", "STOCK", "TOMATO"] },
+        { "key": "b", "name": "Pizza", "words": ["PIE", "CHEESE", "POCKET", "OVEN"] },
+        { "key": "c", "name": "Chocolate", "words": ["FOUNTAIN", "MILK", "CHIP", "PUDDING"] },
+        { "key": "d", "name": "Pop", "words": ["CORN", "ROCKS", "SODA", "CULTURE"] }
+      ]
     }
   ]
 }
+
 
 
 
