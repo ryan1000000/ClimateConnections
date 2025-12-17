@@ -483,9 +483,21 @@
         { "key": "c", "name": "Chocolate", "words": ["FOUNTAIN", "MILK", "CHIP", "PUDDING"] },
         { "key": "d", "name": "Pop", "words": ["CORN", "ROCKS", "SODA", "CULTURE"] }
       ]
+    },
+    {
+      "id": "blog",
+      "title": "On the Blog",
+      "releaseDate": "2025-12-18",
+      "categories": [
+        { "key": "a", "name": "Letters of the Alphabet", "words": ["BEES", "SEAS", "TEAS", "GEEZ"] },
+        { "key": "b", "name": "Christmas decorations", "words": ["LIGHTS", "CHRISTMAS TREES", "GARLAND", "STOCKINGS"] },
+        { "key": "c", "name": "Winter weather phenomena", "words": ["BLIZZARD", "CHINOOK", "SNOWSTORM", "COLD SNAPS"] },
+        { "key": "d", "name": "Things that are smoked", "words": ["PIPE", "SALMON", "MEATS", "CHEDDAR"] }
+      ]
     }
   ]
 }
+
 
 
 
