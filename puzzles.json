@@ -507,18 +507,19 @@
       ]
     },
     {
-      "id": "week-playist",
-      "title": "Weekday playlist?",
+      "id": "merry-christmas",
+      "title": "Merry Christmas",
       "releaseDate": "2025-12-23",
       "categories": [
-        { "key": "a", "name": "Imagine Dragons tunes", "words": ["MONDAY", "THUNDER", "RADIOACTIVE", "BELIEVER"] },
-        { "key": "b", "name": "Moody Blues tunes", "words": ["TUESDAY AFTERNOON", "NIGHTS IN WHITE SATAIN", "QUESTION", "LOVELY TO SEE YOU"] },
-        { "key": "c", "name": "Elton John tunes", "words": ["SATURDAY NIGHT'S ALRIGHT", "CROCODILE ROCK", "ROCKETMAN", "TINY DANCER"] },
-        { "key": "d", "name": "Katy Perry tunes", "words": ["LAST FRIDAY NIGHT", "CALIFORNIA GURLS", "TEENAGE DREAM", "FIREWORK"] }
+        { "key": "a", "name": "Plants", "words": ["🎄", "🌵", "🌿", "🎍"] },
+        { "key": "b", "name": "Yum", "words": ["🍪", "🥛", "🍫", "🍬"] },
+        { "key": "c", "name": "Stay warm out there!", "words": ["🧦", "🧤", "🧣", "🧥"] },
+        { "key": "d", "name": "Santa on his way!", "words": ["🦌", "🛷", "🎅", "🌍"] }
       ]
     }
   ]
 }
+
 
 
 
