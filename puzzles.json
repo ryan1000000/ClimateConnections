@@ -494,9 +494,21 @@
         { "key": "c", "name": "Winter weather phenomena", "words": ["BLIZZARD", "CHINOOK", "SNOWSTORM", "COLD SNAPS"] },
         { "key": "d", "name": "Things that are smoked", "words": ["PIPE", "SALMON", "MEATS", "CHEDDAR"] }
       ]
+    },
+    {
+      "id": "week-playist",
+      "title": "Weekday playlist?",
+      "releaseDate": "2025-12-22",
+      "categories": [
+        { "key": "a", "name": "Imagine Dragons tunes", "words": ["MONDAY", "THUNDER", "RADIOACTIVE", "BELIEVER"] },
+        { "key": "b", "name": "Moody Blues tunes", "words": ["TUESDAY AFTERNOON", "NIGHTS IN WHITE SATAIN", "QUESTION", "LOVELY TO SEE YOU"] },
+        { "key": "c", "name": "Elton John tunes", "words": ["SATURDAY NIGHT'S ALRIGHT", "CROCODILE ROCK", "ROCKETMAN", "TINY DANCER"] },
+        { "key": "d", "name": "Katy Perry tunes", "words": ["LAST FRIDAY NIGHT", "CALIFORNIA GURLS", "TEENAGE DREAM", "FIREWORK"] }
+      ]
     }
   ]
 }
+
 
 
 
