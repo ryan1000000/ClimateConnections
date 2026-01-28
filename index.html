@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GeoMet SWOB Extremes (BBox-filtered Prototype)</title>
+  <title>GeoMet SWOB Extremes (BBox + Metric-Sorted)</title>
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -12,6 +12,7 @@
   <style>
     :root { color-scheme: light dark; }
     body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
     header {
       padding: 12px 16px;
       border-bottom: 1px solid rgba(127,127,127,.35);
@@ -21,16 +22,17 @@
     header .meta { font-size: 12px; opacity: 0.85; }
     header .controls { margin-left: auto; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     header label { font-size: 12px; opacity: 0.9; display: inline-flex; gap: 6px; align-items: center; }
-    header input[type="number"] { width: 72px; padding: 4px 6px; }
+    header input[type="number"] { width: 78px; padding: 4px 6px; }
     header input[type="checkbox"] { transform: translateY(1px); }
     header button { padding: 6px 10px; cursor: pointer; }
-    header .status { font-size: 12px; opacity: 0.9; max-width: 50vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    header .status {
+      font-size: 12px; opacity: 0.9; max-width: 52vw;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
     .error { color: #b00020; }
 
-    .layout { display: grid; grid-template-columns: 400px 1fr; height: calc(100vh - 54px); min-height: 420px; }
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; grid-template-rows: 360px 1fr; }
-    }
+    .layout { display: grid; grid-template-columns: 420px 1fr; height: calc(100vh - 54px); min-height: 420px; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; grid-template-rows: 380px 1fr; } }
 
     #sidebar { border-right: 1px solid rgba(127,127,127,.35); overflow: auto; padding: 12px 12px 20px; }
     @media (max-width: 900px) { #sidebar { border-right: none; border-bottom: 1px solid rgba(127,127,127,.35); } }
@@ -62,7 +64,7 @@
 <body>
 <header>
   <h1>GeoMet SWOB Extremes</h1>
-  <div class="meta">Ranks stations within the current map view (bbox) using SWOB real-time.</div>
+  <div class="meta">Top stations within the current map view (bbox), sorted by the metric (not by update time).</div>
 
   <div class="controls">
     <label title="Time window used for queries (datetime interval).">
@@ -88,16 +90,16 @@
 <div class="layout">
   <aside id="sidebar">
     <div class="hint">
-      Pan/zoom to change the search area. Each category shows the top stations <b>within the current map extent</b>.
-      Results are deduplicated by station (most recent observation <i>that has the metric</i> within the lookback window).
+      Pan/zoom to change the search area. Each category requests GeoMet SWOB real-time within the current bbox,
+      <b>sorted by the metric</b>, then deduplicates by station ID to build a true “top N stations” list.
     </div>
 
     <div id="legend" class="legendRow"></div>
     <div id="cards"></div>
 
     <div class="small">
-      Notes: This prototype queries GeoMet directly from your browser (no caching). If you plan to share publicly,
-      a small backend cache is recommended.
+      Notes: GeoMet item responses are capped per request (commonly 500), so this pages with <code>offset</code>. :contentReference[oaicite:2]{index=2}
+      For public deployment, add a small backend cache.
     </div>
   </aside>
 
@@ -120,7 +122,7 @@
       title: "Hottest (air temperature)",
       field: "air_temp",
       uomField: "air_temp-uom",
-      order: "desc",
+      sortby: "-air_temp",
       color: "#d62728"
     },
     {
@@ -128,7 +130,7 @@
       title: "Coldest (air temperature)",
       field: "air_temp",
       uomField: "air_temp-uom",
-      order: "asc",
+      sortby: "air_temp",
       color: "#1f77b4"
     },
     {
@@ -136,7 +138,7 @@
       title: "Wettest (past 1h precipitation)",
       field: "pcpn_amt_pst1hr",
       uomField: "pcpn_amt_pst1hr-uom",
-      order: "desc",
+      sortby: "-pcpn_amt_pst1hr",
       color: "#2ca02c"
     },
     {
@@ -144,7 +146,7 @@
       title: "Wettest (past 24h precipitation)",
       field: "pcpn_amt_pst24hrs",
       uomField: "pcpn_amt_pst24hrs-uom",
-      order: "desc",
+      sortby: "-pcpn_amt_pst24hrs",
       color: "#9467bd"
     }
   ];
@@ -157,10 +159,8 @@
     "url"
   ];
 
-  // GeoMet paging cap is commonly 500 per call; we page with offset.
-  const PAGE_SIZE = 500;
-  const MAX_PAGES = 12;        // cap to keep it browser-friendly
-  const TARGET_UNIQUE = 2500;  // stop early if we already have plenty of unique stations-with-metric
+  const PAGE_SIZE = 500;   // practical max per GeoMet items request :contentReference[oaicite:3]{index=3}
+  const MAX_PAGES = 20;    // browser-friendly cap; bbox zoomed-in usually needs far less
 
   // ---------------------------
   // Helpers
@@ -191,51 +191,14 @@
       .replaceAll("'", "&#039;");
   }
 
-  function parseObsTime(feature) {
-    const t = feature?.properties?.["obs_date_tm"];
-    const ms = Date.parse(t);
-    return Number.isFinite(ms) ? ms : -Infinity;
-  }
-
-  // Most recent observation per station that has the metric populated
-  function latestWithMetricByStation(features, stationIdField, metricField) {
-    const best = new Map(); // stn_id -> feature
-    for (const f of features) {
-      const p = f.properties || {};
-      const stnId = p[stationIdField];
-      if (!stnId) continue;
-
-      const v = p[metricField];
-      if (v === null || v === undefined || Number.isNaN(v)) continue;
-
-      const t = parseObsTime(f);
-      const cur = best.get(stnId);
-      if (!cur || t > parseObsTime(cur)) best.set(stnId, f);
-    }
-    return Array.from(best.values());
-  }
-
-  function rankTopN(features, field, order, topN) {
-    const sorted = features.slice().sort((a, b) => {
-      const va = a.properties?.[field];
-      const vb = b.properties?.[field];
-      if (va === null || va === undefined) return 1;
-      if (vb === null || vb === undefined) return -1;
-      return order === "asc" ? (va - vb) : (vb - va);
-    });
-    return sorted.slice(0, topN);
-  }
-
   function bboxFromMap(map) {
     const b = map.getBounds();
     const sw = b.getSouthWest();
     const ne = b.getNorthEast();
-    // OGC bbox: minLon,minLat,maxLon,maxLat
-    return [sw.lng, sw.lat, ne.lng, ne.lat];
+    return [sw.lng, sw.lat, ne.lng, ne.lat]; // minLon,minLat,maxLon,maxLat
   }
 
   function bboxString(bbox) {
-    // Reduce noise, keep links readable
     return bbox.map(v => (Math.round(v * 10000) / 10000).toFixed(4)).join(",");
   }
 
@@ -245,7 +208,6 @@
     el.classList.toggle("error", !!isError);
   }
 
-  // Debounce helper
   function debounce(fn, waitMs) {
     let t = null;
     return (...args) => {
@@ -264,10 +226,7 @@
     attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
 
-  // FeatureGroup so getBounds works
   const layerGroup = L.featureGroup().addTo(map);
-
-  // Markers indexed by category+station
   const markerIndex = new Map();
 
   // ---------------------------
@@ -358,7 +317,7 @@
     cards.innerHTML = "";
 
     for (const r of catResults) {
-      const { cat, queryUrl, features, featuresFetched, featuresUnique, pagesUsed } = r;
+      const { cat, queryUrl, features, fetchedRows, pagesUsed } = r;
 
       const card = document.createElement("div");
       card.className = "card";
@@ -366,9 +325,7 @@
       const h2 = document.createElement("h2");
       h2.innerHTML = `
         <span>${escapeHtml(cat.title)}</span>
-        <span class="pill" title="top / unique(stations-with-metric) / fetched(rows) / pages">
-          ${features.length} / ${featuresUnique} / ${featuresFetched} / ${pagesUsed}
-        </span>
+        <span class="pill" title="top / fetched rows / pages">${features.length} / ${fetchedRows} / ${pagesUsed}</span>
       `;
       card.appendChild(h2);
 
@@ -418,26 +375,25 @@
   }
 
   // ---------------------------
-  // GeoMet fetching (paged) with bbox
+  // GeoMet fetching: bbox + metric-sorted + paging until N unique stations
   // ---------------------------
-  async function fetchCategory(cat, lookbackHours, topN, bbox) {
+  async function fetchTopStations(cat, lookbackHours, topN, bbox) {
     const datetime = buildDatetimeInterval(lookbackHours);
     const props = [...COMMON_PROPERTIES, cat.field, cat.uomField].join(",");
-
-    let offset = 0;
-    let pages = 0;
-    let fetchedTotal = 0;
-    const all = [];
 
     const baseUrl = new URL(`${BASE}/collections/${COLLECTION}/items`);
     baseUrl.searchParams.set("f", "json");
     baseUrl.searchParams.set("datetime", datetime);
     baseUrl.searchParams.set("bbox", bbox.join(","));
-    // newest-first so we find latest-with-metric quickly
-    baseUrl.searchParams.set("sortby", "-obs_date_tm");
+    baseUrl.searchParams.set("sortby", cat.sortby);          // KEY FIX: sort by metric
     baseUrl.searchParams.set("properties", props);
 
-    while (pages < MAX_PAGES) {
+    const seen = new Map(); // stn_id -> feature (first one wins because already metric-sorted)
+    let offset = 0;
+    let pages = 0;
+    let fetchedTotal = 0;
+
+    while (pages < MAX_PAGES && seen.size < topN) {
       const url = new URL(baseUrl.toString());
       url.searchParams.set("limit", String(PAGE_SIZE));
       url.searchParams.set("offset", String(offset));
@@ -447,35 +403,37 @@
 
       const data = await res.json();
       const feats = Array.isArray(data.features) ? data.features : [];
-
       fetchedTotal += feats.length;
 
       for (const f of feats) {
-        if (f && f.geometry && f.geometry.type === "Point" && Array.isArray(f.geometry.coordinates)) {
-          all.push(f);
+        if (!f || !f.geometry || f.geometry.type !== "Point" || !Array.isArray(f.geometry.coordinates)) continue;
+
+        const p = f.properties || {};
+        const stnId = p["stn_id-value"];
+        if (!stnId) continue;
+
+        const v = p[cat.field];
+        if (v === null || v === undefined || Number.isNaN(v)) continue;
+
+        if (!seen.has(stnId)) {
+          seen.set(stnId, f);
+          if (seen.size >= topN) break;
         }
       }
-
-      const uniqueWithMetric = latestWithMetricByStation(all, "stn_id-value", cat.field);
 
       pages += 1;
       offset += PAGE_SIZE;
 
-      // Stop early if we already have lots of unique stations-with-metric to rank
-      if (uniqueWithMetric.length >= Math.max(TARGET_UNIQUE, topN * 200)) break;
-
-      // If last page was short, we likely hit end of results for this query
+      // If last page was short, likely end of results for this query
       if (feats.length < PAGE_SIZE) break;
     }
 
-    const unique = latestWithMetricByStation(all, "stn_id-value", cat.field);
-    const top = rankTopN(unique, cat.field, cat.order, topN);
+    const top = Array.from(seen.values()).slice(0, topN);
 
     return {
       cat,
       queryUrl: baseUrl.toString(),
-      featuresFetched: fetchedTotal,
-      featuresUnique: unique.length,
+      fetchedRows: fetchedTotal,
       pagesUsed: pages,
       features: top
     };
@@ -484,7 +442,7 @@
   // ---------------------------
   // Refresh orchestration
   // ---------------------------
-  let refreshSeq = 0; // simple race guard
+  let refreshSeq = 0;
 
   async function refresh() {
     const mySeq = ++refreshSeq;
@@ -499,19 +457,14 @@
     setStatus(`Loading… (bbox=${bboxString(bbox)}, lookback=${lookbackHours}h)`);
 
     try {
-      // Fetch categories in parallel
       const results = await Promise.all(
-        CATEGORIES.map(c => fetchCategory(c, lookbackHours, topN, bbox))
+        CATEGORIES.map(c => fetchTopStations(c, lookbackHours, topN, bbox))
       );
 
-      // If a newer refresh started, discard this one
       if (mySeq !== refreshSeq) return;
 
       results.forEach(addMarkers);
       renderSidebar(results);
-
-      // Don’t re-fit bounds here; user is controlling extent with the map.
-      // But if there are no markers, leave as-is.
 
       setStatus(`Updated: ${new Date().toLocaleString()} (bbox=${bboxString(bbox)}, lookback=${lookbackHours}h)`);
     } catch (e) {
@@ -523,7 +476,6 @@
 
   document.getElementById("refreshBtn").addEventListener("click", refresh);
 
-  // Auto-update on pan/zoom (debounced)
   const debouncedRefresh = debounce(() => {
     const auto = document.getElementById("autoUpdate").checked;
     if (auto) refresh();
@@ -531,7 +483,6 @@
 
   map.on("moveend zoomend", debouncedRefresh);
 
-  // Initial load
   renderLegend();
   refresh();
 </script>
