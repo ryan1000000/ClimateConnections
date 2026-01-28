@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GeoMet SWOB Extremes (Prototype)</title>
 
-  <!-- Leaflet (external library, but everything else is in this single file) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
   <style>
     :root { color-scheme: light dark; }
@@ -24,70 +24,43 @@
     header button { padding: 6px 10px; cursor: pointer; }
     header .status { font-size: 12px; opacity: 0.9; }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      height: calc(100vh - 54px);
-      min-height: 420px;
-    }
+    .layout { display: grid; grid-template-columns: 380px 1fr; height: calc(100vh - 54px); min-height: 420px; }
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; grid-template-rows: 360px 1fr; }
     }
 
-    #sidebar {
-      border-right: 1px solid rgba(127,127,127,.35);
-      overflow: auto;
-      padding: 12px 12px 20px;
-    }
-    @media (max-width: 900px) {
-      #sidebar { border-right: none; border-bottom: 1px solid rgba(127,127,127,.35); }
-    }
-
+    #sidebar { border-right: 1px solid rgba(127,127,127,.35); overflow: auto; padding: 12px 12px 20px; }
+    @media (max-width: 900px) { #sidebar { border-right: none; border-bottom: 1px solid rgba(127,127,127,.35); } }
     #map { width: 100%; height: 100%; }
 
-    .card {
-      border: 1px solid rgba(127,127,127,.35);
-      border-radius: 10px;
-      padding: 10px 10px;
-      margin-bottom: 10px;
-    }
-    .card h2 {
-      font-size: 13px;
-      margin: 0 0 8px 0;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    }
-    .pill {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(127,127,127,.35);
-      opacity: .9;
-      white-space: nowrap;
-    }
+    .card { border: 1px solid rgba(127,127,127,.35); border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+    .card h2 { font-size: 13px; margin: 0 0 8px 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .pill { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(127,127,127,.35); opacity: .9; white-space: nowrap; }
+
     .list { display: grid; gap: 8px; }
-    .item {
-      border: 1px solid rgba(127,127,127,.25);
-      border-radius: 10px;
-      padding: 8px 8px;
-      cursor: pointer;
-    }
+    .item { border: 1px solid rgba(127,127,127,.25); border-radius: 10px; padding: 8px; cursor: pointer; }
     .item:hover { border-color: rgba(127,127,127,.55); }
     .item .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
     .item .name { font-weight: 650; font-size: 12px; }
     .item .val { font-variant-numeric: tabular-nums; font-size: 12px; }
     .item .sub { font-size: 11px; opacity: .85; margin-top: 2px; }
-    .item a { font-size: 11px; }
     .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .item a { font-size: 11px; }
+
     .hint { font-size: 12px; opacity: 0.85; margin: 8px 0 12px; line-height: 1.35; }
     .small { font-size: 11px; opacity: .75; line-height: 1.35; }
     .error { color: #b00020; }
+
+    .legendRow { display:flex; gap:8px; flex-wrap:wrap; margin: 6px 0 12px; }
+    .legendItem { display:flex; gap:6px; align-items:center; font-size:11px; opacity:.9; }
+    .swatch { width:10px; height:10px; border-radius:999px; border:1px solid rgba(127,127,127,.5); }
   </style>
 </head>
 
 <body>
 <header>
   <h1>GeoMet SWOB Extremes (Prototype)</h1>
-  <div class="meta">Top-5 current extremes from Environment and Climate Change Canada GeoMet SWOB real-time.</div>
+  <div class="meta">Top stations by temperature and precipitation from GeoMet SWOB real-time.</div>
 
   <div class="controls">
     <label title="Time window used for queries (GeoMet datetime interval).">
@@ -108,66 +81,66 @@
 <div class="layout">
   <aside id="sidebar">
     <div class="hint">
-      Categories in this prototype:
-      <b>Hottest</b>, <b>Coldest</b>, <b>Wettest (past 1h)</b>, <b>Wettest (past 24h)</b>.
-      Click a row to zoom to that station.
+      This version deduplicates by station (keeps latest observation in the lookback window),
+      then ranks stations by the metric.
     </div>
 
+    <div id="legend" class="legendRow"></div>
     <div id="cards"></div>
 
     <div class="small">
-      Notes: Stations report different variables and cadences; null/missing values are filtered client-side.
-      This prototype calls GeoMet directly from your browser (no caching).
+      Diagnostic tip: each category card includes an “API query” link. If a category is empty, open that link and
+      check if the values are null/missing for that field.
     </div>
   </aside>
 
   <main id="map"></main>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
-  // ---------------------------
-  // Config
-  // ---------------------------
   const BASE = "https://api.weather.gc.ca";
   const COLLECTION = "swob-realtime";
 
-  // Categories (temp + precip only), using fields present in SWOB queryables.
-  // Queryables include: air_temp, air_temp-uom, pcpn_amt_pst1hr, pcpn_amt_pst24hrs,
-  // stn_nam-value, prov-value, obs_date_tm, stn_id-value, url. (See GeoMet SWOB queryables.)
+  // Categories + colors
   const CATEGORIES = [
     {
       key: "hottest",
       title: "Hottest (air temperature)",
       field: "air_temp",
       uomField: "air_temp-uom",
-      sortby: "-air_temp"
+      order: "desc",
+      color: "#d62728"
     },
     {
       key: "coldest",
       title: "Coldest (air temperature)",
       field: "air_temp",
       uomField: "air_temp-uom",
-      sortby: "air_temp"
+      order: "asc",
+      color: "#1f77b4"
     },
     {
       key: "wettest_1h",
       title: "Wettest (past 1h precipitation)",
       field: "pcpn_amt_pst1hr",
       uomField: "pcpn_amt_pst1hr-uom",
-      sortby: "-pcpn_amt_pst1hr"
+      order: "desc",
+      color: "#2ca02c"
     },
     {
       key: "wettest_24h",
       title: "Wettest (past 24h precipitation)",
       field: "pcpn_amt_pst24hrs",
       uomField: "pcpn_amt_pst24hrs-uom",
-      sortby: "-pcpn_amt_pst24hrs"
+      order: "desc",
+      color: "#9467bd"
     }
   ];
 
-  // Minimal fields we want back.
+  // Common properties
   const COMMON_PROPERTIES = [
     "stn_id-value",
     "stn_nam-value",
@@ -176,11 +149,7 @@
     "url"
   ];
 
-  // ---------------------------
-  // Helpers
-  // ---------------------------
   function isoNoMillis(d) {
-    // GeoMet accepts RFC3339; using no-millis reduces noise.
     return d.toISOString().replace(/\.\d{3}Z$/, "Z");
   }
 
@@ -192,7 +161,6 @@
 
   function fmtNumber(x) {
     if (x === null || x === undefined || Number.isNaN(x)) return "—";
-    // Keep reasonable precision; many SWOB values are already nicely rounded.
     if (Math.abs(x) >= 100) return String(Math.round(x));
     if (Math.abs(x) >= 10) return (Math.round(x * 10) / 10).toFixed(1);
     return (Math.round(x * 100) / 100).toFixed(2);
@@ -207,60 +175,112 @@
       .replaceAll("'", "&#039;");
   }
 
-  // ---------------------------
-  // Map setup
-  // ---------------------------
+  // Map
   const map = L.map("map", { zoomControl: true }).setView([56.5, -96.5], 3);
 
-  // OSM tiles (basic demo; for production consider your own tile strategy/attribution requirements)
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
     attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
 
-  const layerGroup = L.layerGroup().addTo(map);
+  // IMPORTANT: FeatureGroup (has getBounds)
+  const layerGroup = L.featureGroup().addTo(map);
 
-  // Keep track of markers for click-to-zoom from sidebar.
-  const markerIndex = new Map(); // id -> marker
+  const markerIndex = new Map(); // key -> marker
 
-  // ---------------------------
-  // Fetch + render
-  // ---------------------------
-  async function fetchCategory(cat, lookbackHours, topN) {
-    const datetime = buildDatetimeInterval(lookbackHours);
-
-    // Request only what we need
-    const props = [...COMMON_PROPERTIES, cat.field, cat.uomField].join(",");
-
-    const url = new URL(`${BASE}/collections/${COLLECTION}/items`);
-    url.searchParams.set("f", "json");
-    url.searchParams.set("datetime", datetime);
-    url.searchParams.set("limit", String(topN * 3)); // overfetch a bit to allow for null filtering
-    url.searchParams.set("sortby", cat.sortby);
-    url.searchParams.set("properties", props);
-
-    const res = await fetch(url.toString(), { headers: { "Accept": "application/geo+json, application/json" } });
-    if (!res.ok) throw new Error(`${cat.key}: HTTP ${res.status}`);
-    const data = await res.json();
-
-    const feats = Array.isArray(data.features) ? data.features : [];
-
-    // Filter: must have geometry & the value field
-    const kept = feats
-      .filter(f => f && f.geometry && f.geometry.type === "Point" && Array.isArray(f.geometry.coordinates))
-      .filter(f => {
-        const v = f.properties?.[cat.field];
-        return v !== null && v !== undefined && !Number.isNaN(v);
-      })
-      .slice(0, topN);
-
-    return { cat, queryUrl: url.toString(), features: kept };
+  function setStatus(msg, isError=false) {
+    const el = document.getElementById("status");
+    el.textContent = msg;
+    el.classList.toggle("error", !!isError);
   }
 
   function clearUI() {
     layerGroup.clearLayers();
     markerIndex.clear();
     document.getElementById("cards").innerHTML = "";
+  }
+
+  function renderLegend() {
+    const el = document.getElementById("legend");
+    el.innerHTML = "";
+    for (const c of CATEGORIES) {
+      const item = document.createElement("div");
+      item.className = "legendItem";
+      item.innerHTML = `<span class="swatch" style="background:${c.color};"></span>${escapeHtml(c.key)}`;
+      el.appendChild(item);
+    }
+  }
+
+  function parseObsTime(feature) {
+    const t = feature?.properties?.["obs_date_tm"];
+    const ms = Date.parse(t);
+    return Number.isFinite(ms) ? ms : -Infinity;
+  }
+
+  function uniqueLatestByStation(features) {
+    // Keep the latest observation per station in this lookback window.
+    const latest = new Map(); // stn_id -> feature
+    for (const f of features) {
+      const p = f.properties || {};
+      const stnId = p["stn_id-value"];
+      if (!stnId) continue;
+
+      const t = parseObsTime(f);
+      const cur = latest.get(stnId);
+      if (!cur || t > parseObsTime(cur)) latest.set(stnId, f);
+    }
+    return Array.from(latest.values());
+  }
+
+  function rankTopN(features, field, order, topN) {
+    const sorted = features.slice().sort((a, b) => {
+      const va = a.properties?.[field];
+      const vb = b.properties?.[field];
+      // nulls last
+      if (va === null || va === undefined) return 1;
+      if (vb === null || vb === undefined) return -1;
+      return order === "asc" ? (va - vb) : (vb - va);
+    });
+    return sorted.slice(0, topN);
+  }
+
+  async function fetchCategory(cat, lookbackHours, topN) {
+    const datetime = buildDatetimeInterval(lookbackHours);
+    const props = [...COMMON_PROPERTIES, cat.field, cat.uomField].join(",");
+
+    // Overfetch so we can dedupe-by-station client-side.
+    // If lookback is large, you may need to raise this further, but this is a reasonable prototype default.
+    const overfetch = Math.min(8000, Math.max(2000, topN * 800));
+
+    const url = new URL(`${BASE}/collections/${COLLECTION}/items`);
+    url.searchParams.set("f", "json");
+    url.searchParams.set("datetime", datetime);
+    url.searchParams.set("limit", String(overfetch));
+    // Sort newest-first so we’re likely to see at least one recent record for many stations quickly.
+    url.searchParams.set("sortby", "-obs_date_tm");
+    url.searchParams.set("properties", props);
+
+    const res = await fetch(url.toString(), { headers: { "Accept": "application/geo+json, application/json" } });
+    if (!res.ok) throw new Error(`${cat.key}: HTTP ${res.status}`);
+
+    const data = await res.json();
+    const feats = Array.isArray(data.features) ? data.features : [];
+
+    // Basic filters
+    const valid = feats
+      .filter(f => f && f.geometry && f.geometry.type === "Point" && Array.isArray(f.geometry.coordinates))
+      .filter(f => {
+        const v = f.properties?.[cat.field];
+        return v !== null && v !== undefined && !Number.isNaN(v);
+      });
+
+    // Deduplicate by station (latest obs)
+    const unique = uniqueLatestByStation(valid);
+
+    // Rank stations by metric
+    const top = rankTopN(unique, cat.field, cat.order, topN);
+
+    return { cat, queryUrl: url.toString(), featuresFetched: feats.length, featuresUnique: unique.length, features: top };
   }
 
   function popupHtml(cat, f, queryUrl) {
@@ -270,23 +290,18 @@
     const obs = p["obs_date_tm"] ?? "Unknown time";
     const value = p[cat.field];
     const uom = p[cat.uomField] ?? "";
-    const stationUrl = p["url"]; // GeoMet includes a 'url' field in SWOB queryables; may be empty for some stations
-
-    const valueLine = `<div><b>${escapeHtml(cat.title)}</b>: ${escapeHtml(fmtNumber(value))} ${escapeHtml(uom)}</div>`;
-    const metaLine = `<div>${escapeHtml(stationName)} ${prov ? "(" + escapeHtml(prov) + ")" : ""}</div>
-                      <div style="opacity:.85;font-size:12px;">Observed: ${escapeHtml(obs)}</div>`;
+    const stationUrl = p["url"];
 
     const links = [];
-    if (stationUrl) {
-      links.push(`<a href="${escapeHtml(stationUrl)}" target="_blank" rel="noopener">Station data (url field)</a>`);
-    }
+    if (stationUrl) links.push(`<a href="${escapeHtml(stationUrl)}" target="_blank" rel="noopener">Station data</a>`);
     links.push(`<a href="${escapeHtml(queryUrl)}" target="_blank" rel="noopener">API query</a>`);
 
     return `
       <div style="min-width:240px;line-height:1.35;">
-        ${valueLine}
+        <div><b>${escapeHtml(cat.title)}</b>: ${escapeHtml(fmtNumber(value))} ${escapeHtml(uom)}</div>
         <hr style="border:none;border-top:1px solid rgba(127,127,127,.35);margin:8px 0;">
-        ${metaLine}
+        <div>${escapeHtml(stationName)} ${prov ? "(" + escapeHtml(prov) + ")" : ""}</div>
+        <div style="opacity:.85;font-size:12px;">Observed: ${escapeHtml(obs)}</div>
         <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;">
           ${links.join("")}
         </div>
@@ -302,33 +317,32 @@
       const lat = coords[1], lon = coords[0];
       const p = f.properties || {};
 
-      const stationId = p["stn_id-value"] || `${cat.key}:${lon},${lat}:${p["obs_date_tm"] || ""}`;
-      const stationName = p["stn_nam-value"] ?? "Unknown station";
-      const prov = p["prov-value"] ?? "";
-      const value = p[cat.field];
+      const stationId = p["stn_id-value"] || `${lon},${lat}:${p["obs_date_tm"] || ""}`;
+      const markerKey = `${cat.key}::${stationId}`;
 
       const marker = L.circleMarker([lat, lon], {
         radius: 7,
         weight: 2,
-        fillOpacity: 0.35
+        color: cat.color,
+        fillColor: cat.color,
+        fillOpacity: 0.45
       });
 
-      marker.bindPopup(popupHtml(cat, f, queryUrl), { maxWidth: 380 });
+      marker.bindPopup(popupHtml(cat, f, queryUrl), { maxWidth: 420 });
       marker.addTo(layerGroup);
+      markerIndex.set(markerKey, marker);
 
-      markerIndex.set(`${cat.key}::${stationId}`, marker);
-
-      // Attach for sidebar rendering
+      // attach for sidebar
       f._meta = {
         _catKey: cat.key,
-        _catTitle: cat.title,
-        _queryUrl: queryUrl,
         _stationId: stationId,
-        _stationName: stationName,
-        _prov: prov,
-        _value: value,
+        _stationName: p["stn_nam-value"] ?? "Unknown station",
+        _prov: p["prov-value"] ?? "",
+        _value: p[cat.field],
         _uom: p[cat.uomField] ?? "",
-        _obs: p["obs_date_tm"] ?? ""
+        _obs: p["obs_date_tm"] ?? "",
+        _queryUrl: queryUrl,
+        _stationUrl: p["url"] ?? ""
       };
     }
   }
@@ -338,13 +352,16 @@
     cards.innerHTML = "";
 
     for (const r of catResults) {
-      const { cat, queryUrl, features } = r;
+      const { cat, queryUrl, features, featuresFetched, featuresUnique } = r;
 
       const card = document.createElement("div");
       card.className = "card";
 
       const h2 = document.createElement("h2");
-      h2.innerHTML = `<span>${escapeHtml(cat.title)}</span><span class="pill">top ${features.length}</span>`;
+      h2.innerHTML = `
+        <span>${escapeHtml(cat.title)}</span>
+        <span class="pill" title="Returned (top / unique stations / raw fetched)">${features.length} / ${featuresUnique} / ${featuresFetched}</span>
+      `;
       card.appendChild(h2);
 
       const list = document.createElement("div");
@@ -353,7 +370,8 @@
       if (features.length === 0) {
         const empty = document.createElement("div");
         empty.className = "small";
-        empty.innerHTML = `No results (all null/missing for this time window). <a href="${escapeHtml(queryUrl)}" target="_blank" rel="noopener">API query</a>`;
+        empty.innerHTML = `No stations found for this metric in the lookback window.
+          <div style="margin-top:6px;"><a href="${escapeHtml(queryUrl)}" target="_blank" rel="noopener">API query</a></div>`;
         list.appendChild(empty);
       } else {
         for (const f of features) {
@@ -368,7 +386,7 @@
             </div>
             <div class="sub">Observed: ${escapeHtml(m._obs)}</div>
             <div class="links">
-              ${f.properties?.url ? `<a href="${escapeHtml(f.properties.url)}" target="_blank" rel="noopener">Station data</a>` : ""}
+              ${m._stationUrl ? `<a href="${escapeHtml(m._stationUrl)}" target="_blank" rel="noopener">Station data</a>` : ""}
               <a href="${escapeHtml(m._queryUrl)}" target="_blank" rel="noopener">API query</a>
             </div>
           `;
@@ -391,32 +409,24 @@
     }
   }
 
-  function setStatus(msg, isError=false) {
-    const el = document.getElementById("status");
-    el.textContent = msg;
-    el.classList.toggle("error", !!isError);
-  }
-
   async function refresh() {
     const lookbackHours = Number(document.getElementById("lookbackHours").value) || 2;
     const topN = Number(document.getElementById("topN").value) || 5;
 
     clearUI();
+    renderLegend();
     setStatus("Loading…");
 
     try {
-      // Fetch categories in parallel
       const results = await Promise.all(CATEGORIES.map(c => fetchCategory(c, lookbackHours, topN)));
 
-      // Add markers + sidebar
       results.forEach(addMarkers);
       renderSidebar(results);
 
-      // Fit bounds if we have anything
       const bounds = layerGroup.getBounds();
-      if (bounds.isValid()) map.fitBounds(bounds.pad(0.15));
+      if (bounds && bounds.isValid()) map.fitBounds(bounds.pad(0.15));
 
-      setStatus(`Updated: ${new Date().toLocaleString()}`);
+      setStatus(`Updated: ${new Date().toLocaleString()} (lookback=${lookbackHours}h)`);
     } catch (e) {
       console.error(e);
       setStatus(`Error: ${e?.message || e}`, true);
@@ -424,8 +434,6 @@
   }
 
   document.getElementById("refreshBtn").addEventListener("click", refresh);
-
-  // Initial load
   refresh();
 </script>
 </body>
